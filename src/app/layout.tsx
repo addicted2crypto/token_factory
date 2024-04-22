@@ -4,6 +4,7 @@ import "./globals.css";
 import Header from './header';
 import Intro from './intro';
 import SecurityTipsFromCommunity from './securityTipsFromCommunity';
+import Footer from './footer';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,8 +31,9 @@ export default function RootLayout({
         <Intro />
         <SecurityTipsFromCommunity />
        {children}
-       
+      
        </body>
+       <Footer/>
     </html>
   );
 }
