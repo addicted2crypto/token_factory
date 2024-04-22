@@ -3,11 +3,31 @@ import React from 'react'
 
 export default function SecurityTipsFromCommunity() {
   return (
-    <div>
-      {/* <div className='text-3xl p-3 text-center text-[#36e809]'>Did pacman make it into my website? @pacmoon_ needs to like this POST. <span className='text-[#d5d847]'> $PAC &rarr; the community of blast</span></div> */}
-      {/* <Image src="/pac.png" height={488} width={488} alt="pac"className='text-center'></Image> */}
-    <div className='text-3xl pl-3 text-mono underline'>Community Tips. Login and upvote to highlight 👇</div>
-    <div className='hover:animate-pulse'>Loading</div>
+    <div className='flex flex-col'>
+     
+    <div className='text-4xl pl-3 -sans underline pb-4'>Community Tips Login and upvote to highlight 👇</div>
+    <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Loading Today top 10</div>
+    <div className='text-[#d2e252]'>
+    <form>To vote: Login and upvote up to 3 Tips per 24hrs top 3 win a price every Sunday</form>
     </div>
+      <section className='text-sm pl-12 pt-5 text-center'>
+    
+        <ol >
+          <li>example &rarr; New wallets for all signatures</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+        <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
+
+        </ol>
+      </section>
+
+      
+    </div>
+   
   )
 };
