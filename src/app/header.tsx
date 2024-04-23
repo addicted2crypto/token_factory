@@ -5,7 +5,7 @@ export default function Header() {
     <div>
     <div>Sections</div>
     <div className='absolute right-3 top-0'>
-        <button>Connect Wallet</button>
+        <button className='pr-8 pt-4'>Connect Wallet</button>
     </div>
     </div>
   )
