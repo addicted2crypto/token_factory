@@ -12,7 +12,7 @@ export default function SecurityTipsFromCommunity() {
     </div>
       <section className='text-sm pl-12 pt-5 text-center'>
     
-        <ol >
+        <ol>
           <li>example &rarr; New wallets for all signatures</li>
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
         <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li>
