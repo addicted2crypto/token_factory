@@ -5,6 +5,7 @@ import Header from './header';
 import Intro from './intro';
 import SecurityTipsFromCommunity from './securityTipsFromCommunity';
 import Footer from './footer';
+import SendWalletData from './actions/sendWalletData';
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -30,6 +31,7 @@ export default function RootLayout({
         <Header />
         <Intro />
         <SecurityTipsFromCommunity />
+        {/* <SendWalletData /> */}
        {children}
       
        </body>
