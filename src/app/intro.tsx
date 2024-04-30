@@ -8,7 +8,7 @@ function Intro() {
         <Image src="/favicon.ico" width={55} height={55} alt="logo for addicted inc"/>
         <header className='text-[2.22rem] p-6 pl-8 font-mono text-[#78ffdd] hover:animate-bounce hover:cursor-pointer '>1 click token creation</header>
         <span className='font-semibold text-[1.5rem] hover:translate-x-1 hover:translate-y-1 hover: cursor-pointer'>ERC721 ERC20 ERC1155 & 🔓ERC404</span>
-        <span className='text-[1.5rem] text-[#bf7272] p-3'>Learn how to manage your tokens - Support is a click away</span>
+        <span className='text-[1.5rem] text-[#bf7272] p-3'>Learn how to manage your tokens <br /> Support is a click away</span>
             {/* add form for website creation */}
 
         <span className='text-2xl text-pretty text-[#d9d6d6] p-12'><span className='text-[#3a43eb]'>Click here</span> to add a website.</span>
