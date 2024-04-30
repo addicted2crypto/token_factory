@@ -11,9 +11,10 @@ function SendWalletData() {
    
 
     const [loggedInUser, setWallet] = useState(0);
-    loggedInUser;
+    
   return (
    <>
+   if(setWallet)loggedInUser;
     if(loggedInUser){
         SendWalletData
     }else{
