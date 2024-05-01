@@ -11,7 +11,7 @@ export default function Header() {
          <div className='relative top-0'>Link your frens</div>
          </div>
 
-    <div>Sections</div>
+    <div className='p-2'>Sections</div>
     
     <div className='absolute right-3 top-0'>
         
