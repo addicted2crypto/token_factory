@@ -6,7 +6,7 @@ const [upvote, downvote] =  useState(0);
 //use state to manage top 25 stories
 export default function Upvote() {
   return (
-    <div className='text-md'>upvote</div>
+    <div className='text-md'>upvote.function()</div>
    
   )
 }
