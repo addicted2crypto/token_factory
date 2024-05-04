@@ -1,6 +1,8 @@
 
 import React from 'react'
-import Upvote from './actions/upvote'
+import Upvote from './actions/upvote';
+import { ImPacman } from "react-icons/im";
+
 
 export default function SecurityTipsFromCommunity() {
   return (
@@ -15,6 +17,7 @@ export default function SecurityTipsFromCommunity() {
     
         <ol >
           <li className='p-2'>example &rarr; New wallets for all signatures</li>
+          <ImPacman />
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
