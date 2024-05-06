@@ -15,13 +15,13 @@ export default function SecurityTipsFromCommunity() {
     </div>
       <section className='text-sm pl-12 pt-5 text-center'>
     
-        <ol >
-          <li className='p-2'>example &rarr; Create new wallets for all signatures and never sign from a wallet with assets</li>
+        <ol className=''>
+          <li className='p-2 text-lime-500 '><span className='text-[#ffffffeb]'> example &rarr;</span> Create new wallets for all signatures and never sign from a wallet with assets</li>
           <ImPacman />
-        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
-        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
-        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
-        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
+        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span> <Upvote/></span>
+        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span><Upvote/></span>
+        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span><Upvote/></span>
+        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span><Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎</span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎</span>

@@ -28,17 +28,17 @@ export default function Upvote() {
       </div>
     <button
        onClick={() => downvote((previous) => !previous)}
-        className="p-2 rounded-md bg-[#0e3701]"
+        className="p-2 rounded-md bg-[#555908]"
         >
           <div>
             <p>Has {count} votes</p>
           <button 
-              onClick={() => setCount(count +1)}><LiaThumbsUp/></button>
+              onClick={() => setCount(count +1)}><LiaThumbsUp className='hover:text-lg transition hover:-translate-y-1 hover:-translate-x-1'/></button>
               
           <button 
-              onClick={() => setCount(count -1)}><LiaThumbsDown /></button>
+              onClick={() => setCount(count -1)}><LiaThumbsDown className='hover:text-2xl hover:translate-y-1 hover:translate-x-1 transition'/></button>
               </div>
-           {upVote ? <LiaThumbsUp/>: <LiaThumbsDown />}
+           {upVote ? <LiaThumbsUp />: <LiaThumbsDown />}
            </button>
            
     </div>
