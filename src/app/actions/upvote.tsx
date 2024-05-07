@@ -29,10 +29,10 @@ export default function Upvote() {
       
     <button
        onClick={() => downvote((previous) => !previous)}
-       className="p-2 rounded-md bg-[#555908]"
+       className="p-2 rounded-md bg-[#c3cc1b]"
         ></button>
           <div>
-            <p className='p-1 text-pretty text-sm text-[#397427]'>Has {count} votes</p>
+            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Has {count} votes</p>
           <button 
               onClick={() => setCount(count +1)}><LiaThumbsUp className='hover:text-lg transition hover:-translate-y-1 hover:-translate-x-1'/></button>
              
