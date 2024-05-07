@@ -23,16 +23,17 @@ export default function Upvote() {
 
   return (
     <div>
-      <div>Login
+      <div>
         <form method='POST' onSubmit={handleSignin}></form>
       </div>
       
     <button
        onClick={() => downvote((previous) => !previous)}
-       className="p-2 rounded-md bg-[#c3cc1b]"
-        ></button>
+       className="p-2 rounded-md bg-[#272908]"
+        >vote now</button>
           <div>
-            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Has {count} votes</p>
+            {/* add logged in user compoment here */}
+            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Logged in user {count} votes</p>
           <button 
               onClick={() => setCount(count +1)}><LiaThumbsUp className='hover:text-lg transition hover:-translate-y-1 hover:-translate-x-1'/></button>
              
