@@ -33,7 +33,7 @@ export default function Upvote() {
         >vote now</button>
           <div>
             {/* add logged in user compoment here */}
-            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Logged in user {count} votes</p>
+            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Highlighted tip/story {count} vote count</p>
           <button 
               onClick={() => setCount(count +1)}><LiaThumbsUp className='hover:text-lg transition hover:-translate-y-1 hover:-translate-x-1'/></button>
              
