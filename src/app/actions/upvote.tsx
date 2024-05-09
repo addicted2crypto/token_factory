@@ -30,7 +30,7 @@ export default function Upvote() {
     <button
        onClick={() => downvote((previous) => !previous)}
        className="p-2 rounded-md bg-[#272908]"
-        >vote now</button>
+        >Upvote posts you enjoy</button>
           <div>
             {/* add logged in user compoment here */}
             <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Highlighted tip/story {count} vote count</p>
