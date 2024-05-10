@@ -30,15 +30,15 @@ export default function Upvote() {
     <button
        onClick={() => downvote((previous) => !previous)}
        className="p-2 rounded-md bg-[#272908]"
-        >Upvote posts you enjoy</button>
+        >Upvote posts you enjoy downvote ones you dont agree with</button>
           <div>
             {/* add logged in user compoment here */}
-            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Highlighted tip/story {count} vote count</p>
+            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Highlighted tip/story <span className='text-lg text-[#d2d53e]'>{count}</span> vote count</p>
           <button 
-              onClick={() => setCount(count +1)}><LiaThumbsUp className='hover:text-lg transition hover:-translate-y-1 hover:-translate-x-1'/></button>
+              onClick={() => setCount(count +1)}><LiaThumbsUp className='text-lg hover:text-2xl transition hover:-translate-y-1 hover:-translate-x-1'/></button>
              
           <button 
-              onClick={() => setCount(count -1)}><LiaThumbsDown className='hover:text-2xl transition hover:translate-y-1 hover:translate-x-1 '/></button>
+              onClick={() => setCount(count -1)}><LiaThumbsDown className='text-lg hover:text-2xl transition hover:translate-y-1 hover:translate-x-1 '/></button>
               </div>
            {upVote ? <LiaThumbsUp />: <LiaThumbsDown />}
            </div>
