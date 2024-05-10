@@ -1,6 +1,6 @@
 "use client"
 
-import { UNSTABLE_REVALIDATE_RENAME_ERROR } from 'next/dist/lib/constants';
+
 import React, { useEffect, useState } from 'react'
 import { LiaThumbsUp, LiaThumbsDown} from "react-icons/lia";
 
