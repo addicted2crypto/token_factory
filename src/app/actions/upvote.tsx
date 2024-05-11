@@ -28,7 +28,7 @@ export default function Upvote() {
       </div>
       
     <button
-       onClick={() => downvote((previous) => !previous)}
+       onClick={() => downvote((upVote) => !upVote)}
        className="p-2 rounded-md bg-[#272908]"
         >Upvote posts you enjoy downvote ones you dont agree with</button>
           <div>
