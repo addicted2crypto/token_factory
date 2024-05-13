@@ -26,11 +26,11 @@ export default function Upvote() {
       <div>
         <form method='POST' onSubmit={handleSignin}></form>
       </div>
-      
-    <button
+      <button
        onClick={() => downvote((upVote) => !upVote)}
        className="p-2 rounded-md bg-[#272908]"
         >Upvote posts you enjoy downvote ones you dont agree with</button>
+    
           <div>
             {/* add logged in user compoment here */}
             <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Highlighted tip/story <span className='text-lg text-[#d2d53e]'>{count}</span> vote count</p>
