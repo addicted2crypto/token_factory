@@ -23,9 +23,7 @@ export default function Upvote() {
 
   return (
     <div>
-      <div>
-        <form method='POST' onSubmit={handleSignin}></form>
-      </div>
+     
       <button
        onClick={() => downvote((upVote) => !upVote)}
        className="p-2 rounded-md bg-[#272908]"
