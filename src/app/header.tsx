@@ -1,4 +1,6 @@
-import Image from 'next/image';
+
+
+import { Separator } from '@/components/ui/separator';
 import React from 'react';
 import ConnectWallet from './actions/connectWallet';
 import SignIn from './actions/signIn';
@@ -13,7 +15,21 @@ export default function Header() {
          <div className='relative top-0'>Link your frens</div> */}
          </div>
 
-    <div className='p-2'>Sections</div>
+    <div className='p-2'>Sections
+    <Separator className='my-4'/>
+    <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
+          <div>Section 1</div>
+          <Separator orientation='vertical' />
+          <div>Section 2</div>
+          <Separator orientation='vertical'/>
+          <div>Section 3</div>
+
+
+
+
+    </div>
+          
+    </div>
     
     <div className='absolute right-3 top-0'>
         
