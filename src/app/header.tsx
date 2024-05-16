@@ -19,7 +19,7 @@ export default function Header() {
     <Separator className='my-4'/>
     <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
           <div>Section 1</div>
-          <Separator orientation='vertical'  />
+          <Separator orientation='vertical'className='text-white' />
           <div>Section 2</div>
           <Separator orientation='vertical'/>
           <div>Section 3</div>
