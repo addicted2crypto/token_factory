@@ -18,10 +18,10 @@ export default function SecurityTipsFromCommunity() {
         <Highlightedvotedtips />
      
         <ol className=''>
-          <li className='p-2 text-lime-500 '><span className='text-[#ffffffeb]'> example &rarr;</span> Create new wallets for all signatures and never sign from a wallet with assets</li>
+          <li className='p-2 text-[#7cff6e] '><span className='text-[#ffffffeb]'> example &rarr;</span> Create new wallets for all signatures and never sign from a wallet with assets</li>
          
-        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span> <Upvote/></span>
-        <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span><Upvote/></span>
+        <li className='p-2'></li><span> <Upvote/></span>
+        <li className='p-2'></li><span><Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span><Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span><Upvote/></span>
         <li className='p-2'>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Temporibus nemo inci</li><span>👍or👎 <Upvote/></span>

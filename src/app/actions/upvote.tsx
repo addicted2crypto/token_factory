@@ -26,17 +26,17 @@ export default function Upvote() {
      
       <button
        onClick={() => downvote((upVote) => !upVote)}
-       className="p-2 rounded-md bg-[#272908]"
-        >Upvote posts you enjoy. Downvote the posts you dislike</button>
+       className="p-2 rounded-md bg-[#c1c94bb6]"
+        > Log in to upvote posts you enjoy. Downvote the posts you dislike</button>
     
           <div>
             {/* add logged in user compoment here */}
-            <p className='p-1 text-pretty text-sm text-[#1c3d12]'>Highlighted tip/story <span className='text-lg text-[#d2d53e]'>{count}</span> vote count</p>
+            <p className='p-1 text-pretty text-sm text-[#30cd00]'>Highlighted tip/story <span className='text-lg text-[#d2d53e]'>{count}</span> vote count</p>
           <button 
-              onClick={() => setCount(count +1)}><LiaThumbsUp className='text-lg hover:text-2xl transition hover:-translate-y-1 hover:-translate-x-1'/></button>
+              onClick={() => setCount(count +1)}><LiaThumbsUp className='text-3xl hover:text-4xl transition hover:-translate-y-2 hover:-translate-x-2 hover:text-[#fff]'/></button>
              
           <button 
-              onClick={() => setCount(count -1)}><LiaThumbsDown className='text-lg hover:text-2xl transition hover:translate-y-1 hover:translate-x-1 '/></button>
+              onClick={() => setCount(count -1)}><LiaThumbsDown className='text-3xl hover:text-4xl transition hover:translate-y-2 hover:translate-x-2 hover:text-[#fff]'/></button>
               </div>
            {upVote ? <LiaThumbsUp />: <LiaThumbsDown />}
            </div>
