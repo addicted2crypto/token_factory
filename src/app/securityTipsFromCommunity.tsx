@@ -1,7 +1,7 @@
 
 import React from 'react'
 import Upvote from './actions/upvote';
-import { ImPacman } from "react-icons/im";
+
 import Highlightedvotedtips from './actions/highlightedvotedtips';
 
 

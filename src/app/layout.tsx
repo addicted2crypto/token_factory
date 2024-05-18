@@ -5,6 +5,8 @@ import Header from './header';
 import Intro from './intro';
 import SecurityTipsFromCommunity from './securityTipsFromCommunity';
 import Footer from './footer';
+import { Web3Provider } from './Web3Context';
+
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -27,15 +29,18 @@ export default function RootLayout({
         </div>
         <div className='bg-[#c1d7fe] absolute bottom-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75] md:left[-33rem] lg:left[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#5493ff]'>
         </div>
-
+        <Web3Provider>
         <Header />
         <Intro />
         <SecurityTipsFromCommunity />
         {/* <SendWalletData /> */}
+        
        {children}
-      
+       </Web3Provider>
        </body>
+       
        <Footer/>
+      
     </html>
   );
 }
