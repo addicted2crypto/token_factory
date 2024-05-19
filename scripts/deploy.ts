@@ -3,10 +3,10 @@ export {};
 import { ethers } from "hardhat";
 
 async function main() {
-    const Tips = await ethers.getContractFactory("Tips");
-    const tips = await Tips.deploy();
-    await tips.deployed();
-    console.log("Tips deployed to:", tips.address);
+    const TipsContractFactory = await ethers.getContractFactory("TipsContract");
+    const tipsContract = await TipsContractFactory.deploy();
+    await tipsContract.deploymentTransaction.wait();
+    console.log("Tips deployed to:", tipsContract.target);
   }
   
   main()
