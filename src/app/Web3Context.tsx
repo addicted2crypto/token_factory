@@ -1,6 +1,10 @@
+"use client"
+
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ethers } from 'ethers';
-import TipsContractABI from './TipsContractABI.json';
+
+//add Will need to add abi import
+//add import TipsContractABI from '@contracts/TipsContractABI.json'; 
 
 
 declare global {
@@ -33,8 +37,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       setProvider(ethProvider);
 
       const contractAddress = "0x2840e02418542A9095A85E766d840375C01E4E4E";
-      const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, ethProvider.getSigner());
-      setContract(tipsContract);
+    // add  const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, ethProvider.getSigner());
+    // const tipsContract = new ethers.Contract(contractAddress, window.ethereum)
+    //   setContract(tipsContract);
     }
   }, []);
 
