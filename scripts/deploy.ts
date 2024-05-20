@@ -5,10 +5,11 @@ const { ethers } = hardhat;
 async function main() {
     const TipsContract = await ethers.getContractFactory("Tips");
     const tipsContract = await TipsContract.deploy();
+    await tipsContract.deploymentTransaction()?.wait();
+    await tipsContract.waitForDeployment()
     
-    const deploymentReceipt = await tipsContract.deploymentTransaction()?.wait();
-    console.log("Tips deployed to:", tipsContract.address);
-    console.log("Deployment transaction hash:", deploymentReceipt.transactionHash);
+    console.log("Tips deployed to:", tipsContract.getAddress);
+   
   }
   
   main()
