@@ -8,8 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "compile": "tsc --project tsconfig.hardhat.json",
-    "deploy" : "hardhat run --network sepolia scripts/deploy.ts"
+    "compile": "hardhat compile --config hardhat.config.cjs",
+  "deploy": "hardhat run scripts/deploy.ts --network sepolia --config hardhat.config.cjs"
   },
   "dependencies": {
     "@radix-ui/react-separator": "^1.0.3",
