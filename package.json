@@ -9,9 +9,10 @@
     "start": "next start",
     "lint": "next lint",
     "compile": "hardhat compile --config hardhat.config.cjs",
-  "deploy": "hardhat run scripts/deploy.ts --network sepolia --config hardhat.config.cjs"
+    "deploy": "hardhat run scripts/deploy.ts --network sepolia --config hardhat.config.cjs"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.1.2",
     "@radix-ui/react-separator": "^1.0.3",
     "@radix-ui/react-slot": "^1.0.2",
     "class-variance-authority": "^0.7.0",
