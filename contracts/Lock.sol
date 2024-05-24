@@ -31,4 +31,4 @@ contract Lock {
         owner.transfer(address(this).balance);
     }
 }
-  console.log("Unlock time is %o and block timestamp is %o", unlockTime, block.timestamp);
+  

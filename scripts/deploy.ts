@@ -9,6 +9,7 @@ async function main() {
     await tipsContract.waitForDeployment()
     
     console.log("Tips deployed to:", tipsContract.getAddress);
+   console.log('What are you doing with your life? error do better')
    
   }
   

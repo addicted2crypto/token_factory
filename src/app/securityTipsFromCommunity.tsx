@@ -8,8 +8,8 @@ import Highlightedvotedtips from './actions/highlightedvotedtips';
 export default function SecurityTipsFromCommunity() {
   return (
     <div className='flex flex-col'>
-     
-    <div className='text-4xl pl-3 -sans underline pb-4 text-[#58f907] font-mono'>Community Tips Login and upvote to highlight 👇</div>
+      
+     <div className='text-4xl pl-3 -sans underline pb-4 text-[#58f907] font-mono'>Community Tips Login and upvote to highlight 👇</div>
     <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Loading Today's top 10</div>
     <div className='text-[#6a751b]'>
     <form>To vote: Login and upvote up to 3 Tips per 24hrs top 3 win a prize every Sunday</form>
