@@ -6,6 +6,13 @@ import Intro from './intro';
 import SecurityTipsFromCommunity from './securityTipsFromCommunity';
 import Footer from './footer';
 import { Web3Provider } from './Web3Context';
+import {
+  ClerkProvider,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+  UserButton
+} from '@clerk/nextjs';
 
 
 
@@ -22,6 +29,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <ClerkProvider>
     <html lang="en">
        <body className={`${inter.className} bg-[#000000cd] text-gray-950 relative dark:bg-[#100f0f] dark:text-[#d6d6d6] m-auto text-center`}>
   
@@ -42,5 +50,6 @@ export default function RootLayout({
        <Footer/>
       
     </html>
+    </ClerkProvider>
   );
 }
