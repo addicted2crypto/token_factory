@@ -10,8 +10,10 @@ export default function SecurityTipsFromCommunity() {
     <div className='flex flex-col'>
       
      <div className='text-4xl pl-3 -sans underline pb-4 text-[#58f907] font-mono'>Community Tips Login and upvote to highlight 👇</div>
-    <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Loading Today's top 10</div>
+    {/* add tab for 24 hr 3 days 1 week 1 month or all time toggle */}
+    <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Today's top 10</div>
     <div className='text-[#6a751b]'>
+      {/* add directions above form and form attributes from the blockchain */}
     <form>To vote: Login and upvote up to 3 Tips per 24hrs top 3 win a prize every Sunday</form>
     </div>
       <section className='text-sm pl-12 pt-5 text-center'>
