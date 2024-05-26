@@ -82,7 +82,7 @@ export default function Upvote() {
   const upVoteTip = async (tipIndex: number) => {
     if (!tipsContract || !signer) return;
     try {
-      const tx = await tipsContract.upvoteTip(tipIndex, { value: ethers.utils.parseEther("0.069") });
+      const tx = await tipsContract.upvoteTip(tipIndex, { value: ethers.parseEther("0.069") });
       await tx.wait();
       setCount(count + 1);
 
