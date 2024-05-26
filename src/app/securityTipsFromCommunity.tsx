@@ -1,6 +1,7 @@
 
-import React from 'react'
-import Upvote from './actions/upvote';
+import React from 'react';
+import Upvote from '@/components/ui/upvote';
+
 
 import Highlightedvotedtips from './actions/highlightedvotedtips';
 
