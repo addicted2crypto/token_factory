@@ -13,9 +13,10 @@ const tipsContractAddress = "";
 export default function Upvote() {
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
   const[count, setCount] = useState(0);
-  const [provider, setProvider] =useState<ethers.BrowserProvider | null>(null);
+  const BrowserProvider = useState();
+  const [provider, setProvider] =useState<ethers.providers.Web3Provider | null>(null);
   // const [upVote, downvote] =  useState(false);
- const [signer, setSigner] = useState<ethers.JsonRpcProvider | null>(null);
+ const [signer, setSigner] = useState<ethers.providers.JsonRpcProvider | null>(null);
  const [tipsContract, setTipsContract] = useState<ethers.Contract | null>(null);
   // const [votes, setVotes] = useState(0);
   
@@ -44,7 +45,8 @@ export default function Upvote() {
         setCurrentAccount(account);
         setSigner(ethSigner);
        
-        const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
+       
+        const contract = new ethers.providers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
         setTipsContract(contract);
       }
     };
@@ -71,8 +73,9 @@ export default function Upvote() {
   const connectWallet = async () => {
     if (provider) {
       await provider.send("eth_requestAccounts", []);
-      const accounts = await provider.listAccounts();
-      setCurrentAccount(accounts[0]);
+      const ethSigner = await provider.getSigner();
+      const account = await ethSigner.getAddress();
+      setCurrentAccount(account);
       setSigner(ethSigner);
       const contract = new ethersContract(tipsContractAddress, TipsContractABI, ethSigner);
       setTipsContract(contract);
