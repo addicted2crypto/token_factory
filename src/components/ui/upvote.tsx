@@ -5,6 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { LiaThumbsUp, LiaThumbsDown} from "react-icons/lia";
 import  { ethers }  from 'ethers';
 import TipsContractABI from "../../abi's/TipsContractABI.json";
+import ConnectWallet from '@/app/actions/connectWallet';
 const tipsContractAddress = "";
 
 // upvote will ++ count and downvote will -- 
@@ -101,9 +102,11 @@ export default function Upvote() {
      
       {/* <button
        onClick={() => downvote((upVote) => !upVote)} */}
-       <button onClick={connectWallet} 
-       className="p-2 rounded-md bg-[#ebf462b6]"
-        > {currentAccount ? "Wallet Connect" : "Log in to upvote posts you enjoy. Downvote the posts you dislike"}
+       <button
+       
+        onClick={connectWallet} 
+       className="p-2 rounded-md"
+        > {currentAccount ? <ConnectWallet /> : "Log in to upvote posts you enjoy. Downvote the posts you dislike"}
         </button>
     
           <div>
@@ -111,7 +114,7 @@ export default function Upvote() {
             <p className='p-1 text-pretty text-sm text-[#30cd00]'>Highlighted tip/story <span className='text-lg text-[#d2d53e]'>{count}</span> vote count</p>
           <button 
               onClick={() => setCount(count +1)}><LiaThumbsUp className='text-3xl hover:text-4xl transition hover:-translate-y-2 hover:-translate-x-2 hover:text-[#fff]'/></button>
-             
+           
           <button 
               onClick={() => setCount(count -1)}><LiaThumbsDown className='text-3xl hover:text-4xl transition hover:translate-y-2 hover:translate-x-2 hover:text-[#fff]'/></button>
               </div>
