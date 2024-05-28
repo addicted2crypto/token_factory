@@ -6,6 +6,8 @@ import { LiaThumbsUp, LiaThumbsDown} from "react-icons/lia";
 import  { ethers }  from 'ethers';
 import TipsContractABI from "../../abi's/TipsContractABI.json";
 import ConnectWallet from '@/app/actions/connectWallet';
+import ConnectWalletButton from '@/app/actions/connectWallet';
+import { Button } from './button';
 const tipsContractAddress = "";
 
 // upvote will ++ count and downvote will -- 
@@ -104,11 +106,12 @@ export default function Upvote() {
         <p>Vote here</p>
         </>
       ) : (
-        <div className='flex items-center'>
-       <ConnectWallet onclick={connectWallet} />
+        <div className='flex items-center justify-center'>
+       <ConnectWalletButton />
        <p className="p-2 rounded-md"
-        > Log in to upvote.
+        > Log in to upvote. <span className='text-[#35b635]'> Double click upload button </span> for AI buddy assistance
         </p>
+        <Button variant='default'>Upload you tip/security</Button>
         </div>
         
        )}
