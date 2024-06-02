@@ -41,6 +41,6 @@ const ConnectWalletButton = ({ onAccountChange, onProviderChange, onSignerChange
       <Button variant='default'onClick={connectWallet}>Wallet connect</Button>
    
     </div>
-  )
-}
+  );
+};
 export default ConnectWalletButton;
