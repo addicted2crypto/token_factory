@@ -4,7 +4,19 @@ import React, { useState } from 'react';
 import { ethers } from 'ethers';
 
 
-const ConnectWalletButton = ({ onAccountChange, onProviderChange, onSignerChange, onContractChange }) => {
+interface ConnectWalletButtonProps {
+  onAccountChange: (account: string) => void;
+  onProviderChange: (provider: ethers.BrowserProvider) => void;
+  onSignerChange: (contract: ethers.Contract) => void;
+  onContractChange: (contract: ethers.Contract) => void; 
+}
+
+const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
+  onAccountChange,
+  onProviderChange,
+  onSignerChange,
+  onContractChange
+}) => {
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
 
