@@ -115,12 +115,13 @@ export default function Upvote() {
           <p className="p-2 rounded-md"
         > Log in to upvote. <span className='text-[#35b635]'> Double click upload button </span> for AI buddy assistance
         </p>
-        <Button variant='default'>Upload you tip/security</Button>
+       
         </div>
       
       ) : (
         <>
         <p>Vote here</p>
+        <Button variant='default'>Upload you tip/security</Button>
         </>
       
        
