@@ -5,10 +5,10 @@ import { ethers } from 'ethers';
 
 
 interface ConnectWalletButtonProps {
-  onAccountChange: (account: string) => void;
-  onProviderChange: (provider: ethers.BrowserProvider) => void;
-  onSignerChange: (contract: ethers.Contract) => void;
-  onContractChange: (contract: ethers.Contract) => void; 
+  onAccountChange: (account: string | null) => void;
+  onProviderChange: (provider: ethers.BrowserProvider | null) => void;
+  onSignerChange: (signer: ethers.JsonRpcSigner | null) => void;
+  onContractChange: (contract: ethers.Contract | null) => void; 
 }
 
 const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({

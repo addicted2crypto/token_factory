@@ -1,4 +1,4 @@
-import { Vote, ListChecks, Handshake, GlobeLock } from 'lucide-react'
+import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react'
 import React from 'react'
 
 export default function Highlightedvotedtips() {
@@ -15,7 +15,7 @@ export default function Highlightedvotedtips() {
       </div>
     <div className='text-3xl'>This weeks top voted submissions. Top 10 community voted tips</div>
     <div className='flex justify-center gap-3'>
-    <GlobeLock /> <Handshake />
+    <GlobeLock /> <Handshake /> <Cctv />
     </div>
     </div>
   )

@@ -73,17 +73,19 @@ export default function Upvote() {
   //   }
   // }, [provider]);
 
-  const connectWallet = async () => {
-    if (provider) {
-      await provider.send("eth_requestAccounts", []);
-      const ethSigner = await provider.getSigner();
-      const account = await ethSigner.getAddress();
-      setCurrentAccount(account);
-      setSigner(ethSigner);
-      const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
-      setTipsContract(contract);
-    }
-  };
+
+  // made this its own component
+  // const connectWallet = async () => {
+  //   if (provider) {
+  //     await provider.send("eth_requestAccounts", []);
+  //     const ethSigner = await provider.getSigner();
+  //     const account = await ethSigner.getAddress();
+  //     setCurrentAccount(account);
+  //     setSigner(ethSigner);
+  //     const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
+  //     setTipsContract(contract);
+  //   }
+  // };
 
   const upVoteTip = async (tipIndex: number) => {
     if (!tipsContract || !signer) return;
@@ -101,18 +103,29 @@ export default function Upvote() {
 
   return (
     <div>
-      {currentAccount ? (
-        <>
-        <p>Vote here</p>
-        </>
-      ) : (
-        <div className='flex items-center justify-center'>
-       <ConnectWalletButton />
-       <p className="p-2 rounded-md"
+      {!currentAccount ? (
+          <div className='flex items-center'>
+          <ConnectWalletButton 
+          onAccountChange={setCurrentAccount}
+          onProviderChange={setProvider}
+          onSignerChange={setSigner}
+          onContractChange={setTipsContract}
+          
+          />
+          <p className="p-2 rounded-md"
         > Log in to upvote. <span className='text-[#35b635]'> Double click upload button </span> for AI buddy assistance
         </p>
         <Button variant='default'>Upload you tip/security</Button>
         </div>
+      
+      ) : (
+        <>
+        <p>Vote here</p>
+        </>
+      
+       
+       
+       
         
        )}
           <div>
