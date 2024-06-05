@@ -50,7 +50,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   return (
     <div className='p-1'>
       
-      <Button variant='default'onClick={connectWallet}>Wallet connect</Button>
+      <Button variant='destructive' onClick={connectWallet}>Wallet connect</Button>
    
     </div>
   );
