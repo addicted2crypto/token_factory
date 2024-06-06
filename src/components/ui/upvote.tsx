@@ -112,7 +112,7 @@ export default function Upvote() {
           onContractChange={setTipsContract}
           
           />
-          <p className="p-2 rounded-md"
+          <p className="p-1 rounded-md"
         > Log in to upvote. 
         </p>
        
