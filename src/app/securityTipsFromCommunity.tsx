@@ -15,7 +15,7 @@ export default function SecurityTipsFromCommunity() {
     <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Today's top 10</div>
     <div className='text-[#6a751b]'>
       {/* add directions above form and form attributes from the blockchain */}
-    <form>&rarr; To vote: Login and upvote up to 3 Tips per 24hrs. Top 3 voted on tips, win a prize every Sunday</form>
+    <form>&rarr; To vote: Login/Connect Wallet and upvote up to 3 Tips per 24hrs. Top 3 voted on tips, win a prize every Sunday</form>
     </div>
       <section className='text-sm pl-12 pt-5 text-center'>
         <Highlightedvotedtips />
