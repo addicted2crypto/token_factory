@@ -2,7 +2,8 @@
 
 import { Separator } from '@/components/ui/separator';
 import React from 'react';
-import ConnectWallet from './actions/connectWallet';
+import ConnectWalletButton from './actions/connectWallet';
+
 import SignIn from './actions/signIn';
 
 export default function Header() {
@@ -33,7 +34,7 @@ export default function Header() {
     
     <div className='absolute right-3 top-0'>
         
-       <ConnectWallet />
+       <ConnectWalletButton />
     </div>
     </div>
     
