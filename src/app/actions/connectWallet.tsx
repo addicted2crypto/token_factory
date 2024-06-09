@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
+import { type } from 'os';
 
 
 interface ConnectWalletButtonProps {
@@ -30,8 +31,8 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       const ethSigner = await ethProvider.getSigner();
       const account = await ethSigner.getAddress();
 
-      setProvider(ethProvider);
-      setSigner(ethSigner);
+      // setProvider(ethProvider);
+      // setSigner(ethSigner);
 
       if(onProviderChange) onProviderChange(ethProvider);
       if(onSignerChange) onSignerChange(ethSigner);
