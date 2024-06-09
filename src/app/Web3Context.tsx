@@ -2,7 +2,7 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ethers } from 'ethers';
-import { The_Nautigal } from 'next/font/google';
+
 
 //add Will need to add abi import
 //add import TipsContractABI from '@contracts/TipsContractABI.json'; 

@@ -17,22 +17,22 @@ export default function Highlightedvotedtips() {
     <div className='text-lg pb-3'>
       <ol>
         <li>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>1</span>... dont text and drive
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>1</span>EXAMPLE... dont text and drive
         </li>
         <li>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>2</span>... dont eat yellow snow
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>2</span>EXAMPLE... dont eat yellow snow
         </li>
         <li>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>3</span>... stop following infulencers
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>3</span>EXAMPLE... stop following infulencers
         </li>
         <li>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>4</span>... think more
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>4</span>EXAMPLE... think more
         </li>
         <li>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>5</span>... dont leave everything in the same wallet you click shit with
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>5</span>EXAMPLE... dont leave everything in the same wallet you click shit with
         </li>
         <li>
-         <span className='text-[#d4d2d2] absolute left-[18rem]'>6</span>..
+         <span className='text-[#d4d2d2] absolute left-[18rem]'>6</span>EXAMPLE...
         </li>
       </ol>
     </div>

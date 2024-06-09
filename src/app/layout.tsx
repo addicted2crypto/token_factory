@@ -41,6 +41,7 @@ export default function RootLayout({
         <Header />
         {/* <Intro /> */}
         <SecurityTipsFromCommunity />
+        
         {/* <SendWalletData /> */}
         
        {children}

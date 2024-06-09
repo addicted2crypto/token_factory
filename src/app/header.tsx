@@ -1,12 +1,41 @@
-
+"use client"
 
 import { Separator } from '@/components/ui/separator';
-import React from 'react';
+import React, { useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
-
+import {ethers } from "ethers";
 import SignIn from './actions/signIn';
 
-export default function Header() {
+const Header = () => {
+  const [account, setAccount] = useState<string | null>(null);
+  const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
+  const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
+  const [contract, setContract] = useState<ethers.Contract | null>(null);
+
+
+
+const handleAccountChange = (account: string | null) => {
+  setAccount(account);
+  console.log('Account changed:', account);
+};
+
+const handleProviderChange = (provider: ethers.BrowserProvider | null) => {
+  setProvider(provider);
+  console.log('Provider changed:', provider);
+};
+
+const handleSignerChange = (signer: ethers.JsonRpcSigner | null) => {
+  setSigner(signer);
+  console.log('Signer changed:', signer);
+};
+
+const handleContractChange = (contract: ethers.Contract | null) => {
+  setContract(contract);
+  console.log('Contract changed:', contract);
+};
+
+
+
   return (
    <div>
     <div>
@@ -34,9 +63,15 @@ export default function Header() {
     
     <div className='absolute right-3 top-0'>
         
-       <ConnectWalletButton />
+       <ConnectWalletButton 
+        onAccountChange={handleAccountChange}
+        onProviderChange={handleProviderChange}
+        onSignerChange={handleSignerChange}
+        onContractChange={handleContractChange}
+       />
     </div>
     </div>
     
-  )
-}
+  );
+        };
+        export default Header;

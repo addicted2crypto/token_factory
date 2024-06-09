@@ -2,7 +2,7 @@
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
-import { type } from 'os';
+
 
 
 interface ConnectWalletButtonProps {
@@ -21,12 +21,12 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   const [provider, setProvider] = useState(null);
   const [signer, setSigner] = useState(null);
 
-  const tipsContractAddress = "";
+  const tipsContractAddress = "0x2840e02418542A9095A85E766d840375C01E4E4E";
   const TipsContractABI = require("../../abi's/TipsContractABI.json");
 
-  const connectWallet = async () => {
-    if (typeof window !== "undefined" && window.ethereum) {
-      const ethProvider = new ethers.BrowserProvider(window.ethereum);
+  const ConnectWalletButton = async () => {
+    if (typeof window !== "undefined" && (window as any).ethereum) {
+      const ethProvider = new ethers.BrowserProvider((window as any).ethereum);
       await ethProvider.send("eth_requestAccounts", []);
       const ethSigner = await ethProvider.getSigner();
       const account = await ethSigner.getAddress();
@@ -39,11 +39,15 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       if(onAccountChange) onAccountChange(account);
 
       const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
-      if(onContractChange) onContractChange(contract);
-
+       onContractChange(contract);
+    } else {
+      console.log("Ethereum object is no where to be found in window, please connect your wallet");
 
     }
-  };
+
+
+    };
+  
 
 
 
@@ -51,7 +55,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   return (
     <div className='p-1'>
       
-      <Button variant='destructive' onClick={connectWallet}>Wallet connect</Button>
+      <Button variant='destructive' onClick={ConnectWalletButton}>Wallet connect</Button>
    
     </div>
   );
