@@ -13,6 +13,7 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs';
+import UploadTipForm from './actions/UploadTipForm';
 
 
 
@@ -41,6 +42,7 @@ export default function RootLayout({
         <Header />
         {/* <Intro /> */}
         <SecurityTipsFromCommunity />
+        
         
         {/* <SendWalletData /> */}
         

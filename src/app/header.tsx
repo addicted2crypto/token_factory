@@ -5,6 +5,7 @@ import React, { useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
 import {ethers } from "ethers";
 import SignIn from './actions/signIn';
+import UploadTipForm from './actions/UploadTipForm';
 
 const Header = () => {
   const [account, setAccount] = useState<string | null>(null);
@@ -70,8 +71,9 @@ const handleContractChange = (contract: ethers.Contract | null) => {
         onContractChange={handleContractChange}
        />
     </div>
+   
+    <UploadTipForm />
     </div>
-    
   );
         };
         export default Header;
