@@ -91,7 +91,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 export const useWeb3 = (): Web3ContextProps => {
   const context = useContext(Web3Context);
   if (context === undefined) {
-    throw new Error('useWeb3 must be used within a Web3Provider');
+    throw new Error('use Web3 must be used within a Web3Provider');
   }
   return context;
 };
