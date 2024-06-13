@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.19;
 
-// Uncomment this line to use console.log
-// import "hardhat/console.sol";
+
 
 contract Lock {
     uint public unlockTime;
@@ -21,7 +20,7 @@ contract Lock {
     }
 
     function withdraw() public {
-        // Uncomment this line, and the import of "hardhat/console.sol", to print a log in your terminal
+      
       
         require(block.timestamp >= unlockTime, "You can't withdraw yet");
         require(msg.sender == owner, "You aren't the owner");

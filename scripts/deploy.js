@@ -3,6 +3,7 @@ const { ethers } = hardhat;
 async function main() {
     const TipsContract = await ethers.getContractFactory("Tips");
     const tipsContract = await TipsContract.deploy();
+    const refactoredTipsContract = await refactoredTipsContract.deploy();
     await tipsContract.deploymentTransaction()?.wait();
     await tipsContract.waitForDeployment();
     console.log("Tips deployed to:", tipsContract.getAddress);
