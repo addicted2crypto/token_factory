@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
+import { Button } from '@/components/ui/button';
 
 interface UploadTipFormProps {
   contract: ethers.Contract | null;
@@ -19,7 +20,7 @@ const UploadTipForm: React.FC<UploadTipFormProps> = ({ contract }) => {
   return (
     <div>
       <textarea value={content} onChange={(e) => setContent(e.target.value)} />
-      <button onClick={handleUploadTip}>Upload Tip</button>
+      <Button variant="ghost" onClick={handleUploadTip}>Upload Tip</Button>
     </div>
   );
 };

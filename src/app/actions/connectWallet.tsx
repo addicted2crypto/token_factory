@@ -1,9 +1,9 @@
 "use client"
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
-import { ethers } from 'ethers';
+import { ethers, parseEther } from 'ethers';
 
-
+const eth = parseEther("1.0")
 
 interface ConnectWalletButtonProps {
   onAccountChange: (account: string | null) => void;
@@ -30,6 +30,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       await ethProvider.send("eth_requestAccounts", []);
       const ethSigner = await ethProvider.getSigner();
       const account = await ethSigner.getAddress();
+      
 
       // setProvider(ethProvider);
       // setSigner(ethSigner);
@@ -37,7 +38,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       if(onProviderChange) onProviderChange(ethProvider);
       if(onSignerChange) onSignerChange(ethSigner);
       if(onAccountChange) onAccountChange(account);
-
+        
       const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
        onContractChange(contract);
     } else {
@@ -55,7 +56,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   return (
     <div className='p-1'>
       
-      <Button variant='destructive' onClick={ConnectWalletButton}>Wallet connect</Button>
+      <Button variant='destructive' onClick={ConnectWalletButton}>Wallet Connect</Button>
    
     </div>
   );
