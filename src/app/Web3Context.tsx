@@ -13,7 +13,7 @@ declare global {
       ethereum?: any;
     }
   }
-
+let signer = null;
 interface Web3ContextProps {
   connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
