@@ -1,7 +1,7 @@
 "use client"
 
 import { Separator } from '@/components/ui/separator';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
 import {ethers } from "ethers";
 import SignIn from './actions/signIn';
@@ -13,6 +13,15 @@ const Header = () => {
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
+  const TipsContractAddress = "0xe97a956fcca1c7bd23dd8e1fa840d97e8d2ef3be";
+  const TipsContractABI = require("../../abi's/TipsContractABI.json");
+
+  useEffect(() => {
+    if(provider && signer) {
+      const contractInstance = new ethers.Contract(TipsContractAddress, TipsContractABI, signer);
+      setContract(contractInstance);
+    }
+  }, [provider, signer]);
 
 
 const handleAccountChange = (account: string | null) => {
