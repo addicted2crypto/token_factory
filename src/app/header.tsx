@@ -81,7 +81,7 @@ const handleContractChange = (contract: ethers.Contract | null) => {
        />
     </div>
    
-    <UploadTipForm />
+    <UploadTipForm contract={contract}/>
     </div>
   );
         };
