@@ -30,7 +30,7 @@ contract TipsContract {
 
     function vote(uint id, bool upvote) public payable {
         require(msg.value == VOTE_COST, "Send More");
-        require(votes[msg.sender] < 3, "Exceeded daily vote limit, come back tomorrow or ${add time stamp}");
+        require(votes[msg.sender] < 3, "Exceeded daily vote limit, come back tomorrow or `${add time stamp}`");
 
         Tip storage tip = tips[id];
         require(tip.id != 0, "Tip does not exist");
