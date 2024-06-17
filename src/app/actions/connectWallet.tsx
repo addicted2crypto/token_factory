@@ -18,8 +18,8 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   onSignerChange,
   onContractChange
 }) => {
-  const [provider, setProvider] = useState(null);
-  const [signer, setSigner] = useState(null);
+  // const [provider, setProvider] = useState(null);
+  // const [signer, setSigner] = useState(null);
 
   const tipsContractAddress = "0xe97a956fcca1c7bd23dd8e1fa840d97e8d2ef3be";
   const TipsContractABI = require("../../abi's/TipsContractABI.json");
@@ -32,6 +32,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       const account = await ethSigner.getAddress();
       
 
+      
       // setProvider(ethProvider);
       // setSigner(ethSigner);
 
