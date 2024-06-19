@@ -45,7 +45,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
       const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
        onContractChange(contract);
     } else {
-      console.log("Ethereum object is no where to be found in window, please connect your wallet");
+      console.log("Wallet extension is no where to be found in window, please connect your wallet");
 
     }
 
