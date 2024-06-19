@@ -3,6 +3,8 @@ import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { ethers, parseEther } from 'ethers';
 
+
+//parseEther for avax as well to minimize e18
 const eth = parseEther("1.0")
 
 interface ConnectWalletButtonProps {
