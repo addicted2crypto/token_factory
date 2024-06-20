@@ -7,6 +7,7 @@ import {ethers } from "ethers";
 import SignIn from './actions/signIn';
 import UploadTipForm from './actions/UploadTipForm';
 
+
 const Header = () => {
   const [account, setAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
@@ -14,7 +15,7 @@ const Header = () => {
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
   const TipsContractAddress = "0xe97a956fcca1c7bd23dd8e1fa840d97e8d2ef3be";
-  const TipsContractABI = require("../../abi's/TipsContractABI.json");
+  // const TipsContractABI = require("../../abi's/TipsContractABI.json");
 
   useEffect(() => {
     if(provider && signer) {

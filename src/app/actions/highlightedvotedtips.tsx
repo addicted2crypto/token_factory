@@ -17,7 +17,7 @@ export default function Highlightedvotedtips() {
     <div className='text-lg pb-3'>
       <ol>
         <li>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>1</span>EXAMPLE... dont text and drive
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>1</span>EXAMPLE... dont listen to shillers
         </li>
         <li>
           <span className='text-[#d4d2d2] absolute left-[18rem]'>2</span>EXAMPLE... dont eat yellow snow
