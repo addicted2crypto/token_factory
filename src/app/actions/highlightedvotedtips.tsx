@@ -13,7 +13,7 @@ export default function Highlightedvotedtips() {
       <Vote className='items-center'/>
       <ListChecks />
       </div>
-    <div className='text-3xl p-6 text-slate-900'>➡️ Top voted submissions. Community chose tips ⬅️</div>
+    <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Community chose tips ⬅️</div>
     <div className='text-lg pb-3'>
       <ol>
         <li>
