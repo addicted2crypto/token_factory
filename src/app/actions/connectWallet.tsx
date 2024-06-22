@@ -23,10 +23,10 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   // const [provider, setProvider] = useState(null);
   // const [signer, setSigner] = useState(null);
 
-  const tipsContractAddress = "0xe97a956fcca1c7bd23dd8e1fa840d97e8d2ef3be";
+  const tipsContractAddress = "0xe97a956f0xfB2241f13118a2a8991766dd02AF3822B68FEB1A";
   const TipsContractABI = require("../../abi's/TipsContractABI.json");
 
-  const ConnectWalletButton = async () => {
+  const connectWallet = async () => {
     if (typeof window !== "undefined" && (window as any).ethereum) {
       const ethProvider = new ethers.BrowserProvider((window as any).ethereum);
       await ethProvider.send("eth_requestAccounts", []);
@@ -44,11 +44,13 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
         
       const contract = new ethers.Contract(tipsContractAddress, TipsContractABI, ethSigner);
        onContractChange(contract);
-    } else {
-      console.log("Wallet extension is no where to be found in window, please connect your wallet");
-
+    // } else {
+    //   console.log("Wallet extension is no where to be found in window, please connect your wallet");
     }
-
+    };
+    return (
+    <Button variant="destructive" onClick={connectWallet}>Wallet Connect</Button>
+    );
 
     };
   
@@ -56,12 +58,5 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
 
 
 
-  return (
-    <div className='p-1'>
-      
-      <Button variant='destructive' onClick={ConnectWalletButton}>Wallet Connect</Button>
-   
-    </div>
-  );
-};
+  
 export default ConnectWalletButton;

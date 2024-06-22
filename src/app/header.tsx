@@ -14,8 +14,8 @@ const Header = () => {
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
-  const TipsContractAddress = "0xe97a956fcca1c7bd23dd8e1fa840d97e8d2ef3be";
-  // const TipsContractABI = require("../../abi's/TipsContractABI.json");
+  const TipsContractAddress = "0xc87326de704671D76d4Ba3F860BB43a3d649A0cc";
+  const TipsContractABI = require("../abi's/TipsContractABI.json");
 
   useEffect(() => {
     if(provider && signer) {
