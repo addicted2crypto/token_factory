@@ -4,7 +4,7 @@ import { Separator } from '@/components/ui/separator';
 import React, { useEffect, useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
 import {ethers } from "ethers";
-import SignIn from './actions/signIn';
+
 import UploadTipForm from './actions/UploadTipForm';
 
 
@@ -49,21 +49,21 @@ const handleContractChange = (contract: ethers.Contract | null) => {
 
   return (
    <div>
-    <div>
-      <SignIn />
+    <div className='pt-2'>
+      wallet object for logged in user
         {/* <div className='stars absolute left-3 top-[13rem]'>Whats trending in the arena
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
          </div>
 
-    <div className='p-2'>Sections
+    <div className='p-2'>Monthly top Voted tip `$[addtopvotedobject][totalvotesobject]`
     <Separator className='my-4'/>
     <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
-          <div>Section 1</div>
+          <div className='text-[#56a632]'>Leading weekly top voted tip $[topvotedobject(1)][totalvotesobject]</div>
           <Separator orientation='vertical'className='text-white' />
-          <div>Section 2</div>
+          <div className='text-[#56a632]'>Second weekly top voted tip [totalvotesobject]</div>
           <Separator orientation='vertical'/>
-          <div>Section 3</div>
+          <div className='text-[#56a632]'>Third weekly top voted tip [totalvotesobject]</div>
 
 
 
