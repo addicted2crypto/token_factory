@@ -121,9 +121,10 @@ export default function Upvote() {
       
       ) : (
         <>
-        <p>Vote here</p>
-        <Button variant='default'>Upload you tip/security</Button>
-        <div><span className='text-[#35b635]'> Double click upload button </span> for AI buddy assistance</div>
+        <p className='p-1'>Vote here</p>
+        <Button variant='default'>Upvote</Button>
+        <Button variant='destructive'>Downvote</Button>
+        {/* <div><span className='text-[#35b635]'> Double click upload button </span> for AI buddy assistance</div> */}
 
         </>
       
@@ -135,8 +136,9 @@ export default function Upvote() {
           <div>
             {/* add logged in user compoment here */}
             <p className='p-1 text-pretty text-sm text-[#30cd00]'>Highlighted tip/story <span className='text-lg text-[#d2d53e]'>{count}</span> vote count</p>
+            {/* add should this store like or count as a button click?? */}
           <button 
-              onClick={() => upVoteTip(0)}><LiaThumbsUp className='text-3xl hover:text-4xl transition hover:-translate-y-2 hover:-translate-x-2 hover:text-[#fff]'/></button>
+              onClick={() => setCount(count +1)}><LiaThumbsUp className='text-3xl hover:text-4xl transition hover:-translate-y-2 hover:-translate-x-2 hover:text-[#fff]'/></button>
            
           <button 
               onClick={() => setCount(count -1)}><LiaThumbsDown className='text-3xl hover:text-4xl transition hover:translate-y-2 hover:translate-x-2 hover:text-[#fff]'/></button>
