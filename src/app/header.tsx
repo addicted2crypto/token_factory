@@ -3,7 +3,7 @@
 import { Separator } from '@/components/ui/separator';
 import React, { useEffect, useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
-import {ethers } from "ethers";
+import { ethers } from "ethers";
 
 import UploadTipForm from './actions/UploadTipForm';
 
@@ -72,14 +72,14 @@ const handleContractChange = (contract: ethers.Contract | null) => {
           
     </div>
     
-    <div className='absolute right-3 top-0'>
+    <div className='absolute right-3 top-2'>
         
        <ConnectWalletButton 
         onAccountChange={handleAccountChange}
         onProviderChange={handleProviderChange}
         onSignerChange={handleSignerChange}
         onContractChange={handleContractChange}
-       />
+       /> :
     </div>
    
     <UploadTipForm contract={contract}/>
