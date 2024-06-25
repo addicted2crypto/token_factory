@@ -9,7 +9,7 @@
     "start": "next start",
     "lint": "next lint",
     "compile": "hardhat compile --config hardhat.config.cjs",
-    "deploy": "hardhat run scripts/deploy.ts --network sepolia --config hardhat.config.cjs"
+    "deploy": "hardhat run scripts/deploy.cjs --network sepolia --config hardhat.config.cjs"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.1.2",

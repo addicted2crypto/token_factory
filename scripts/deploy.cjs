@@ -1,16 +1,7 @@
-import hardhat from "hardhat";
-const { ethers } = hardhat;
-import { parseEther} from ethers;
+const { ethers } = require("hardhat");
 
-// async function main() {
-//     const TipsContract = await ethers.getContractFactory("refactoredTipsContract");
-//     const tipsContract = await TipsContract.deploy();
-//     const refactoredTipsContract = await refactoredTipsContract.deploy();
-//     await tipsContract.deploymentTransaction()?.wait();
-//     await tipsContract.waitForDeployment();
-//     console.log("Tips deployed to:", tipsContract.getAddress);
-// }
-const eth = parseEther("1.0");
+require ("@nomicfoundation/hardhat-ethers");
+
 
 async function main() {
     const [deployer] = await ethers.getSigners();
