@@ -11,9 +11,15 @@ const UploadTipForm: React.FC<UploadTipFormProps> = ({ contract }) => {
 
   const handleUploadTip = async () => {
     if (contract) {
+      try {
       const tx = await contract.uploadTip(content, { value: ethers.parseEther('0.69') });
       await tx.wait();
       setContent('');
+    } catch (error){
+      console.error("Error uploading tip:", error)
+    }
+  } else {
+      console.error("Contract is approved.");
     }
   };
 
