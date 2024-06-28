@@ -6,19 +6,34 @@ interface UploadTipFormProps {
   contract: ethers.Contract | null;
 }
 
+const contract = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f";
 const UploadTipForm: React.FC<UploadTipFormProps> = ({ contract }) => {
   const [content, setContent] = useState('');
 
   const handleUploadTip = async () => {
-    if (contract) {
+    if(!contract){
+      console.log("Contract is broke, do better");
+      return;
+    }
+
+    try {
       try {
+        console.log("Starting upload tip process.");
+        console.log("Content:", content);
+        console.log("Contract address:", contract.address);
+
+        
       const tx = await contract.uploadTip(content, { value: ethers.parseEther('0.69') });
+        console.log("Transaction initiated. Waiting on wallet signature..");
+
       await tx.wait();
+        console.log("Transaction confirmed LFG.")
+
       setContent('');
     } catch (error){
       console.error("Error uploading tip:", error)
     }
-  } else {
+  } catch {
       console.error("Contract is approved.");
     }
   };
