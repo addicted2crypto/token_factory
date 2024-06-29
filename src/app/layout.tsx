@@ -2,18 +2,13 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from './header';
-import Intro from './tokenCreateSection';
 import SecurityTipsFromCommunity from './securityTipsFromCommunity';
 import Footer from './footer';
 import { Web3Provider } from './Web3Context';
-import {
-  ClerkProvider,
-  SignInButton,
-  SignedIn,
-  SignedOut,
-  UserButton
-} from '@clerk/nextjs';
-import UploadTipForm from './actions/UploadTipForm';
+import { ClerkProvider } from '@clerk/nextjs';
+import { ContractProvider } from './actions/ContractContext';
+
+
 
 
 
@@ -39,14 +34,13 @@ export default function RootLayout({
         <div className='bg-[#c1d7fe] absolute bottom-[-1rem] -z-10 left-[-35rem] h-[111.25rem] w-[50rem] rounded-full blur-[10rem] sm:w-[68.75] md:left[-33rem] lg:left[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#5493ff]'>
         </div>
         <Web3Provider>
+          <ContractProvider>
         <Header />
         {/* <Intro /> */}
         <SecurityTipsFromCommunity />
         
-        
-        {/* <SendWalletData /> */}
-        
        {children}
+       </ContractProvider>
        </Web3Provider>
        </body>
        
