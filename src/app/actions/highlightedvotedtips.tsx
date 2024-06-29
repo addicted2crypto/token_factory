@@ -13,7 +13,7 @@ export default function Highlightedvotedtips() {
       <Vote className='items-center'/>
       <ListChecks />
       </div>
-    <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic community chosen tips ⬅️</div>
+    <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. These change as votes input. ⬅️</div>
     <div className='text-lg pb-3'>
       <ol>
         <li>
