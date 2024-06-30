@@ -4,7 +4,7 @@ import { ethers } from 'ethers';
 import TipsContractABI from "../../abi's/TipsContractABI.json";
 
 
-const tipsContractAddress = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f";
+const tipsContractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
 
 
 const ContractContext = createContext<ethers.Contract | null>(null);
