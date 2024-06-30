@@ -20,7 +20,7 @@ contract TipsContract {
     event Voted(uint id, bool upvote);
 
     function uploadTip(string memory content) public payable {
-        require(msg.value == UPLOAD_COST, "Incorrect value sent");
+        
 
         tipsCount++;
         tips[tipsCount] = Tip(tipsCount, payable(msg.sender), content, 0, 0);
