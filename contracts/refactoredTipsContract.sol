@@ -16,6 +16,17 @@ contract TipsContract {
     uint public constant UPLOAD_COST = 0.69 ether;
     uint public constant VOTE_COST = 0.069 ether;
 
+    address public owner;
+
+     modifier onlyOwner() {
+        require(msg.sender == owner, "Only owner can call this function");
+        _;
+    }
+
+    constructor() {
+        owner = msg.sender;
+    }
+
     event TipUploaded(uint id, address author, string content);
     event Voted(uint id, bool upvote);
 
@@ -54,4 +65,7 @@ contract TipsContract {
         }
         return topTips;
     }
+    function withdraw() public onlyOwner {
+        payable(owner).transfer(address(this).balance);
+}
 }
