@@ -5,7 +5,7 @@ import { ethers, parseEther } from 'ethers';
 
 
 //parseEther for avax as well to minimize e18
-const eth = parseEther("1.0")
+// const eth = parseEther("1.0")
 
 interface ConnectWalletButtonProps {
   onAccountChange: (account: string | null) => void;
@@ -24,7 +24,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   // const [signer, setSigner] = useState(null);
 
   const tipsContractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
-  const TipsContractABI = require("../../abi's/TipsContractABI.json");
+  const TipsContractABI = require( "../../abis/TipsContractABI.json");
 
   const connectWallet = async () => {
     if (typeof window !== "undefined" && (window as any).ethereum) {

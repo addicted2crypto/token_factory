@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { Button } from '@/components/ui/button';
-import { useWeb3 } from '../Web3Context';
 
 
+interface UploadTipFormProps {
+  contract: ethers.Contract | null;
+}
 
-const UploadTipForm: React.FC= () => {
+const UploadTipForm: React.FC<UploadTipFormProps> = ({contract}) => {
   const [content, setContent] = useState('');
-  const { contract } = useWeb3();
+  
 
   const handleUploadTip = async () => {
     if(!contract){
@@ -19,7 +21,7 @@ const UploadTipForm: React.FC= () => {
       try {
         console.log("Starting upload tip process.");
         console.log("Content:", content);
-        console.log("Contract address:", contract.address);
+        console.log("Contract address:", contract.getAddress);
 
         
       const tx = await contract.submitTip(content, { value: ethers.parseEther('0.69') });

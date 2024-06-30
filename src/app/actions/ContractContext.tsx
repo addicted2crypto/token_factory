@@ -1,7 +1,7 @@
 "use client"
 import React, { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { ethers } from 'ethers';
-import TipsContractABI from "../../abi's/TipsContractABI.json";
+import TipsContractABI from "../../abis/TipsContractABI.json";
 
 
 const tipsContractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";

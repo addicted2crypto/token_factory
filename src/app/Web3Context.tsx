@@ -3,6 +3,8 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ethers } from 'ethers';
 
+import TipsContractABI from "../abis/TipsContractABI.json";
+
 
 //add Will need to add abi import
 //add import TipsContractABI from '@contracts/TipsContractABI.json'; 
@@ -13,7 +15,7 @@ declare global {
       ethereum?: any;
     }
   }
-let signer = null;
+
 interface Web3ContextProps {
   connectWallet: () => Promise<void>;
   disconnectWallet: () => void;
@@ -38,9 +40,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       setProvider(ethProvider);
 
    
-    // add  const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, ethProvider.getSigner());
-    // const tipsContract = new ethers.Contract(contractAddress, window.ethereum)
-    //   setContract(tipsContract);
+    const tipsContract = new ethers.Contract(contractAddress, TipsContractABI);
+    
+      setContract(tipsContract);
     ethProvider.listAccounts().then(accounts => {
         if(accounts.length > 0) {
             setCurrentAccount(accounts[0].address);

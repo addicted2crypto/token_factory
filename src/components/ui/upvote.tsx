@@ -4,7 +4,7 @@
 import React, { useEffect, useState } from 'react'
 import { LiaThumbsUp, LiaThumbsDown} from "react-icons/lia";
 import  { ethers }  from 'ethers';
-import TipsContractABI from "../../abi's/TipsContractABI.json";
+import TipsContractABI from "../../abis/TipsContractABI.json";
 
 import ConnectWalletButton from '@/app/actions/connectWallet';
 import { Button } from './button';
