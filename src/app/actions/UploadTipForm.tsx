@@ -24,7 +24,7 @@ const UploadTipForm: React.FC<UploadTipFormProps> = ({contract}) => {
         console.log("Contract address:", contract.getAddress);
 
         
-      const tx = await contract.submitTip(content, { value: ethers.parseEther('0.69') });
+      const tx = await contract.uploadTip(content, { value: ethers.parseEther('0.69') });
         console.log("Transaction initiated. Waiting on wallet signature..");
 
       await tx.wait();
