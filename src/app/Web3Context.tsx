@@ -2,19 +2,13 @@
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { ethers } from 'ethers';
-
 import TipsContractABI from "../abis/TipsContractABI.json";
-
-
-//add Will need to add abi import
-//add import TipsContractABI from '@contracts/TipsContractABI.json'; 
-
 
 declare global {
     interface Window {
       ethereum?: any;
     }
-  }
+}
 
 interface Web3ContextProps {
   connectWallet: () => Promise<void>;
@@ -24,7 +18,7 @@ interface Web3ContextProps {
   contract: ethers.Contract | null;
   addTip: (content: string) => Promise<void>;
   upvoteTip: (tipId: number) => Promise<void>;
-  getTips: () => Promise<any[]>;
+  getTopTips: () => Promise<any[]>;
 }
 
 const Web3Context = createContext<Web3ContextProps | undefined>(undefined);
@@ -34,31 +28,32 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
-  useEffect(() => {
+  const contractAddress = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f";
+
+  useEffect(() =>{
     if (window.ethereum) {
       const ethProvider = new ethers.BrowserProvider(window.ethereum);
       setProvider(ethProvider);
 
-   
-    const tipsContract = new ethers.Contract(contractAddress, TipsContractABI);
-    
-      setContract(tipsContract);
-    ethProvider.listAccounts().then(accounts => {
-        if(accounts.length > 0) {
-            setCurrentAccount(accounts[0].address);
+      ethProvider.listAccounts().then(accounts => {
+        if (accounts.length > 0) {
+          setCurrentAccount(accounts[0].address);
+          const signer = ethProvider.provider;
+          const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
+          setContract(tipsContract);
         }
-    });
+      });
     }
   }, []);
-
-  const contractAddress = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f";
-  const contractABI = [[{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"uint256","name":"","type":"uint256"}],"name":"addressToTips","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"getTips","outputs":[{"components":[{"internalType":"string","name":"content","type":"string"},{"internalType":"address","name":"submitter","type":"address"},{"internalType":"uint256","name":"upvotes","type":"uint256"}],"internalType":"struct CommunityTips.Tip[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"_address","type":"address"}],"name":"getTipsByAddress","outputs":[{"components":[{"internalType":"string","name":"content","type":"string"},{"internalType":"address","name":"submitter","type":"address"},{"internalType":"uint256","name":"upvotes","type":"uint256"}],"internalType":"struct CommunityTips.Tip[]","name":"","type":"tuple[]"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"owner","outputs":[{"internalType":"address","name":"","type":"address"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"string","name":"_content","type":"string"}],"name":"submitTip","outputs":[],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"uint256","name":"","type":"uint256"}],"name":"tips","outputs":[{"internalType":"string","name":"content","type":"string"},{"internalType":"address","name":"submitter","type":"address"},{"internalType":"uint256","name":"upvotes","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"uint256","name":"_index","type":"uint256"}],"name":"upvoteTip","outputs":[],"stateMutability":"payable","type":"function"},{"inputs":[],"name":"votingFee","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"withdraw","outputs":[],"stateMutability":"nonpayable","type":"function"}]];
 
   const connectWallet = async () => {
     if (!provider) return;
     try {
       const accounts = await provider.send('eth_requestAccounts', []);
       setCurrentAccount(accounts[0]);
+      const signer = await provider.getSigner();
+      const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
+      setContract(tipsContract);
     } catch (error) {
       console.error('Error connecting wallet:', error);
     }
@@ -66,25 +61,34 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const disconnectWallet = () => {
     setCurrentAccount(null);
+    setContract(null);
   };
 
   const addTip = async (content: string) => {
     if (!contract) return;
-    await contract.addTip(content);
+    await contract.uploadTip(content, { value: ethers.parseEther("0.69") });
   };
 
   const upvoteTip = async (tipId: number) => {
     if (!contract) return;
-    await contract.upvoteTip(tipId);
+    await contract.vote(tipId, true, { value: ethers.parseEther("0.069") });
   };
 
-  const getTips = async () => {
+  const getTopTips = async () => {
     if (!contract) return [];
-    return await contract.getTips();
+    // return await contract.getTopTips();
+    try {
+      const topTips = await contract.getTopTips();
+      console.log("Fetched tips array:", topTips);
+      return topTips;
+    } catch (error) {
+      console.error("Error fetching tips:", error);
+      return [];
+    }
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTips }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips }}>
       {children}
     </Web3Context.Provider>
   );
