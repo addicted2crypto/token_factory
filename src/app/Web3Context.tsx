@@ -4,6 +4,7 @@ import { createContext, useContext, useState, useEffect, ReactNode } from 'react
 import { ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
 
+
 declare global {
     interface Window {
       ethereum?: any;
@@ -20,6 +21,8 @@ interface Web3ContextProps {
   upvoteTip: (tipId: number) => Promise<void>;
   getTopTips: () => Promise<any[]>;
 }
+
+
 
 const Web3Context = createContext<Web3ContextProps | undefined>(undefined);
 

@@ -1,9 +1,12 @@
 "use client"
 
+
 import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
 import { useWeb3 } from '../Web3Context'
 
+
+const contract = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f"
 export default function Highlightedvotedtips() {
   const { getTopTips } = useWeb3();
   const [topTips, setTopTips] = useState<any[]>([]);
@@ -33,10 +36,10 @@ export default function Highlightedvotedtips() {
     <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. ⬅️</div>
     <div className='text-lg pb-3'>
       <ol>
-        {topTips.map((tip, index) => (
+        {topTips.map((tips, index) => (
         <li key={index}>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index}{tip}</span>
-          {tip.content} - {tip.uploadTip}
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index}.   {tips.author}</span>
+          {tips.content} - {tips.index} Votes {contract}
         </li>
         ))}
         <li>

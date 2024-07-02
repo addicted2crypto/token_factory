@@ -6,6 +6,7 @@ import ConnectWalletButton from './actions/connectWallet';
 import { ethers } from "ethers";
 
 import UploadTipForm from './actions/UploadTipForm';
+import { Button } from '@/components/ui/button';
 
 
 const Header = () => {
@@ -73,13 +74,16 @@ const handleContractChange = (contract: ethers.Contract | null) => {
     </div>
     
     <div className='absolute right-3 top-2'>
-        
+        {!signer ? (
        <ConnectWalletButton 
         onAccountChange={handleAccountChange}
         onProviderChange={handleProviderChange}
         onSignerChange={handleSignerChange}
         onContractChange={handleContractChange}
        />
+        ): (
+          <Button variant="outline" className="bg-[#091157] text-[#fff]">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
+        )}
     </div>
    
     <UploadTipForm contract={contract}/>
