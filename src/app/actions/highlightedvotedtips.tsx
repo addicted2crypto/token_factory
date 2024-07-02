@@ -30,13 +30,13 @@ export default function Highlightedvotedtips() {
       <Vote className='items-center'/>
       <ListChecks />
       </div>
-    <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. These change as votes input. ⬅️</div>
+    <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. ⬅️</div>
     <div className='text-lg pb-3'>
       <ol>
         {topTips.map((tip, index) => (
         <li key={index}>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index}</span>
-          {tip.content} - {tip.upvotes} votes
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index}{tip}</span>
+          {tip.content} - {tip.uploadTip}
         </li>
         ))}
         <li>
