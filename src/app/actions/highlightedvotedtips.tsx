@@ -39,7 +39,7 @@ export default function Highlightedvotedtips() {
         {topTips.map((tips, index) => (
         <li key={index}>
           <span className='text-[#d4d2d2] absolute left-[18rem]'>{index}.   {tips.author}</span>
-          {tips.content} - {tips.index} Votes {contract}
+          {tips.content} - {tips.index} Votes{contract}
         </li>
         ))}
         <li>
