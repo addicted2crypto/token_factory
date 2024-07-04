@@ -37,9 +37,10 @@ export default function Highlightedvotedtips() {
     <div className='text-lg pb-3'>
       <ol>
         {topTips.map((tips, index) => (
-        <li key={index}>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index}... {tips.author}</span>
-          {tips.content} - {tips.index} Votes{contract}
+        <li key={tips.id}>
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index + 1}... {tips.author}</span>
+          {tips.content} -{tips.index}Votes
+          {/* {tips.content} - {tips.index} Votes + contract.fetchTip */}
         </li>
         ))}
         <li>
