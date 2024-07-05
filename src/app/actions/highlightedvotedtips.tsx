@@ -6,16 +6,17 @@ import React, { useState, useEffect } from 'react'
 import { useWeb3 } from '../Web3Context'
 
 
-const contract = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f"
-export default function Highlightedvotedtips() {
+// 
+
+const Highlightedvotedtips: React.FC = () => {
   const { getTopTips } = useWeb3();
-  const [topTips, setTopTips] = useState<any[]>([]);
+  const [tips, setTips] = useState<any[]>([]);
 
   useEffect(() => {
   const fetchTips = async () => {
-    const tipsFromContract = await getTopTips();
-    setTopTips(tipsFromContract);
-    console.log('Fetched tips:', tipsFromContract)
+    const fetchedTips = await getTopTips();
+    setTips(fetchedTips);
+    console.log('Fetched tips:', fetchTips)
   };
   fetchTips();
   
@@ -36,10 +37,10 @@ export default function Highlightedvotedtips() {
     <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. ⬅️</div>
     <div className='text-lg pb-3'>
       <ol>
-        {topTips.map((tips, index) => (
-        <li key={tips.id}>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index + 1}...{tips.author}</span>
-          {tips.content} -{tips.index}Votes
+        {tips.map((tip, index) => (
+        <li key={tip.id}>
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index + 1} - {tip.author}</span>
+          {tip.content} - {tip.upvotes} Votes
           {/* {tips.content} - {tips.index} Votes + contract.fetchTip */}
         </li>
         ))}
@@ -64,5 +65,7 @@ export default function Highlightedvotedtips() {
     <GlobeLock /> <Handshake /> <Cctv />
     </div>
     </div>
-  )
-}
+  );
+};
+
+export default Highlightedvotedtips;

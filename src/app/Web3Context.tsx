@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { ethers } from 'ethers';
+import { BigNumberish, ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
 
 
@@ -83,7 +83,14 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     try {
       const topTips = await contract.getTopTips();
       console.log("Fetched tips array:", topTips);
-      return topTips;
+
+      return topTips.map((tip: any) => ({
+        id: Number(tip[0] as BigNumberish),
+        author: tip[1] ,
+        content: tip[2],
+        upvotes: Number(tip[3] as BigNumberish),
+        downvotes: Number(tip[4]as BigNumberish),
+      }));
     } catch (error) {
       console.error("Error fetching tips:", error);
       return [];
