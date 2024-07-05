@@ -38,7 +38,7 @@ export default function Highlightedvotedtips() {
       <ol>
         {topTips.map((tips, index) => (
         <li key={tips.id}>
-          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index + 1}... {tips.author}</span>
+          <span className='text-[#d4d2d2] absolute left-[18rem]'>{index + 1}...{tips.author}</span>
           {tips.content} -{tips.index}Votes
           {/* {tips.content} - {tips.index} Votes + contract.fetchTip */}
         </li>
