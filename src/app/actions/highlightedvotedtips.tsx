@@ -14,21 +14,28 @@ const Highlightedvotedtips: React.FC = () => {
 
   useEffect(() => {
     const fetchTips = async () => {
-   const fetchedTips = await getTopTips();
-   try {
+      try {
+       const fetchedTips = await getTopTips();
+       console.log("Dat data from tips:", fetchTips);
+   
     
-  const fetchedTips = await getTopTips(); 
-    const tipsArray = fetchedTips.map((tip: any) => ({
+  
+    const tipsArray = fetchedTips.map((tip: any, index: number) => {
+      console.log(`Raw data to be parsed ${index + 1}:`, tip);
+      return {
       id: tip[0],
       author: tip[1],
       content: tip[2],
       upvotes: tip[3],
-      downvotes: tip[4]
-    })).filter((tip: any) => tip.id !== 0);
+      downvotes: tip[4],
+      };
+    }).filter((tip: any) => tip.id !== 0);
 
     setTips(tipsArray);
     console.log('Fetched tips:', tipsArray);
+
   } catch (error) {
+    
     console.error("Error fetching tips... again:", error);
   }
 };
@@ -55,7 +62,7 @@ const Highlightedvotedtips: React.FC = () => {
         {tips.map((tip, index) => (
         <li key={tip.id}>
           <span className='text-[#d4d2d2] absolute left-[18rem]'>{index + 1} - {tip.author}</span>
-          {tip.content} - {tip.upvotes} Votes
+          {tip.content} - {tip.upvotes} Votes {getTopTips}
           {/* {tips.content} - {tips.index} Votes + contract.fetchTip */}
         </li>
         ))}
