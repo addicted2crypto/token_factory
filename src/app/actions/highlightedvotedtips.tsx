@@ -13,11 +13,26 @@ const Highlightedvotedtips: React.FC = () => {
   const [tips, setTips] = useState<any[]>([]);
 
   useEffect(() => {
-  const fetchTips = async () => {
-    const fetchedTips = await getTopTips();
-    setTips(fetchedTips);
-    console.log('Fetched tips:', fetchTips)
-  };
+    const fetchTips = async () => {
+   const fetchedTips = await getTopTips();
+   try {
+    
+  const fetchedTips = await getTopTips(); 
+    const tipsArray = fetchedTips.map((tip: any) => ({
+      id: tip[0],
+      author: tip[1],
+      content: tip[2],
+      upvotes: tip[3],
+      downvotes: tip[4]
+    })).filter((tip: any) => tip.id !== 0);
+
+    setTips(tipsArray);
+    console.log('Fetched tips:', tipsArray);
+  } catch (error) {
+    console.error("Error fetching tips... again:", error);
+  }
+};
+ 
   fetchTips();
   
 }, [getTopTips]);
