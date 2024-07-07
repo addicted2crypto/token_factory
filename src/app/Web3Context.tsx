@@ -5,6 +5,7 @@ import { BigNumberish, ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
 
 
+
 declare global {
     interface Window {
       ethereum?: any;
@@ -31,7 +32,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
 
-  const contractAddress = "0xa8be1390d62b3e659ad060518d54c6b019a3cf0f";
+  const contractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
 
   useEffect(() =>{
     if (window.ethereum) {
@@ -49,14 +50,21 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     }
   }, []);
 
+
+  
+
   const connectWallet = async () => {
+    const network = await provider?.getNetwork();
+    console.log("You are connected to:", network);
     if (!provider) return;
     try {
       const accounts = await provider.send('eth_requestAccounts', []);
-      // setCurrentAccount(accounts[0]);
+      setCurrentAccount(accounts[0]);
       const signer = await provider.getSigner();
       const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
       setContract(tipsContract);
+      const network = await provider.getNetwork()
+      console.log(network)
     } catch (error) {
       console.error('Error connecting wallet:', error);
     }
@@ -70,6 +78,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const addTip = async (content: string) => {
     if (!contract) return;
     await contract.uploadTip(content, { value: ethers.parseEther("0.69") });
+    
   };
 
   const upvoteTip = async (tipId: number) => {
@@ -107,7 +116,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 export const useWeb3 = (): Web3ContextProps => {
   const context = useContext(Web3Context);
   if (context === undefined) {
-    throw new Error('use Web3 must be used within a Web3Provider');
+    throw new Error('You need a web3 Provider');
   }
   return context;
 };

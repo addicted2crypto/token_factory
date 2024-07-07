@@ -28,22 +28,22 @@ const Header = () => {
 
 const handleAccountChange = (account: string | null) => {
   setAccount(account);
-  console.log('Account changed:', account);
+  // console.log('Account changed:', account);
 };
 
 const handleProviderChange = (provider: ethers.BrowserProvider | null) => {
   setProvider(provider);
-  console.log('Provider changed:', provider);
+  // console.log('Provider changed:', provider);
 };
 
 const handleSignerChange = (signer: ethers.JsonRpcSigner | null) => {
   setSigner(signer);
-  console.log('Signer changed:', signer);
+  // console.log('Signer changed:', signer);
 };
 
 const handleContractChange = (contract: ethers.Contract | null) => {
   setContract(contract);
-  console.log('Contract changed:', contract);
+  // console.log('Contract changed:', contract);
 };
 
 
