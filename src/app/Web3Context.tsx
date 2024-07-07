@@ -53,7 +53,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     if (!provider) return;
     try {
       const accounts = await provider.send('eth_requestAccounts', []);
-      setCurrentAccount(accounts[0]);
+      // setCurrentAccount(accounts[0]);
       const signer = await provider.getSigner();
       const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
       setContract(tipsContract);
