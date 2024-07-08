@@ -8,15 +8,16 @@ import { useWeb3 } from '../Web3Context'
 
 
 const Highlightedvotedtips: React.FC = () => {
-  const { getTopTips } = useWeb3();
+  const {currentAccount, getTopTips } = useWeb3();
   const [tips, setTips] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchTips = async () => {
-      try {
+      try{
+        
         const fetchedTips = await getTopTips();
         console.log("Dat data from tips:", fetchTips);
-
+        
 
 
 
@@ -27,7 +28,7 @@ const Highlightedvotedtips: React.FC = () => {
 
           const parsedTip = {
             id: tip.id,
-            author: tip.author.slice(0, 4) + '...' + tip.author.slice(38, 42),
+            author: tip.author.slice(0, 3) + '---' + tip.author.slice(38, 42),
             content: tip.content,
             upvotes: tip.upvote,
             downvotes: tip.downvote,
@@ -38,17 +39,17 @@ const Highlightedvotedtips: React.FC = () => {
         }).filter((tip: any) => tip.id !== 0);
 
         setTips(tipsArray);
-        console.log('Fetched tips in tipsarray log:', tipsArray);
+        console.error('Fetched tips in tipsarray log:', tipsArray);
 
       } catch (error) {
 
         console.error("Error fetching tips... again:", error);
       }
     };
-
+  
     fetchTips();
 
-  }, [getTopTips]);
+  }, [currentAccount, getTopTips]);
 
 
   return (
@@ -70,7 +71,7 @@ const Highlightedvotedtips: React.FC = () => {
 
           {tips.map((tip, index) => (
             <li key={tip.id}>
-              <span className='text-[#40f77d] absolute left-[14rem]'>{index + 1}. Created by {tip.author} </span>
+              <span className='text-xl text-[#40f77d] absolute left-[14rem]'>{index + 1}. Created by {tip.author} </span>
               <span className='text-xl text-[#000] text-center p-2'>{tip.content}</span>
 
             </li>
