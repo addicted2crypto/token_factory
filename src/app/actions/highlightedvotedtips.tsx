@@ -72,6 +72,7 @@ const Highlightedvotedtips: React.FC = () => {
           {tips.map((tip, index) => (
             <li key={tip.id}>
               <span className='text-xl text-[#40f77d] absolute left-[14rem]'>{index + 1}. Created by {tip.author} </span>
+             {/* import vote logic here if logged in */}
               <span className='text-xl text-[#000] text-center p-2'>{tip.content} 👎or 👍</span>
 
             </li>
