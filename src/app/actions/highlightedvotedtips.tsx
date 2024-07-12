@@ -1,5 +1,6 @@
 "use client"
 
+import { network } from 'hardhat';
 import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react'
 import React, { useState, useEffect } from 'react'
 import { useWeb3 } from '../Web3Context'
@@ -17,6 +18,7 @@ const Highlightedvotedtips: React.FC = () => {
         
         const fetchedTips = await getTopTips();
         console.log("Dat data from tips:", fetchTips);
+        console.log("Network and ish:", network)
         
 
 

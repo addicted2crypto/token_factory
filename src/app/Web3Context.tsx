@@ -60,7 +60,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const connectWallet = async () => {
     const network = await provider?.getNetwork();
-    console.log("You are connected to:", network);
+   
     if (!provider) return;
     try {
       const accounts = await provider.send('eth_requestAccounts', []);
@@ -70,8 +70,8 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       setContract(tipsContract);
       setAccount(accounts[0]);
       setIsLoggedIn(true);
-      const network = await provider.getNetwork()
-      console.log(network)
+      const network = await provider.getNetwork();
+      console.log(network);
     } catch (error) {
       console.error('Error connecting wallet:', error);
     }
