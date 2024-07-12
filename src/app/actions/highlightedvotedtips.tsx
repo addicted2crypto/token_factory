@@ -11,6 +11,7 @@ import { useWeb3 } from '../Web3Context'
 const Highlightedvotedtips: React.FC = () => {
   const {currentAccount, getTopTips } = useWeb3();
   const [tips, setTips] = useState<any[]>([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
     const fetchTips = async () => {
@@ -18,9 +19,9 @@ const Highlightedvotedtips: React.FC = () => {
         
         const fetchedTips = await getTopTips();
         console.log("Dat data from tips:", fetchTips);
-        console.log("Network and ish:", network)
+       
         
-
+      //  add check for isLoggedIn here
 
 
         const tipsArray = fetchedTips.map((tip: any, index: number) => {
@@ -36,6 +37,7 @@ const Highlightedvotedtips: React.FC = () => {
             downvotes: tip.downvote,
           };
           console.log(`Parsed tip ${index + 1}:`, parsedTip);
+          
           return parsedTip;
 
         }).filter((tip: any) => tip.id !== 0);

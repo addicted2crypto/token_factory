@@ -31,7 +31,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState<string | null>(null);
   const [account, setAccount] = useState(null);
 
   const contractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
