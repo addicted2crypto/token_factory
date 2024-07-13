@@ -21,6 +21,7 @@ interface Web3ContextProps {
   addTip: (content: string) => Promise<void>;
   upvoteTip: (tipId: number) => Promise<void>;
   getTopTips: () => Promise<any[]>;
+  deleteTips: (tipId: number) => Promise<void>;
 }
 
 
@@ -88,6 +89,12 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     
   };
 
+  const deleteTips = async (tipId: number) => {
+    if(getTopTips.caller === getTopTips.arguments) return;
+    // add delete to gettoptips
+    // await getTopTips.deleteTip(tipId, deleteTips,{deleteTips})
+  }
+
   const upvoteTip = async (tipId: number) => {
     if (!contract) return;
     await contract.vote(tipId, true, { value: ethers.parseEther("0.069") });
@@ -114,7 +121,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, deleteTips }}>
       {children}
     </Web3Context.Provider>
   );

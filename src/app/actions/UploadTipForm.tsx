@@ -43,7 +43,7 @@ const UploadTipForm: React.FC<UploadTipFormProps> = ({contract}) => {
   return (
     <div className='p-3 space-x-1'>
       <textarea value={content} className="rounded-md w-2/3 mt-3 bg-[#9e9d9d] text-[#000]"onChange={(e) => setContent(e.target.value)} />
-      <Button variant="ghost" onClick={handleUploadTip}>Upload Tip</Button>
+      <Button variant="ghost"aria-placeholder='CryptoConfessions' onClick={handleUploadTip}>Upload Tip</Button>
     </div>
   );
 };
