@@ -45,7 +45,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
         if (accounts.length > 0) {
           setCurrentAccount(accounts[0].address);
           setAccount(window.ethereum[0]);
-          setIsLoggedIn(true);
+         
 
           const signer = ethProvider.provider;
           const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
@@ -69,7 +69,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
       setContract(tipsContract);
       setAccount(accounts[0]);
-      setIsLoggedIn(true);
+     
       const network = await provider.getNetwork();
       console.log(network);
     } catch (error) {
