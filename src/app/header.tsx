@@ -51,7 +51,7 @@ const handleContractChange = (contract: ethers.Contract | null) => {
   return (
    <div>
     <div className='pt-2'>
-      wallet object for logged in user
+      Crypto coinfessions.
         {/* <div className='stars absolute left-3 top-[13rem]'>Whats trending in the arena
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
