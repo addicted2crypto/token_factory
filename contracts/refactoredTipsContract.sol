@@ -8,6 +8,8 @@ contract TipsContract {
         string content;
         uint upvotes;
         uint downvotes;
+        // add delete
+        // uint deleteVotes;
     }
 
     mapping(uint => Tip) public tips;
@@ -57,6 +59,7 @@ contract TipsContract {
 
         emit Voted(id, upvote);
     }
+  
 
     function getTopTips() public view returns (Tip[] memory) {
         Tip[] memory topTips = new Tip[](10);
