@@ -1,17 +1,18 @@
 "use client"
 
-import { network } from 'hardhat';
-import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react'
-import React, { useState, useEffect } from 'react'
-import { useWeb3 } from '../Web3Context'
+import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { useWeb3 } from '../Web3Context';
+
 
 
 
 
 const Highlightedvotedtips: React.FC = () => {
-  const {currentAccount, getTopTips } = useWeb3();
+  const {  currentAccount, getTopTips, connectWallet } = useWeb3();
   const [tips, setTips] = useState<any[]>([]);
-  const [isLoggedIn, setIsLoggedIn] = useState(null);
+  // const targetNetworkId ='0xaa36a7';
+  // const [isLoggedIn, setIsLoggedIn] = useState(null);
 
   useEffect(() => {
     const fetchTips = async () => {
@@ -25,7 +26,7 @@ const Highlightedvotedtips: React.FC = () => {
 
 
         const tipsArray = fetchedTips.map((tip: any, index: number) => {
-          console.log(`Raw data to be parsed ${index + 1}:`, tip);
+          // console.log(`Raw data to be parsed ${index + 1}:`, tip);
 
           const id = tip[0] && typeof tip[0].toNumber === 'function' ? tip[0].toNumber() : tip[0];
 
@@ -43,7 +44,7 @@ const Highlightedvotedtips: React.FC = () => {
         }).filter((tip: any) => tip.id !== 0);
 
         setTips(tipsArray);
-        console.error('Fetched tips in tipsarray log:', tipsArray);
+        // console.error('Fetched tips in tipsarray log:', tipsArray);
 
       } catch (error) {
 
@@ -55,7 +56,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   }, [currentAccount, getTopTips]);
 
-
+ 
   return (
     <div className='flex-col pt-3'>
       <div className='flex justify-center gap-3.5'>

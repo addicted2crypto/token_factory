@@ -61,6 +61,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const connectWallet = async () => {
     const network = await provider?.getNetwork();
+    const chainId = network?.chainId;
    
     if (!provider) return;
     try {
@@ -73,6 +74,8 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
      
       const network = await provider.getNetwork();
       console.log(network);
+      const chainId = network.chainId;
+      console.log(chainId);
     } catch (error) {
       console.error('Error connecting wallet:', error);
     }
@@ -93,7 +96,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     if(getTopTips.caller === getTopTips.arguments) return;
     // add delete to gettoptips
     // await getTopTips.deleteTip(tipId, deleteTips,{deleteTips})
-  }
+  };
+
+
 
   const upvoteTip = async (tipId: number) => {
     if (!contract) return;
@@ -105,7 +110,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     // return await contract.getTopTips();
     try {
       const topTips = await contract.getTopTips();
-      console.log("Fetched tips array:", topTips);
+      // console.log("Fetched tips array:", topTips);
 
       return topTips.map((tip: any) => ({
         id: Number(tip[0] as BigNumberish),
@@ -121,7 +126,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, deleteTips }}>
       {children}
     </Web3Context.Provider>
   );
