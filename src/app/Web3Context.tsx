@@ -121,7 +121,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, deleteTips }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips }}>
       {children}
     </Web3Context.Provider>
   );
