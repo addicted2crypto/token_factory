@@ -56,7 +56,7 @@ const Highlightedvotedtips: React.FC = () => {
   
     fetchTips();
 
-  }, [getTopTips, getTopTips]);
+  }, [getTopTips]);
 
  
   return (
@@ -70,7 +70,7 @@ const Highlightedvotedtips: React.FC = () => {
         <Vote className='items-center' />
         <ListChecks />
       </div>
-      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your pain to help others learn! ⬅️</div>
+      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your <span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
       <div className='text-lg pb-3'>
         <ol>
 

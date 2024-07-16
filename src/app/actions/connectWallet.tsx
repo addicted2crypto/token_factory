@@ -2,6 +2,7 @@
 import { Button } from '@/components/ui/button';
 import React, { useState } from 'react';
 import { ethers, parseEther } from 'ethers';
+import { SignInButton } from '@clerk/nextjs';
 
 
 //parseEther for avax as well to minimize e18
@@ -49,7 +50,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
     }
     };
     return (
-    <Button variant="destructive" onClick={connectWallet}>Wallet Connect</Button>
+    <Button variant="destructive" onClick={connectWallet}><SignInButton />Wallet Connect</Button>
     );
 
     };

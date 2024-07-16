@@ -7,6 +7,7 @@ import { ethers } from "ethers";
 
 import UploadTipForm from './actions/UploadTipForm';
 import { Button } from '@/components/ui/button';
+import { SignInButton, SignOutButton } from '@clerk/nextjs';
 
 
 const Header = () => {
@@ -75,14 +76,23 @@ const handleContractChange = (contract: ethers.Contract | null) => {
     
     <div className='absolute right-3 top-2'>
         {!signer ? (
+          
        <ConnectWalletButton 
         onAccountChange={handleAccountChange}
         onProviderChange={handleProviderChange}
         onSignerChange={handleSignerChange}
         onContractChange={handleContractChange}
        />
+       
+       
         ): (
+          <div className='flex gap-1'>
           <Button variant="outline" className="bg-[#091157] text-[#fff]">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
+          
+          <div className='rounded-md bg-slate-600'>
+          <SignOutButton />
+          </div>
+          </div>
         )}
     </div>
    

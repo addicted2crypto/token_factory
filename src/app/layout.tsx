@@ -11,7 +11,6 @@ import { ContractProvider } from './actions/ContractContext';
 
 
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
