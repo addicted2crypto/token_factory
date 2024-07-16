@@ -16,6 +16,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   useEffect(() => {
     const fetchTips = async () => {
+      // if(isLoggedIn){
       try{
         
         const fetchedTips = await getTopTips();
@@ -45,7 +46,8 @@ const Highlightedvotedtips: React.FC = () => {
 
         setTips(tipsArray);
         // console.error('Fetched tips in tipsarray log:', tipsArray);
-
+        // const isLoggedIn = 
+      
       } catch (error) {
 
         console.error("Error fetching tips... again:", error);
@@ -54,7 +56,7 @@ const Highlightedvotedtips: React.FC = () => {
   
     fetchTips();
 
-  }, [currentAccount, getTopTips]);
+  }, [getTopTips, getTopTips]);
 
  
   return (
@@ -68,7 +70,7 @@ const Highlightedvotedtips: React.FC = () => {
         <Vote className='items-center' />
         <ListChecks />
       </div>
-      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. ⬅️</div>
+      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your pain to help others learn! ⬅️</div>
       <div className='text-lg pb-3'>
         <ol>
 
