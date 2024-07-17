@@ -69,7 +69,7 @@ const targetNetworkId ='0xaa36a7';
         const chainId = await window.ethereum.request({method: 'eth_chainId'});
         if(chainId !== targetNetworkId) {
           setNetworkWarning(true);
-          //add change network id to == alert here
+          //add change network id to == alert here`
         } else {
           setNetworkWarning(false);
         }
