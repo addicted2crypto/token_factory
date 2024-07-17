@@ -1,6 +1,8 @@
 "use client"
 
-import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
+import { useAuth, SignInButton, useUser } from '@clerk/nextjs';
+import { Vote, ListChecks, Handshake, GlobeLock, Cctv, DiscAlbum } from 'lucide-react';
+
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 
@@ -9,23 +11,25 @@ import { useWeb3 } from '../Web3Context';
 
 
 const Highlightedvotedtips: React.FC = () => {
-  const {  currentAccount, getTopTips, connectWallet } = useWeb3();
+  const {  currentAccount, getTopTips, connectWallet, switchNetwork, currentNetwork } = useWeb3();
+  const { isLoaded, isSignedIn } = useAuth();
+  const { user } = useUser();
   const [tips, setTips] = useState<any[]>([]);
-  // const targetNetworkId ='0xaa36a7';
-  // const [isLoggedIn, setIsLoggedIn] = useState(null);
-
+  
+ 
+  const [networkWarning, setNetworkWarning] = useState(false);
+const targetNetworkId ='0xaa36a7';
+ //add networks here
+  
   useEffect(() => {
     const fetchTips = async () => {
-      // if(isLoggedIn){
+      if(isSignedIn && currentAccount) {
       try{
         
         const fetchedTips = await getTopTips();
+
         console.log("Dat data from tips:", fetchTips);
        
-        
-      //  add check for isLoggedIn here
-
-
         const tipsArray = fetchedTips.map((tip: any, index: number) => {
           // console.log(`Raw data to be parsed ${index + 1}:`, tip);
 
@@ -52,11 +56,50 @@ const Highlightedvotedtips: React.FC = () => {
 
         console.error("Error fetching tips... again:", error);
       }
+    }
     };
   
     fetchTips();
 
-  }, [getTopTips]);
+  }, [isSignedIn, currentAccount, getTopTips]);
+
+  useEffect(() => {
+    const checkNetwork = async () => {
+      if(window.ethereum) {
+        const chainId = await window.ethereum.request({method: 'eth_chainId'});
+        if(chainId !== targetNetworkId) {
+          setNetworkWarning(true);
+          //add change network id to == alert here
+        } else {
+          setNetworkWarning(false);
+        }
+      }
+    };
+    checkNetwork();
+
+    window.ethereum.on('chainChanged', (chainId: string) => {
+      if (chainId !== targetNetworkId) {
+        setNetworkWarning(true);
+
+      } else {
+        setNetworkWarning(false);
+        window.location.reload();
+      }
+    });
+    return () => {
+      if (window.ethereum.removeListener) {
+        window.ethereum.removeListener('ChainChanged', checkNetwork);
+      }
+    };
+  }, [targetNetworkId]);
+
+  const handleSwitchNetwork = async () => {
+    try {
+      await switchNetwork(targetNetworkId);
+    } catch (error){
+      console.log('Failed to switch to the correct network', error);
+    }
+  };
 
  
   return (
@@ -71,6 +114,20 @@ const Highlightedvotedtips: React.FC = () => {
         <ListChecks />
       </div>
       <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your <span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
+      {!isLoaded ? (
+        <p className='animate'>Loading...</p>
+      ) : !isSignedIn ? (
+        <SignInButton mode='modal'>
+          <button className='btn-primary'>Sign in by Connecting Wallet</button>
+        </SignInButton>
+      ): networkWarning ? (
+        <div>
+          <p>
+            Please switch to the Sepolia network.
+            <button onClick={handleSwitchNetwork} className='btn-warning'>Switch Network</button>
+          </p>
+        </div>
+      ) : (
       <div className='text-lg pb-3'>
         <ol>
 
@@ -88,6 +145,7 @@ const Highlightedvotedtips: React.FC = () => {
          
         </ol>
       </div>
+      )}
       <div className='flex justify-center gap-3 pb-10'>
         <GlobeLock /> <Handshake /> <Cctv />
       </div>

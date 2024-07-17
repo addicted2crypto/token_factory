@@ -3,6 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { BigNumberish, ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
+import { network } from 'hardhat';
 
 
 
@@ -22,6 +23,8 @@ interface Web3ContextProps {
   upvoteTip: (tipId: number) => Promise<void>;
   getTopTips: () => Promise<any[]>;
   deleteTips: (tipId: number) => Promise<void>;
+  switchNetwork: (networkId: string) => Promise<void>;
+  currentNetwork: string;
 }
 
 
@@ -32,8 +35,8 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   const [currentAccount, setCurrentAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
-  const [isLoggedIn, setIsLoggedIn] = useState<string | null>(null);
-  const [account, setAccount] = useState(null);
+  
+  const [currentNetwork, setCurrentNetwork] = useState<string>('');
 
   const contractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
 
@@ -45,13 +48,20 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       ethProvider.listAccounts().then(accounts => {
         if (accounts.length > 0) {
           setCurrentAccount(accounts[0].address);
-          setAccount(window.ethereum[0]);
+          // setCurrentAccount(window.ethereum[0]);
          
 
           const signer = ethProvider.provider;
           const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
           setContract(tipsContract);
         }
+      });
+      window.ethereum.request({method: 'eth_chainId'}).then((chainId: string) => {
+        setCurrentNetwork(chainId);
+      });
+      window.ethereum.on('chainChanged', (chainId: string) => {
+        setCurrentNetwork(chainId);
+        window.location.reload();
       });
     }
   }, []);
@@ -60,8 +70,8 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   
 
   const connectWallet = async () => {
-    const network = await provider?.getNetwork();
-    const chainId = network?.chainId;
+    // const network = await provider?.getNetwork();
+    // const chainId = network?.chainId;
    
     if (!provider) return;
     try {
@@ -70,12 +80,12 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       const signer = await provider.getSigner();
       const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
       setContract(tipsContract);
-      setAccount(accounts[0]);
+      
      
       const network = await provider.getNetwork();
-      console.log(network);
-      const chainId = network.chainId;
-      console.log(chainId);
+
+      setCurrentNetwork(network.chainId.toString());
+     
     } catch (error) {
       console.error('Error connecting wallet:', error);
     }
@@ -94,8 +104,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const deleteTips = async (tipId: number) => {
     if(getTopTips.caller === getTopTips.arguments) return;
-    // add delete to gettoptips
-    // await getTopTips.deleteTip(tipId, deleteTips,{deleteTips})
+   
   };
 
 
@@ -107,11 +116,10 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const getTopTips = async () => {
     if (!contract) return [];
-    // return await contract.getTopTips();
+   
     try {
       const topTips = await contract.getTopTips();
-      // console.log("Fetched tips array:", topTips);
-
+     
       return topTips.map((tip: any) => ({
         id: Number(tip[0] as BigNumberish),
         author: tip[1] ,
@@ -125,8 +133,20 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const switchNetwork = async (networkId: string) => {
+    if (!window.ethereum) return;
+    try {
+      await window.ethereum.request({
+        method: 'wallet_switchEthereumChain',
+        params: [{ chainId: network }],
+      });
+    } catch (error) {
+      console.error('Error switching networks do better: ', error);
+    }
+  };
+
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, deleteTips }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, deleteTips, currentNetwork, switchNetwork }}>
       {children}
     </Web3Context.Provider>
   );
