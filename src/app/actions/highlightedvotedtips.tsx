@@ -77,10 +77,11 @@ const Highlightedvotedtips: React.FC = () => {
           {/* add will have to map voted rankings in mapping */}
 
           {tips.map((tip, index) => (
-            <li key={tip.id}>
-              <span className='text-xl text-[#40f77d] absolute left-[14rem]'>{index + 1}. Created by {tip.author} </span>
+            <li key={tip.id} className="p-2 overflow-auto">
+              
+              <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {tip.author} </span>
              {/* import vote logic here if logged in */}
-              <span className='text-xl text-[#000] text-center p-2'>{tip.content} 👎or 👍</span>
+             <span className='text-xl text-[#000] text-center overflow-auto'>{tip.content}</span>
 
             </li>
           ))}
