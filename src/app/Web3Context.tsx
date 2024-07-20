@@ -3,7 +3,7 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { BigNumberish, ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
-import { network } from 'hardhat';
+// import { network } from 'hardhat';
 
 
 
@@ -138,8 +138,10 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     try {
       await window.ethereum.request({
         method: 'wallet_switchEthereumChain',
-        params: [{ chainId: network }],
+        params: [{ chainId: networkId }],
+       
       });
+      console.log('window.request.chainId');
     } catch (error) {
       console.error('Error switching networks do better: ', error);
     }
