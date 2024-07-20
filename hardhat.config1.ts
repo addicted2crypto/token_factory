@@ -13,12 +13,16 @@ if (!PRIVATE_KEY || !API_URL) {
 const config: HardhatUserConfig = {
   solidity: "0.8.24",
   networks: {
-    sepolia: {
-      url: API_URL,
-      accounts: [PRIVATE_KEY],
-
-    },
+    sepolia:  {
+      url: process.env.API_URL,
+      accounts: [PRIVATE_KEY]
   },
-};
+},
+etherscan: {
+  apiKey: process.env.ETHERSCAN_API_KEY
+}
+    
+  };
+
 
 export default config;
