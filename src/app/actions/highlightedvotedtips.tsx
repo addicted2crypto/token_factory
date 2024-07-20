@@ -117,8 +117,8 @@ const targetNetworkId ='0xaa36a7';
       {!isLoaded ? (
         <p className='animate'>Loading...</p>
       ) : !isSignedIn ? (
-        <SignInButton mode='modal'>
-          <button className='btn-primary'>Sign in by Connecting Wallet</button>
+        <SignInButton mode='modal'>Sign in by Connecting Wallet
+         
         </SignInButton>
       ): networkWarning ? (
         <div>
