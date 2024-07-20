@@ -1,5 +1,6 @@
 "use client"
 
+import { Button } from '@/components/ui/button';
 import { useAuth, SignInButton, useUser } from '@clerk/nextjs';
 import { Vote, ListChecks, Handshake, GlobeLock, Cctv, DiscAlbum } from 'lucide-react';
 
@@ -18,7 +19,7 @@ const Highlightedvotedtips: React.FC = () => {
   
  
   const [networkWarning, setNetworkWarning] = useState(false);
-const targetNetworkId ='0xaa36a7';
+const targetNetworkId ='11155111';
  //add networks here
   
   useEffect(() => {
@@ -121,10 +122,10 @@ const targetNetworkId ='0xaa36a7';
          
         </SignInButton>
       ): networkWarning ? (
-        <div>
-          <p>
+        <div className='gap-1'>
+          <p className='text-2xl text-[#bc0000] p-2'>
             Please switch to the Sepolia network.
-            <button onClick={handleSwitchNetwork} className='btn-warning'>Switch Network</button>
+            <Button onClick={handleSwitchNetwork} className='btn-warning'>Switch Network</Button>
           </p>
         </div>
       ) : (
