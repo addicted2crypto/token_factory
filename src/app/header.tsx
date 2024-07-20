@@ -15,6 +15,7 @@ const Header = () => {
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
+  
 
   const TipsContractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
   const TipsContractABI = require("../abis/TipsContractABI.json");
@@ -91,6 +92,9 @@ const Header = () => {
               <Button variant="outline" className="bg-[#091157] text-[#fff]">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
               <Separator orientation='vertical' />
               <div className='rounded-md bg-slate-600'>
+                {/* <button className='p-2'>Disconnnect wallet
+                 add fix this to show logged in disconnect*/}
+                {/* </button> */}
                 <SignOutButton />
               </div>
             </div>
