@@ -15,8 +15,8 @@ contract TipsContract {
     mapping(uint => Tip) public tips;
     mapping(address => uint) public votes;
     uint public tipsCount;
-    uint public constant UPLOAD_COST = 0.69 ether;
-    uint public constant VOTE_COST = 0.069 ether;
+    uint public  UPLOAD_COST = 0.69 ether;
+    uint public  VOTE_COST = 0.069 ether;
 
     address public owner;
 
@@ -68,10 +68,18 @@ contract TipsContract {
         }
         return topTips;
     }
-    //add function setCost(unit256 newCost) pubic onlyOwner {
-    //     cost = newCost;
-    // }
-
+    // add setCost to contract abi
+    function setCost(uint256 newCost) public onlyOwner {
+        UPLOAD_COST = newCost;
+        VOTE_COST = newCost;
+    }
+     function getAllTips() public view returns (Tip[] memory) {
+        Tip[] memory allTips = new Tip[](100);
+        for (uint i = 1; i <= tipsCount && i <= 100 && i > 10; i++) {
+            allTips[i -1] = tips[i];
+        }
+        return allTips;
+    }
     function withdraw() public onlyOwner {
         payable(owner).transfer(address(this).balance);
 }

@@ -19,7 +19,7 @@ const Highlightedvotedtips: React.FC = () => {
   
  
   const [networkWarning, setNetworkWarning] = useState(false);
-const targetNetworkId ='11155111';
+const targetNetworkId ='0xaa36a7';
  //add networks here
   
   useEffect(() => {

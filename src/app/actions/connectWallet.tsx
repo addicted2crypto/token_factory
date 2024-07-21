@@ -1,8 +1,8 @@
-"use client"
+
 import { Button } from '@/components/ui/button';
-import React, { useState } from 'react';
-import { ethers, parseEther } from 'ethers';
-import { SignInButton } from '@clerk/nextjs';
+import React from 'react';
+import { ethers} from 'ethers';
+
 
 
 //parseEther for avax as well to minimize e18
@@ -24,7 +24,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   // const [provider, setProvider] = useState(null);
   // const [signer, setSigner] = useState(null);
 
-  const tipsContractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
+  const tipsContractAddress = "0x44be9580f17Fd568E205F53baDC38735b86f2649";
   const TipsContractABI = require( "../../abis/TipsContractABI.json");
 
   const connectWallet = async () => {
