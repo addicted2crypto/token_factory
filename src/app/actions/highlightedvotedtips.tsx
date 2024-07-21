@@ -2,7 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useAuth, SignInButton, useUser } from '@clerk/nextjs';
-import { Vote, ListChecks, Handshake, GlobeLock, Cctv, DiscAlbum } from 'lucide-react';
+import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
@@ -24,30 +24,30 @@ const targetNetworkId ='11155111';
   
   useEffect(() => {
     const fetchTips = async () => {
-      if(isSignedIn && currentAccount) {
+      if(isSignedIn && currentAccount && !networkWarning) {
       try{
         
         const fetchedTips = await getTopTips();
 
-        console.log("Dat data from tips:", fetchTips);
+        // console.log("Dat data from tips:", fetchTips);
        
-        const tipsArray = fetchedTips.map((tip: any, index: number) => {
+        const tipsArray = fetchedTips.map((tip: any, index: number) => ({
           // console.log(`Raw data to be parsed ${index + 1}:`, tip);
 
-          const id = tip[0] && typeof tip[0].toNumber === 'function' ? tip[0].toNumber() : tip[0];
+          // const id = tip[0] && typeof tip[0].toNumber === 'function' ? tip[0].toNumber() : tip[0];
 
-          const parsedTip = {
+          // const parsedTip = {
             id: tip.id,
             author: tip.author.slice(0, 3) + '---' + tip.author.slice(38, 42),
             content: tip.content,
             upvotes: tip.upvote,
             downvotes: tip.downvote,
-          };
-          console.log(`Parsed tip ${index + 1}:`, parsedTip);
+          // };
+          // console.log(`Parsed tip ${index + 1}:`, parsedTip);
           
-          return parsedTip;
+          // return parsedTip;
 
-        }).filter((tip: any) => tip.id !== 0);
+        })).filter((tip: any) => tip.id !== 0);
 
         setTips(tipsArray);
         // console.error('Fetched tips in tipsarray log:', tipsArray);
@@ -62,7 +62,7 @@ const targetNetworkId ='11155111';
   
     fetchTips();
 
-  }, [isSignedIn, currentAccount, getTopTips]);
+  }, [isSignedIn, currentAccount, getTopTips, networkWarning]);
 
   useEffect(() => {
     const checkNetwork = async () => {
@@ -77,19 +77,22 @@ const targetNetworkId ='11155111';
       }
     };
     checkNetwork();
-
-    window.ethereum.on('chainChanged', (chainId: string) => {
+    const handleChainChanged = (chainId: string) => {
       if (chainId !== targetNetworkId) {
         setNetworkWarning(true);
-
       } else {
         setNetworkWarning(false);
         window.location.reload();
       }
-    });
+    };
+
+    window.ethereum.on('chainChanged', handleChainChanged); 
+
+     
+  
     return () => {
       if (window.ethereum.removeListener) {
-        window.ethereum.removeListener('ChainChanged', checkNetwork);
+        window.ethereum.removeListener('ChainChanged', handleChainChanged);
       }
     };
   }, [targetNetworkId]);

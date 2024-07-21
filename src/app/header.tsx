@@ -87,15 +87,20 @@ const Header = () => {
             />
 
           ) : (
-
-            <div className='md:w-[max]'>
-              <Button variant="outline" className="bg-[#091157] text-[#fff]">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
-              <Separator orientation='vertical' />
+            
+            <div className='md:w-[max] space-y-1'>
+              
+              <Button variant="outline" className="bg-[#091157] text-[#fff] hover:-translate-x-1 hover:-translate-y-1">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
+              
               <div className='rounded-md bg-slate-600'>
                 {/* <button className='p-2'>Disconnnect wallet
                  add fix this to show logged in disconnect*/}
                 {/* </button> */}
-                <SignOutButton />
+               
+              </div>
+              <Separator orientation='horizontal' />
+              <div className='rounded-md border-2 bg-[#937373] hover:translate-x-1 hover:translate-y-1 text-[#e2e0e0]'>
+              <SignOutButton />
               </div>
             </div>
           )}

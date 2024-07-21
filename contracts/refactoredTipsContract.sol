@@ -68,6 +68,10 @@ contract TipsContract {
         }
         return topTips;
     }
+    //add function setCost(unit256 newCost) pubic onlyOwner {
+    //     cost = newCost;
+    // }
+
     function withdraw() public onlyOwner {
         payable(owner).transfer(address(this).balance);
 }
