@@ -12,63 +12,82 @@ import { useWeb3 } from '../Web3Context';
 
 
 const Highlightedvotedtips: React.FC = () => {
-  const {  currentAccount, getTopTips, connectWallet, switchNetwork, currentNetwork } = useWeb3();
+  const { currentAccount, getTopTips, switchNetwork, currentNetwork, getAllTips } = useWeb3();
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
   const [tips, setTips] = useState<any[]>([]);
-  
- 
+  const [allTips, setAllTips] = useState<any[]>([]);
+
+
   const [networkWarning, setNetworkWarning] = useState(false);
-const targetNetworkId ='0xaa36a7';
- //add networks here
-  
+  const targetNetworkId = '0xaa36a7';
+  //add networks here
+
   useEffect(() => {
     const fetchTips = async () => {
-      if(isSignedIn && currentAccount && !networkWarning) {
-      try{
-        
-        const fetchedTips = await getTopTips();
+      if (isSignedIn && currentAccount && !networkWarning) {
+        try {
 
-        // console.log("Dat data from tips:", fetchTips);
-       
-        const tipsArray = fetchedTips.map((tip: any, index: number) => ({
-          // console.log(`Raw data to be parsed ${index + 1}:`, tip);
-
-          // const id = tip[0] && typeof tip[0].toNumber === 'function' ? tip[0].toNumber() : tip[0];
-
-          // const parsedTip = {
+          const fetchedTips = await getTopTips();
+          const tipsArray = fetchedTips.map((tip: any, index: number) => ({
+           
             id: tip.id,
-            author: tip.author.slice(0, 3) + '---' + tip.author.slice(38, 42),
+            author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
             content: tip.content,
             upvotes: tip.upvote,
             downvotes: tip.downvote,
-          // };
-          // console.log(`Parsed tip ${index + 1}:`, parsedTip);
-          
-          // return parsedTip;
+           
+          })).filter((tip: any) => tip.id !== 0);
 
-        })).filter((tip: any) => tip.id !== 0);
+          setTips(tipsArray);
+          // console.error('Fetched tips in tipsarray log:', tipsArray);
+          // const isLoggedIn = 
 
-        setTips(tipsArray);
-        // console.error('Fetched tips in tipsarray log:', tipsArray);
-        // const isLoggedIn = 
-      
-      } catch (error) {
+        } catch (error) {
 
-        console.error("Error fetching tips... again:", error);
+          console.error("Error fetching tips... again:", error);
+        }
       }
-    }
     };
-  
+
     fetchTips();
 
   }, [isSignedIn, currentAccount, getTopTips, networkWarning]);
 
   useEffect(() => {
+    const fetchAllUploadedTips = async () => {
+    if (isSignedIn && currentAccount && !networkWarning) {
+      try {
+        const fetchedAllTips = await getAllTips();
+
+        const allTipsArray = fetchedAllTips.map((tip: any, index: number) => ({
+
+          id: tip.id,
+          author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
+          content: tip.content,
+          upvotes: tip.upvote,
+          downvotes: tip.downvote,
+        })).filter((tip: any) => tip.id !== 0);
+
+        setAllTips(allTipsArray);
+
+      } catch (error) {
+
+          console.error("Error fetching tips... again:", error);
+        }
+      }
+    };
+    fetchAllUploadedTips();
+  }, [isSignedIn, currentAccount, getAllTips, networkWarning])
+
+
+
+
+  useEffect(() => {
     const checkNetwork = async () => {
-      if(window.ethereum) {
-        const chainId = await window.ethereum.request({method: 'eth_chainId'});
-        if(chainId !== targetNetworkId) {
+      if (window.ethereum) {
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        if (chainId !== targetNetworkId) {
           setNetworkWarning(true);
           //add change network id to == alert here`
         } else {
@@ -86,10 +105,10 @@ const targetNetworkId ='0xaa36a7';
       }
     };
 
-    window.ethereum.on('chainChanged', handleChainChanged); 
+    window.ethereum.on('chainChanged', handleChainChanged);
 
-     
-  
+
+
     return () => {
       if (window.ethereum.removeListener) {
         window.ethereum.removeListener('ChainChanged', handleChainChanged);
@@ -100,12 +119,12 @@ const targetNetworkId ='0xaa36a7';
   const handleSwitchNetwork = async () => {
     try {
       await switchNetwork(targetNetworkId);
-    } catch (error){
+    } catch (error) {
       console.log('Failed to switch to the correct network', error);
     }
   };
 
- 
+
   return (
     <div className='flex-col pt-3'>
       <div className='flex justify-center gap-3.5'>
@@ -122,9 +141,9 @@ const targetNetworkId ='0xaa36a7';
         <p className='animate'>Loading...</p>
       ) : !isSignedIn ? (
         <SignInButton mode='modal'>Sign in by Connecting Wallet
-         
+
         </SignInButton>
-      ): networkWarning ? (
+      ) : networkWarning ? (
         <div className='gap-1'>
           <p className='text-2xl text-[#bc0000] p-2'>
             Please switch to the Sepolia network.
@@ -132,23 +151,36 @@ const targetNetworkId ='0xaa36a7';
           </p>
         </div>
       ) : (
-      <div className='text-lg pb-3'>
-        <ol>
+        <div className='text-lg pb-3'>
+          <ol>
 
-          {/* add will have to map voted rankings in mapping */}
+            {/* add will have to map voted rankings in mapping */}
 
-          {tips.map((tip, index) => (
-            <li key={tip.id} className="p-2 overflow-auto">
+            {tips.map((tip, index) => (
+              <li key={tip.id} className="p-2 overflow-auto">
+
+                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {tip.author} </span>
+                {/* import vote logic here if logged in */}
+                <span className='text-xl text-[#000] text-center overflow-auto'>{tip.content}</span>
+
+              </li>
+            ))}
+
+          </ol>
+          <ol>
+            {allTips.map((tips, index) => (
+             <li key={tips.id} className="p-2 overflow-auto">
+              <span className='text-xl text-[#000] absolute left-[.25] sm:left-[3rem] md:left-[14rem]'>{index + 1}.Created by {tips.author}
+                {tips.content}
+              </span>
+              </li>
+            ))}
+            
+               
+
               
-              <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {tip.author} </span>
-             {/* import vote logic here if logged in */}
-             <span className='text-xl text-[#000] text-center overflow-auto'>{tip.content}</span>
-
-            </li>
-          ))}
-         
-        </ol>
-      </div>
+          </ol>
+        </div>
       )}
       <div className='flex justify-center gap-3 pb-10'>
         <GlobeLock /> <Handshake /> <Cctv />

@@ -22,6 +22,7 @@ interface Web3ContextProps {
   addTip: (content: string) => Promise<void>;
   upvoteTip: (tipId: number) => Promise<void>;
   getTopTips: () => Promise<any[]>;
+  getAllTips: () => Promise<any[]>;
   deleteTips: (tipId: number) => Promise<void>;
   switchNetwork: (networkId: string) => Promise<void>;
   currentNetwork: string;
@@ -126,12 +127,35 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
         content: tip[2],
         upvotes: Number(tip[3] as BigNumberish),
         downvotes: Number(tip[4]as BigNumberish),
-      }));
+      }))
+     
+      
     } catch (error) {
       console.error("Error fetching tips:", error);
       return [];
     }
   };
+
+  const getAllTips = async () => {
+    if (!contract) return [];
+
+    try {
+    const allTips = await contract.getAllTips();
+        console.log('All tips found', getAllTips)
+     return allTips.map((tip: any) => ({
+      id: Number(tip[0] as BigNumberish),
+      author: tip[1] ,
+      content: tip[2],
+      upvotes: Number(tip[3] as BigNumberish),
+      downvotes: Number(tip[4]as BigNumberish),
+     }))
+    } catch (error) {
+      console.error("Error fetching tips:", error);
+      return [];
+    }
+    };
+
+  
 
   const switchNetwork = async (networkId: string) => {
     if (!window.ethereum) return;
@@ -148,7 +172,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, deleteTips, currentNetwork, switchNetwork }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, getAllTips, deleteTips, currentNetwork, switchNetwork }}>
       {children}
     </Web3Context.Provider>
   );
