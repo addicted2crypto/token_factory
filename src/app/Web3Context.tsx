@@ -39,7 +39,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   
   const [currentNetwork, setCurrentNetwork] = useState<string>('');
 
-  const contractAddress = "0xCb4AaF0c0cC6080cA85e5D9B4c0Afa3674A4e363";
+  const contractAddress = "0xd65aD82b628B0ec053AE83C89cEb6cD5D9420321";
+  
+
 
   useEffect(() =>{
     if (window.ethereum) {
@@ -140,7 +142,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     if (!contract) return [];
 
     try {
-    const allTips = await contract.getAllTips();
+    const allTips = await contract.getTop90Tips();
         console.log('All tips found', getAllTips)
      return allTips.map((tip: any) => ({
       id: Number(tip[0] as BigNumberish),

@@ -46,7 +46,7 @@ contract TipsContract {
         require(votes[msg.sender] < 3, "Exceeded daily vote limit, come back tomorrow or `${add time stamp}`");
 
 
-        //add off chain option here
+       
         Tip storage tip = tips[id];
         require(tip.id != 0, "Tip does not exist");
 
@@ -60,27 +60,56 @@ contract TipsContract {
         emit Voted(id, upvote);
     }
   
+  function sortTipsByUpvotes(Tip[] memory tipsArray) internal pure {
+    uint256 n = tipsArray.length;
+    for(uint256 i = 0; i < n; i++) {
+        for(uint256 j = i + 1; j < n; j++) {
+            if(tipsArray[i].upvotes < tipsArray[j].upvotes) {
+                Tip memory temp = tipsArray[i];
+                tipsArray[i] = tipsArray[j];
+                tipsArray[j] = temp;
+            }
+        }
+    }
+}
 
     function getTopTips() public view returns (Tip[] memory) {
-        Tip[] memory topTips = new Tip[](10);
-        for (uint i = 1; i <= tipsCount && i <= 10; i++) {
-            topTips[i - 1] = tips[i];
+        Tip[] memory allTips = new Tip[](tipsCount);
+        for (uint i = 0; i < tipsCount; i++) {
+            allTips[i] = tips[i + 1];
         }
-        return topTips;
+        sortTipsByUpvotes(allTips);
+    
+        Tip[] memory top10Tips = new Tip[](tipsCount > 10 ? 10 : tipsCount);
+        for (uint i = 0; i < top10Tips.length; i++) {
+            top10Tips[i] = allTips[i];
+        }
+        return top10Tips;
     }
+
+     function getTop90Tips() public view returns (Tip[] memory) {
+        Tip[] memory allTips = new Tip[](tipsCount);
+        for(uint i = 0; i < tipsCount; i++){
+            allTips[i] = tips[i + 1];
+        }
+
+        sortTipsByUpvotes(allTips);
+
+        uint next90Length = tipsCount > 10 ? 90 : (tipsCount > 10 ? tipsCount - 10 : 0);
+        Tip[] memory next90Tips = new Tip[](next90Length);
+        for (uint i = 0; i < next90Tips.length; i++) {
+            next90Tips[i] = allTips[i + 10];
+        }
+        return next90Tips;
+     }
     // add setCost to contract abi
     function setCost(uint256 newCost) public onlyOwner {
         UPLOAD_COST = newCost;
         VOTE_COST = newCost;
     }
-     function getAllTips() public view returns (Tip[] memory) {
-        Tip[] memory allTips = new Tip[](100);
-        for (uint i = 1; i <= tipsCount && i <= 100 && i > 10; i++) {
-            allTips[i -1] = tips[i];
-        }
-        return allTips;
-    }
     function withdraw() public onlyOwner {
         payable(owner).transfer(address(this).balance);
 }
+
+
 }

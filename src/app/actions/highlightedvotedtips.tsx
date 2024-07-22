@@ -60,20 +60,20 @@ const Highlightedvotedtips: React.FC = () => {
       try {
         const fetchedAllTips = await getAllTips();
 
-        const allTipsArray = fetchedAllTips.map((tip: any, index: number) => ({
+        const allTipsArray = fetchedAllTips.map((tips: any, index: number) => ({
 
-          id: tip.id,
-          author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
-          content: tip.content,
-          upvotes: tip.upvote,
-          downvotes: tip.downvote,
-        })).filter((tip: any) => tip.id !== 0);
+          id: tips.id,
+          author: tips.author.slice(0, 3) + '...' + tips.author.slice(39, 42),
+          content: tips.content,
+          upvotes: tips.upvote,
+          downvotes: tips.downvote,
+        })).filter((tips: any) => tips.id !== 0);
 
         setAllTips(allTipsArray);
 
       } catch (error) {
 
-          console.error("Error fetching tips... again:", error);
+          console.error("Error fetching tip all the tips:", error);
         }
       }
     };
