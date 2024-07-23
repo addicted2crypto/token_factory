@@ -160,13 +160,14 @@ const Highlightedvotedtips: React.FC = () => {
               <li key={tip.id} className="p-2 overflow-auto">
 
                 <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {tip.author} </span>
-                {/* import vote logic here if logged in */}
+                
                 <span className='text-xl text-[#000] text-center overflow-auto'>{tip.content}</span>
 
               </li>
             ))}
 
           </ol>
+          <div className='text-md p-1'>
           <ol>
             {allTips.map((tips, index) => (
              <li key={tips.id} className="p-2 overflow-auto">
@@ -174,12 +175,14 @@ const Highlightedvotedtips: React.FC = () => {
                 {tips.content}
               </span>
               </li>
+           
             ))}
             
                
 
               
           </ol>
+          </div>
         </div>
       )}
       <div className='flex justify-center gap-3 pb-10'>

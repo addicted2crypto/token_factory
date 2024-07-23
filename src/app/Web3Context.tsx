@@ -142,8 +142,8 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     if (!contract) return [];
 
     try {
-    const allTips = await contract.getTop90Tips();
-        console.log('All tips found', getAllTips)
+    const allTips = await contract.getAllTips();
+        console.log('All tips found', getTopTips)
      return allTips.map((tip: any) => ({
       id: Number(tip[0] as BigNumberish),
       author: tip[1] ,
