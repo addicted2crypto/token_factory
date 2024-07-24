@@ -5,12 +5,12 @@ import { useState } from 'react';
 
 
 
-
+const [loggedInUser, setWallet] = useState(0);
 
 function SendWalletData() {
    
 
-    const [loggedInUser, setWallet] = useState(0);
+   
     
   return (
    <>
