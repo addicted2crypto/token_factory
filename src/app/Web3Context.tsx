@@ -70,7 +70,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   }, []);
 
 
-  
+  const SendWalletData = async () => {
+    console.log(SendWalletData.arguments)
+  }
 
   const connectWallet = async () => {
     // const network = await provider?.getNetwork();
