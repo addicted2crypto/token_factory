@@ -12,10 +12,11 @@ import { useWeb3 } from '../Web3Context';
 
 
 const Highlightedvotedtips: React.FC = () => {
-  const { currentAccount, getTopTips, switchNetwork, currentNetwork, getAllTips } = useWeb3();
+  const { currentAccount, getTopTips, switchNetwork, currentNetwork, getTop90Tips } = useWeb3();
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
   const [tips, setTips] = useState<any[]>([]);
+  
   const [allTips, setAllTips] = useState<any[]>([]);
 
 
@@ -25,7 +26,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   useEffect(() => {
     const fetchTips = async () => {
-      if (isSignedIn && currentAccount && !networkWarning) {
+      if (isSignedIn && currentAccount && !networkWarning && currentNetwork) {
         try {
 
           const fetchedTips = await getTopTips();
@@ -52,33 +53,33 @@ const Highlightedvotedtips: React.FC = () => {
 
     fetchTips();
 
-  }, [isSignedIn, currentAccount, getTopTips, networkWarning]);
+  }, [isSignedIn, currentAccount, getTopTips, networkWarning, currentNetwork]);
 
   useEffect(() => {
     const fetchAllUploadedTips = async () => {
     if (isSignedIn && currentAccount && !networkWarning) {
       try {
-        const fetchedAllTips = await getAllTips();
+        const fetchedAllTips = await getTop90Tips();
 
-        const allTipsArray = fetchedAllTips.map((tips: any, index: number) => ({
+        const allTipsArray = fetchedAllTips.map((allTips: any, index: number) => ({
 
-          id: tips.id,
-          author: tips.author.slice(0, 3) + '...' + tips.author.slice(39, 42),
-          content: tips.content,
-          upvotes: tips.upvote,
-          downvotes: tips.downvote,
-        })).filter((tips: any) => tips.id !== 0);
+          id: allTips.id,
+          author: allTips.author.slice(0, 3) + '...' + allTips.author.slice(39, 42),
+          content: allTips.content,
+          upvotes: allTips.upvote,
+          downvotes: allTips.downvote,
+        })).filter((allTips: any) => allTips.id !== 0);
 
         setAllTips(allTipsArray);
 
       } catch (error) {
 
-          console.error("Error fetching tip all the tips:", error);
+          console.error("Error fetching all the tips:", error);
         }
       }
     };
     fetchAllUploadedTips();
-  }, [isSignedIn, currentAccount, getAllTips, networkWarning])
+  }, [isSignedIn, currentAccount, getTop90Tips, networkWarning])
 
 
 

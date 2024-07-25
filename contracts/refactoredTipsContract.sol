@@ -6,14 +6,16 @@ contract TipsContract {
         uint id;
         address payable author;
         string content;
-        uint upvotes;
-        uint downvotes;
-        // add delete
-        // uint deleteVotes;
+       int votes;
+    }
+
+    struct Voter {
+        uint dailyVoteCount;
+        uint lastVoteTimeStamp;
     }
 
     mapping(uint => Tip) public tips;
-    mapping(address => uint) public votes;
+    mapping(address => Voter) public voters;
     uint public tipsCount;
     uint public  UPLOAD_COST = 0.69 ether;
     uint public  VOTE_COST = 0.069 ether;
@@ -33,38 +35,43 @@ contract TipsContract {
     event Voted(uint id, bool upvote);
 
     function uploadTip(string memory content) public payable {
-        
+        require(msg.value >= UPLOAD_COST, "Send more ETH to upload a tip");
 
         tipsCount++;
-        tips[tipsCount] = Tip(tipsCount, payable(msg.sender), content, 0, 0);
+        tips[tipsCount] = Tip(tipsCount, payable(msg.sender), content, 0);
         
         emit TipUploaded(tipsCount, msg.sender, content);
     }
 
     function vote(uint id, bool upvote) public payable {
-        require(msg.value == VOTE_COST, "Send More");
-        require(votes[msg.sender] < 3, "Exceeded daily vote limit, come back tomorrow or `${add time stamp}`");
-
-
-       
+        require(msg.value == VOTE_COST, "Send More ETH to vote for your favorite TIP");
         Tip storage tip = tips[id];
-        require(tip.id != 0, "Tip does not exist");
+        require(tip.id != 0, "Tip isn't minted yet");
 
-        votes[msg.sender]++;
+        Voter storage voter = voters[msg.sender];
+
+        if (block.timestamp > voter.lastVoteTimeStamp + 1 days) {
+            voter.dailyVoteCount = 0;
+            voter.lastVoteTimeStamp = block.timestamp;
+        }
+        require(voter.dailyVoteCount < 3, "Exceeded daily  wallet vote limit, come back tomorrow");
+
+        voter.dailyVoteCount++;
         if (upvote) {
-            tip.upvotes++;
+            tip.votes++;
         } else {
-            tip.downvotes++;
+            tip.votes--;
         }
 
-        emit Voted(id, upvote);
+       emit Voted(id, upvote);
     }
+
   
   function sortTipsByUpvotes(Tip[] memory tipsArray) internal pure {
     uint256 n = tipsArray.length;
     for(uint256 i = 0; i < n; i++) {
         for(uint256 j = i + 1; j < n; j++) {
-            if(tipsArray[i].upvotes < tipsArray[j].upvotes) {
+            if(tipsArray[i].votes < tipsArray[j].votes) {
                 Tip memory temp = tipsArray[i];
                 tipsArray[i] = tipsArray[j];
                 tipsArray[j] = temp;
@@ -95,14 +102,14 @@ contract TipsContract {
 
         sortTipsByUpvotes(allTips);
 
-        uint next90Length = tipsCount > 10 ? 90 : (tipsCount > 10 ? tipsCount - 10 : 0);
+        uint next90Length = (tipsCount > 10) ? (tipsCount - 10 > 90 ? 90 : tipsCount - 10) : 0;
         Tip[] memory next90Tips = new Tip[](next90Length);
         for (uint i = 0; i < next90Tips.length; i++) {
             next90Tips[i] = allTips[i + 10];
         }
         return next90Tips;
      }
-    // add setCost to contract abi
+    
     function setCost(uint256 newCost) public onlyOwner {
         UPLOAD_COST = newCost;
         VOTE_COST = newCost;

@@ -22,7 +22,7 @@ interface Web3ContextProps {
   addTip: (content: string) => Promise<void>;
   upvoteTip: (tipId: number) => Promise<void>;
   getTopTips: () => Promise<any[]>;
-  getAllTips: () => Promise<any[]>;
+  getTop90Tips: () => Promise<any[]>;
   deleteTips: (tipId: number) => Promise<void>;
   switchNetwork: (networkId: string) => Promise<void>;
   currentNetwork: string;
@@ -39,7 +39,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   
   const [currentNetwork, setCurrentNetwork] = useState<string>('');
 
-  const contractAddress = "0xd65aD82b628B0ec053AE83C89cEb6cD5D9420321";
+  const contractAddress = "0x0730081d970DaB266f4265eC0D6f90d6cD67E2Fd";
   
 
 
@@ -124,8 +124,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
    
     try {
       const topTips = await contract.getTopTips();
-     
+     console.log('Top 10 tips found', getTopTips);
       return topTips.map((tip: any) => ({
+       
         id: Number(tip[0] as BigNumberish),
         author: tip[1] ,
         content: tip[2],
@@ -134,19 +135,19 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       }))
      
       
-    } catch (error) {
-      console.error("Error fetching tips:", error);
+    } catch (error: any) {
+      console.error("Error fetching tips:", error.message || error);
       return [];
     }
   };
 
-  const getAllTips = async () => {
+  const getTop90Tips = async () => {
     if (!contract) return [];
 
     try {
-    const allTips = await contract.getAllTips();
-        console.log('All tips found', getTopTips)
-     return allTips.map((tip: any) => ({
+    const top90Tips = await contract.getTop90Tips();
+        console.log('Top 90 tips also found', getTop90Tips);
+     return top90Tips.map((tip: any) => ({
       id: Number(tip[0] as BigNumberish),
       author: tip[1] ,
       content: tip[2],
@@ -154,7 +155,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       downvotes: Number(tip[4]as BigNumberish),
      }))
     } catch (error) {
-      console.error("Error fetching tips:", error);
+      console.error("Error fetching top90Tips:", error);
       return [];
     }
     };
@@ -176,7 +177,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, getAllTips, deleteTips, currentNetwork, switchNetwork }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, getTop90Tips, deleteTips, currentNetwork, switchNetwork }}>
       {children}
     </Web3Context.Provider>
   );
