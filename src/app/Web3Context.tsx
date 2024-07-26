@@ -136,7 +136,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
      
       
     } catch (error: any) {
-      console.error("Error fetching tips:", error.message || error);
+      console.error("Error fetching top 10 tips you broke it:", error.message || error);
       return [];
     }
   };
@@ -154,8 +154,8 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       upvotes: Number(tip[3] as BigNumberish),
       downvotes: Number(tip[4]as BigNumberish),
      }))
-    } catch (error) {
-      console.error("Error fetching top90Tips:", error);
+    } catch (error: any) {
+      console.error("Error fetching top90Tips:", error.message || error);
       return [];
     }
     };

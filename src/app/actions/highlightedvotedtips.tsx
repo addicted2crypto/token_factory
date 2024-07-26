@@ -30,6 +30,7 @@ const Highlightedvotedtips: React.FC = () => {
         try {
 
           const fetchedTips = await getTopTips();
+          // const fetchAllUploadedTips = await getTop90Tips();
           const tipsArray = fetchedTips.map((tip: any, index: number) => ({
            
             id: tip.id,
@@ -44,9 +45,9 @@ const Highlightedvotedtips: React.FC = () => {
           // console.error('Fetched tips in tipsarray log:', tipsArray);
           // const isLoggedIn = 
 
-        } catch (error) {
+        } catch (error: any) {
 
-          console.error("Error fetching tips... again:", error);
+          console.error("Error fetching tips... again:", error.message || error);
         }
       }
     };
@@ -61,13 +62,13 @@ const Highlightedvotedtips: React.FC = () => {
       try {
         const fetchedAllTips = await getTop90Tips();
 
-        const allTipsArray = fetchedAllTips.map((allTips: any, index: number) => ({
+        const allTipsArray = fetchedAllTips.map((tip: any) => ({
 
-          id: allTips.id,
-          author: allTips.author.slice(0, 3) + '...' + allTips.author.slice(39, 42),
-          content: allTips.content,
-          upvotes: allTips.upvote,
-          downvotes: allTips.downvote,
+          id: tip.id,
+          author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
+          content: tip.content,
+          upvotes: tip.upvote,
+          downvotes: tip.downvote,
         })).filter((allTips: any) => allTips.id !== 0);
 
         setAllTips(allTipsArray);
