@@ -17,7 +17,7 @@ const Header = () => {
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   
 
-  const TipsContractAddress = "0x0730081d970DaB266f4265eC0D6f90d6cD67E2Fd";
+  const TipsContractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   const TipsContractABI = require("../abis/TipsContractABI.json");
 
   useEffect(() => {

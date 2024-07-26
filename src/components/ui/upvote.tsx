@@ -8,7 +8,7 @@ import TipsContractABI from "../../abis/TipsContractABI.json";
 
 import ConnectWalletButton from '@/app/actions/connectWallet';
 import { Button } from './button';
-const tipsContractAddress = "0x0730081d970DaB266f4265eC0D6f90d6cD67E2Fd";
+const tipsContractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
 
 // upvote will ++ count and downvote will -- 
 // the whole vote section will check which state has the most upvotes to store it at the top

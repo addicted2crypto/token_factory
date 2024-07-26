@@ -39,7 +39,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   
   const [currentNetwork, setCurrentNetwork] = useState<string>('');
 
-  const contractAddress = "0x0730081d970DaB266f4265eC0D6f90d6cD67E2Fd";
+  const contractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   
 
 
@@ -125,6 +125,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     try {
       const topTips = await contract.getTopTips();
      console.log('Top 10 tips found', getTopTips);
+     
       return topTips.map((tip: any) => ({
        
         id: Number(tip[0] as BigNumberish),

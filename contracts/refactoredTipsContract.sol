@@ -81,28 +81,31 @@ contract TipsContract {
 }
 
     function getTopTips() public view returns (Tip[] memory) {
+            uint count = tipsCount < 10 ? tipsCount : 10;
         Tip[] memory allTips = new Tip[](tipsCount);
         for (uint i = 0; i < tipsCount; i++) {
             allTips[i] = tips[i + 1];
         }
         sortTipsByUpvotes(allTips);
     
-        Tip[] memory top10Tips = new Tip[](tipsCount > 10 ? 10 : tipsCount);
-        for (uint i = 0; i < top10Tips.length; i++) {
+        Tip[] memory top10Tips = new Tip[](count);
+        for (uint i = 0; i < count; i++) {
             top10Tips[i] = allTips[i];
         }
         return top10Tips;
     }
 
      function getTop90Tips() public view returns (Tip[] memory) {
+        
+        uint next90Length = tipsCount - 10 > 90 ? 90 : tipsCount - 10;
         Tip[] memory allTips = new Tip[](tipsCount);
+
         for(uint i = 0; i < tipsCount; i++){
             allTips[i] = tips[i + 1];
         }
 
         sortTipsByUpvotes(allTips);
 
-        uint next90Length = (tipsCount > 10) ? (tipsCount - 10 > 90 ? 90 : tipsCount - 10) : 0;
         Tip[] memory next90Tips = new Tip[](next90Length);
         for (uint i = 0; i < next90Tips.length; i++) {
             next90Tips[i] = allTips[i + 10];
