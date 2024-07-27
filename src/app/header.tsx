@@ -59,7 +59,7 @@ const Header = () => {
          <div className='relative top-0'>Link your frens</div> */}
       </div>
 
-      <div className='p-2'>Monthly top Voted tip tip.id[1] `$[addtopvotedobject][totalvotesobject]`
+      <div className='p-2'>Monthly top Voted tip `$[addtopvotedobject][totalvotesobject]`
         <Separator className='my-4' />
         <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
           <div className='text-[#56a632]'>Leading weekly top voted tip $[topvotedobject(1)][totalvotesobject]</div>

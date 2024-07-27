@@ -24,7 +24,7 @@ const ConnectWalletButton: React.FC<ConnectWalletButtonProps> = ({
   // const [provider, setProvider] = useState(null);
   // const [signer, setSigner] = useState(null);
 
-  const tipsContractAddress = "0x0730081d970DaB266f4265eC0D6f90d6cD67E2Fd";
+  const tipsContractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   const TipsContractABI = require( "../../abis/TipsContractABI.json");
 
   const connectWallet = async () => {

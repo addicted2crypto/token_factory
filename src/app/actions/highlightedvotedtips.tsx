@@ -15,7 +15,7 @@ const Highlightedvotedtips: React.FC = () => {
   const { currentAccount, getTopTips, switchNetwork, currentNetwork, getTop90Tips } = useWeb3();
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
-  const [tips, setTips] = useState<any[]>([]);
+  const [topTips, setTopTips] = useState<any[]>([]);
   
   const [allTips, setAllTips] = useState<any[]>([]);
 
@@ -41,7 +41,7 @@ const Highlightedvotedtips: React.FC = () => {
            
           })).filter((tip: any) => tip.id !== 0);
 
-          setTips(tipsArray);
+          setTopTips(tipsArray);
           // console.error('Fetched tips in tipsarray log:', tipsArray);
           // const isLoggedIn = 
 
@@ -138,7 +138,7 @@ const Highlightedvotedtips: React.FC = () => {
         <Vote className='items-center' />
         <ListChecks />
       </div>
-      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your <span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
+      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your<span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
       {!isLoaded ? (
         <p className='animate'>Loading...</p>
       ) : !isSignedIn ? (
@@ -158,12 +158,12 @@ const Highlightedvotedtips: React.FC = () => {
 
             {/* add will have to map voted rankings in mapping */}
 
-            {tips.map((tip, index) => (
+            {topTips.map((tip, index) => (
               <li key={tip.id} className="p-2 overflow-auto">
 
                 <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {tip.author} </span>
                 
-                <span className='text-xl text-[#000] text-center overflow-auto'>{tip.content}</span>
+                <span className='text-xl text-[#000] text-center overflow-auto'> -Votes:{tip.votes} {tip.content}</span>
 
               </li>
             ))}

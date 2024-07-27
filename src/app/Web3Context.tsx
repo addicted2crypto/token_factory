@@ -6,7 +6,6 @@ import TipsContractABI from "../abis/TipsContractABI.json";
 // import { network } from 'hardhat';
 
 
-
 declare global {
     interface Window {
       ethereum?: any;
@@ -171,7 +170,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
         params: [{ chainId: networkId }],
        
       });
-      console.log('window.request.chainId');
+      // console.log('window.request.chainId');
     } catch (error) {
       console.error('Error switching networks do better: ', error);
     }
@@ -186,7 +185,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
 export const useWeb3 = (): Web3ContextProps => {
   const context = useContext(Web3Context);
-  if (context === undefined) {
+  if (!context){
     throw new Error('You need a web3 Provider');
   }
   return context;
