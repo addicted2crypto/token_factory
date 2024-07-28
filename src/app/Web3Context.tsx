@@ -120,9 +120,9 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const getTopTips = async () => {
     if (!contract) return [];
-   
+    const topTips = await contract.getTopTips();
     try {
-      const topTips = await contract.getTopTips();
+     
      console.log('Top 10 tips found', getTopTips);
      
       return topTips.map((tip: any) => ({

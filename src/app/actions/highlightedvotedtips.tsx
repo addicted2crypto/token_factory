@@ -28,8 +28,9 @@ const Highlightedvotedtips: React.FC = () => {
     const fetchTips = async () => {
       if (isSignedIn && currentAccount && !networkWarning && currentNetwork) {
         try {
-
+            console.log('Fetching top tips...')
           const fetchedTips = await getTopTips();
+          console.log('Fetched tips:', fetchTips)
           // const fetchAllUploadedTips = await getTop90Tips();
           const tipsArray = fetchedTips.map((tip: any, index: number) => ({
            
@@ -42,6 +43,7 @@ const Highlightedvotedtips: React.FC = () => {
           })).filter((tip: any) => tip.id !== 0);
 
           setTopTips(tipsArray);
+          console.log('Mapped tips:', tipsArray)
           // console.error('Fetched tips in tipsarray log:', tipsArray);
           // const isLoggedIn = 
 
@@ -155,7 +157,7 @@ const Highlightedvotedtips: React.FC = () => {
       ) : (
         <div className='text-lg pb-3'>
           <ol>
-
+            
             {/* add will have to map voted rankings in mapping */}
 
             {topTips.map((tip, index) => (
