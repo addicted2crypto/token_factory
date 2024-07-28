@@ -2,6 +2,7 @@
 
 import { Button } from '@/components/ui/button';
 import { useAuth, SignInButton, useUser } from '@clerk/nextjs';
+
 import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 
 import React, { useState, useEffect } from 'react';
@@ -26,11 +27,13 @@ const Highlightedvotedtips: React.FC = () => {
 
   useEffect(() => {
     const fetchTips = async () => {
-      if (isSignedIn && currentAccount && !networkWarning && currentNetwork) {
+      if (isSignedIn && currentAccount && !networkWarning  && currentNetwork) {
         try {
-            console.log('Fetching top tips...')
+            console.log('Fetching top tips...');
+            console.log('All tips?', getTopTips);
+            // console.log('Top tip log:', getAllTips);
           const fetchedTips = await getTopTips();
-          console.log('Fetched tips:', fetchTips)
+          console.log('Fetched tips:', topTips);
           // const fetchAllUploadedTips = await getTop90Tips();
           const tipsArray = fetchedTips.map((tip: any, index: number) => ({
            
@@ -43,7 +46,7 @@ const Highlightedvotedtips: React.FC = () => {
           })).filter((tip: any) => tip.id !== 0);
 
           setTopTips(tipsArray);
-          console.log('Mapped tips:', tipsArray)
+          console.log('Mapped tips:', fetchedTips)
           // console.error('Fetched tips in tipsarray log:', tipsArray);
           // const isLoggedIn = 
 
@@ -64,14 +67,14 @@ const Highlightedvotedtips: React.FC = () => {
       try {
         const fetchedAllTips = await getTop90Tips();
 
-        const allTipsArray = fetchedAllTips.map((tip: any) => ({
+        const allTipsArray = fetchedAllTips.map((tips: any) => ({
 
-          id: tip.id,
-          author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
-          content: tip.content,
-          upvotes: tip.upvote,
-          downvotes: tip.downvote,
-        })).filter((allTips: any) => allTips.id !== 0);
+          id: tips.id,
+          author: tips.author.slice(0, 3) + '...' + tips.author.slice(39, 42),
+          content: tips.content,
+          upvotes: tips.upvote,
+          downvotes: tips.downvote,
+        })).filter((tips: any) => tips.id !== 0);
 
         setAllTips(allTipsArray);
 
@@ -160,32 +163,32 @@ const Highlightedvotedtips: React.FC = () => {
             
             {/* add will have to map voted rankings in mapping */}
 
-            {topTips.map((tip, index) => (
-              <li key={tip.id} className="p-2 overflow-auto">
+            {topTips.map((topTips: any, index: number) => (
+              <li key={topTips.id} className="p-2 overflow-auto">
 
-                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {tip.author} </span>
+                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {topTips.author} </span>
                 
-                <span className='text-xl text-[#000] text-center overflow-auto'> -Votes:{tip.votes} {tip.content}</span>
+                <span className='text-xl text-[#000] text-center overflow-auto'> {topTips.content}</span>
 
               </li>
             ))}
 
           </ol>
           <div className='text-md p-1'>
-          <ol>
-            {allTips.map((tips, index) => (
+           {/* <ol>
+            {allTips.map((tips, indx) => (
              <li key={tips.id} className="p-2 overflow-auto">
-              <span className='text-xl text-[#000] absolute left-[.25] sm:left-[3rem] md:left-[14rem]'>{index + 1}.Created by {tips.author}
+              <span className='text-xl text-[#000] absolute left-[.25] sm:left-[3rem] md:left-[14rem]'>{indx + 1}.Created by {tips.author}
                 {tips.content}
               </span>
               </li>
            
-            ))}
-            
+            ))} 
+             
                
 
               
-          </ol>
+          </ol> */}
           </div>
         </div>
       )}

@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { BigNumberish, ethers } from 'ethers';
+import { BigNumberish, BrowserProvider, ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
 // import { network } from 'hardhat';
 
@@ -54,7 +54,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
          
 
           const signer = ethProvider.provider;
-          const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer);
+          const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer );
           setContract(tipsContract);
         }
       });
@@ -120,21 +120,32 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const getTopTips = async () => {
     if (!contract) return [];
-    const topTips = await contract.getTopTips();
+    // console.log("loading top tips:", contract?.getTopTips());
     try {
+      const topTips = await contract.getTopTips();
+     console.log('Top 10 tips found', topTips);
+     if (!Array.isArray(topTips)) {
+      throw new Error("Top tips data is not an array");
+    }
+
      
-     console.log('Top 10 tips found', getTopTips);
-     
-      return topTips.map((tip: any) => ({
-       
-        id: Number(tip[0] as BigNumberish),
-        author: tip[1] ,
-        content: tip[2],
-        upvotes: Number(tip[3] as BigNumberish),
-        downvotes: Number(tip[4]as BigNumberish),
-      }))
-     
-      
+      // return topTips.map((tip: any) => ({
+        const tipsArray = [];
+        for (let i = 0; i < topTips.length; i += 5){
+          // if(i + 4 >= topTips.length){
+          //   throw new Error("Array length broke");
+          // }
+        tipsArray.push({
+        id: Number(topTips[i] as BigNumberish),
+        author: topTips[i + 1] ,
+        content: topTips[i + 2],
+        upvotes: Number(topTips[i + 3] as BigNumberish),
+        downvotes: Number(topTips[i + 4]as BigNumberish),
+      });
+    }
+
+    console.log('Parsed tips array:', tipsArray)
+      return tipsArray;
     } catch (error: any) {
       console.error("Error fetching top 10 tips you broke it:", error.message || error);
       return [];
@@ -146,7 +157,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
     try {
     const top90Tips = await contract.getTop90Tips();
-        console.log('Top 90 tips also found', getTop90Tips);
+        console.log('Top 90 tips also found', top90Tips);
      return top90Tips.map((tip: any) => ({
       id: Number(tip[0] as BigNumberish),
       author: tip[1] ,
