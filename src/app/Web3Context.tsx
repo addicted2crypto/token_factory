@@ -131,17 +131,22 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
      
       // return topTips.map((tip: any) => ({
         const tipsArray = [];
-        for (let i = 0; i < topTips.length; i += 5){
+        for (let i = 0; i < topTips.length; i ++){
           // if(i + 4 >= topTips.length){
           //   throw new Error("Array length broke");
           // }
-        tipsArray.push({
-        id: Number(topTips[i] as BigNumberish),
-        author: topTips[i + 1] ,
-        content: topTips[i + 2],
-        upvotes: Number(topTips[i + 3] as BigNumberish),
-        downvotes: Number(topTips[i + 4]as BigNumberish),
-      });
+        
+       const id = Number(topTips[i][0] as BigNumberish);
+       const author = topTips[i][1];
+       const content = topTips[i][2];
+       const upvotes = Number(topTips[i][3] as BigNumberish);
+      //  const downvotes = Number(topTips[i + 4]as BigNumberish);
+
+       if (isNaN(id) || isNaN(upvotes))  {
+        console.warn('Skipping invalid tip data:', { id, author, content, upvotes});
+        continue;
+       }
+        tipsArray.push({id, author, content, upvotes});
     }
 
     console.log('Parsed tips array:', tipsArray)
@@ -163,7 +168,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
       author: tip[1] ,
       content: tip[2],
       upvotes: Number(tip[3] as BigNumberish),
-      downvotes: Number(tip[4]as BigNumberish),
+      // downvotes: Number(tip[4]as BigNumberish),
      }))
     } catch (error: any) {
       console.error("Error fetching top90Tips:", error.message || error);

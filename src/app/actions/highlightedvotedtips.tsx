@@ -30,20 +30,30 @@ const Highlightedvotedtips: React.FC = () => {
       if (isSignedIn && currentAccount && !networkWarning  && currentNetwork) {
         try {
             console.log('Fetching top tips...');
-            console.log('All tips?', getTopTips);
+            // console.log('All tips?', getTopTips);
             // console.log('Top tip log:', getAllTips);
           const fetchedTips = await getTopTips();
-          console.log('Fetched tips:', topTips);
+          console.log('Fetched tips:', fetchedTips);
           // const fetchAllUploadedTips = await getTop90Tips();
-          const tipsArray = fetchedTips.map((tip: any, index: number) => ({
+          const tipsArray = fetchedTips.map((tip: any, index: number) => {
            
-            id: tip.id,
-            author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
-            content: tip.content,
-            upvotes: tip.upvote,
-            downvotes: tip.downvote,
+            const id = Number(tip.id);
+            const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
+            const content = tip.content;
+            const upvotes = Number(tip.upvote || 0);
+            const downvotes = Number(tip.downvote || 0);
            
-          })).filter((tip: any) => tip.id !== 0);
+          
+          
+          return {
+            id: id || index,
+            author,
+            content,
+            upvotes,
+            downvotes,
+          };
+
+          }).filter((tip: any) => tip.id !== 0);
 
           setTopTips(tipsArray);
           console.log('Mapped tips:', fetchedTips)
@@ -59,7 +69,7 @@ const Highlightedvotedtips: React.FC = () => {
 
     fetchTips();
 
-  }, [isSignedIn, currentAccount, getTopTips, networkWarning, currentNetwork]);
+  }, [isSignedIn, currentAccount,  networkWarning, currentNetwork]);
 
   useEffect(() => {
     const fetchAllUploadedTips = async () => {
@@ -163,22 +173,22 @@ const Highlightedvotedtips: React.FC = () => {
             
             {/* add will have to map voted rankings in mapping */}
 
-            {topTips.map((topTips: any, index: number) => (
-              <li key={topTips.id} className="p-2 overflow-auto">
+            {topTips.map((tip: any, index: number) => (
+              <li key={tip.id || index} className="p-2 overflow-auto">
 
-                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{index + 1}. Created by {topTips.author} </span>
+                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by </span>
                 
-                <span className='text-xl text-[#000] text-center overflow-auto'> {topTips.content}</span>
+                <span className='text-xl text-[#fa1515] text-center overflow-auto'>{tip.author}, {tip.content}</span>
 
               </li>
             ))}
 
           </ol>
           <div className='text-md p-1'>
-           {/* <ol>
+           <ol>
             {allTips.map((tips, indx) => (
              <li key={tips.id} className="p-2 overflow-auto">
-              <span className='text-xl text-[#000] absolute left-[.25] sm:left-[3rem] md:left-[14rem]'>{indx + 1}.Created by {tips.author}
+              <span className='text-xl text-[#000] absolute left-[.25] sm:left-[3rem] md:left-[14rem]'>{indx + 11}.Created by {tips.author}
                 {tips.content}
               </span>
               </li>
@@ -188,7 +198,7 @@ const Highlightedvotedtips: React.FC = () => {
                
 
               
-          </ol> */}
+          </ol>
           </div>
         </div>
       )}
