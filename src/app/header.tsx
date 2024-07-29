@@ -73,8 +73,8 @@ const Header = () => {
   return (
     <header>
     <div>
-      <div className='pt-2 text-[#f7e048] text-2xl pb-5 overflow-auto px-1'>
-        All crypto tips welcome. Over the years we all have lessons we should share.
+      <div className='pt-2 text-[#ffea65] text-bold text-2xl pb-5 overflow-auto px-1'>
+        All crypto tips welcome. We all have lessons we should share with others.
         {/* <div className='stars absolute left-3 top-[13rem]'>Whats trending in the arena
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
