@@ -91,7 +91,7 @@ const Header = () => {
       )}
         <Separator className='my-4' />
         <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
-          <div className='text-[#56a632]'>Leading weekly top voted tip $[topvotedobject(1)][totalvotesobject]</div>
+          <div className='text-[#56a632]'>Coming soon.... coinfessions on chain</div>
           <Separator orientation='vertical' className='text-white' />
           <div className='text-[#56a632]'>Second weekly top voted tip [totalvotesobject]</div>
           <Separator orientation='vertical' />
