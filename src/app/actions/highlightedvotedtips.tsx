@@ -143,17 +143,17 @@ const Highlightedvotedtips: React.FC = () => {
 
 
   return (
-    <div className='flex-col pt-3'>
-      <div className='flex justify-center gap-3.5'>
+    <div className=' flex-col pt-3  '>
+      <div className='hidden md:flex justify-center gap-3.5'>
         <ListChecks />
-        <Vote className='items-center' />
+        <Vote className='items-center ' />
         <Vote className='items-center' />
         <Vote className='items-center' />
         <Vote className='items-center' />
         <Vote className='items-center' />
         <ListChecks />
       </div>
-      <div className='text-3xl p-6 text-slate-950'>➡️ Top voted submissions. Dynamic depending on votes. Share your<span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
+      <div className='text-3xl p-6 text-slate-950 overflow-auto'>➡️ Top voted submissions. Dynamic depending on votes. Share your<span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
       {!isLoaded ? (
         <p className='animate'>Loading...</p>
       ) : !isSignedIn ? (
@@ -176,7 +176,7 @@ const Highlightedvotedtips: React.FC = () => {
             {topTips.map((tip: any, index: number) => (
               <li key={tip.id || index} className="p-2 overflow-auto">
 
-                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
+                <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
                 
                 <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content}</span>
 

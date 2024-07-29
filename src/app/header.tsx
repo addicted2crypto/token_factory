@@ -73,8 +73,8 @@ const Header = () => {
   return (
     <header>
     <div>
-      <div className='pt-2'>
-        Crypto coinfessions.
+      <div className='pt-2 text-[#f7e048] text-2xl pb-5 overflow-auto px-1'>
+        All crypto tips welcome. Over the years we all have lessons we should share.
         {/* <div className='stars absolute left-3 top-[13rem]'>Whats trending in the arena
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
@@ -90,12 +90,12 @@ const Header = () => {
         <p>Loading top tip...</p>
       )}
         <Separator className='my-4' />
-        <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
+        <div className='hidden md:flex justify-center h-5 items-center space-x-6 text-sm'>
           <div className='text-[#56a632]'>Coming soon.... coinfessions on chain</div>
           <Separator orientation='vertical' className='text-white' />
-          <div className='text-[#56a632]'>Second weekly top voted tip [totalvotesobject]</div>
+          <div className='text-[#56a632]'>Runner up toptip</div>
           <Separator orientation='vertical' />
-          <div className='text-[#56a632]'>Third weekly top voted tip [totalvotesobject]</div>
+          <div className='text-[#56a632]'>Third weekly top voted tip </div>
 
 
 
@@ -104,7 +104,7 @@ const Header = () => {
 
       </div>
       <div>
-        <div className='absolute top-2 right-2 p-2'>
+        <div className='md:flex md:absolute md:top-2 md:right-2 p-2'>
           {!signer  ? (
 
             <ConnectWalletButton
@@ -117,19 +117,15 @@ const Header = () => {
 
           ) : (
             
-            <div className='md:w-[max] space-y-1'>
+            <div className='space-y-1'>
               
               <Button variant="outline" className="bg-[#091157] text-[#fff] hover:-translate-x-1 hover:-translate-y-1">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
               
-              <div className='rounded-md bg-slate-600'>
-                {/* <button className='p-2'>Disconnnect wallet
-                 add fix this to show logged in disconnect*/}
-                {/* </button> */}
-               
-              </div>
+             
+             
               <Separator orientation='horizontal' />
-              <div className='rounded-md border-2 bg-[#937373] hover:translate-x-1 hover:translate-y-1 text-[#e2e0e0]'>
-              <SignOutButton />
+              <div className='w-[12rem] rounded-md border-2 bg-[#937373] hover:translate-x-1 hover:translate-y-1 text-[#e2e0e0]'>
+              <SignOutButton>Diconnect Wallet</SignOutButton>
               </div>
             </div>
           )}
