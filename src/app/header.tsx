@@ -8,18 +8,29 @@ import { ethers } from "ethers";
 import UploadTipForm from './actions/UploadTipForm';
 import { Button } from '@/components/ui/button';
 import { SignedIn, SignInButton, SignOutButton } from '@clerk/nextjs';
+import { useWeb3 } from './Web3Context';
 
+
+interface Tip {
+  id: number;
+  author: string;
+  content: string;
+  upvotes: number;
+  
+}
 
 const Header = () => {
+  const { getTopTips } = useWeb3();
   const [account, setAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
-  
+ const [topTip, setTopTip] = useState<Tip | null>(null);
 
   const TipsContractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   const TipsContractABI = require("../abis/TipsContractABI.json");
 
+  
   useEffect(() => {
     if (provider && signer) {
       const contractInstance = new ethers.Contract(TipsContractAddress, TipsContractABI, signer);
@@ -27,6 +38,15 @@ const Header = () => {
     }
   }, [provider, signer]);
 
+  useEffect(() => {
+    const fetchTopTips = async () => {
+      const tips = await getTopTips();
+      if(tips.length > 0) {
+        setTopTip(tips[0]);
+      }
+    };
+    fetchTopTips()
+  }, [getTopTips]);
 
   const handleAccountChange = (account: string | null) => {
     setAccount(account);
@@ -51,6 +71,7 @@ const Header = () => {
 
 
   return (
+    <header>
     <div>
       <div className='pt-2'>
         Crypto coinfessions.
@@ -58,8 +79,16 @@ const Header = () => {
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
       </div>
-
-      <div className='p-2'>Monthly top Voted tip `$[addtopvotedobject][totalvotesobject]`
+         <h1>Top Tip</h1>
+      <div className='p-2'>Monthly top Voted tip {topTip ? (
+        <div className='text 2xl text-[#72f903]'>
+          <h2 className='absolute left-[38rem] text-[#00ff6a]'>#{topTip.id}</h2>
+          <h2>{topTip.content}</h2>
+          <p>Author: {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
+        </div>
+      ) : (
+        <p>Loading top tip...</p>
+      )}
         <Separator className='my-4' />
         <div className='flex justify-center h-5 items-center space-x-6 text-sm'>
           <div className='text-[#56a632]'>Leading weekly top voted tip $[topvotedobject(1)][totalvotesobject]</div>
@@ -108,6 +137,7 @@ const Header = () => {
       </div>
         <UploadTipForm contract={contract} />
       </div>
+      </header>
       );
         };
       export default Header;

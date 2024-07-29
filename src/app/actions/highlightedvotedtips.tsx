@@ -168,7 +168,7 @@ const Highlightedvotedtips: React.FC = () => {
           </p>
         </div>
       ) : (
-        <div className='text-lg pb-3'>
+        <div className='p-3'>
           <ol>
             
             {/* add will have to map voted rankings in mapping */}
@@ -176,20 +176,24 @@ const Highlightedvotedtips: React.FC = () => {
             {topTips.map((tip: any, index: number) => (
               <li key={tip.id || index} className="p-2 overflow-auto">
 
-                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by </span>
+                <span className='text-xl text-[#40f77d] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
                 
-                <span className='text-xl text-[#fa1515] text-center overflow-auto'>{tip.author}, {tip.content}</span>
+                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content}</span>
 
               </li>
             ))}
 
           </ol>
+          
           <div className='text-md p-1'>
            <ol>
+            <p className='text-3xl text-[#b4ae04] pt-10'>
+              Votes 11 though 100. 
+              </p>
             {allTips.map((tips, indx) => (
              <li key={tips.id} className="p-2 overflow-auto">
-              <span className='text-xl text-[#000] absolute left-[.25] sm:left-[3rem] md:left-[14rem]'>{indx + 11}.Created by {tips.author}
-                {tips.content}
+              <span className='text-xl text-[#000] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tips.id}.Created by {tips.author}
+             <span className='text-xl text-center text-[#01282fcc]'> {tips.content}</span> 
               </span>
               </li>
            
