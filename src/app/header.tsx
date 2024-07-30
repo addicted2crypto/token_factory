@@ -7,25 +7,20 @@ import { ethers } from "ethers";
 
 import UploadTipForm from './actions/UploadTipForm';
 import { Button } from '@/components/ui/button';
-import { SignedIn, SignInButton, SignOutButton } from '@clerk/nextjs';
+import { SignOutButton } from '@clerk/nextjs';
 import { useWeb3 } from './Web3Context';
+import { Tip } from './types';
 
 
-interface Tip {
-  id: number;
-  author: string;
-  content: string;
-  upvotes: number;
-  
-}
 
 const Header = () => {
-  const { getTopTips } = useWeb3();
+  const { getTopTips, upvoteTip,  } = useWeb3();
+  const [tips, setTips] = useState<Tip[]>([]);
   const [account, setAccount] = useState<string | null>(null);
   const [provider, setProvider] = useState<ethers.BrowserProvider | null>(null);
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
- const [topTip, setTopTip] = useState<Tip | null>(null);
+  const [topTip, setTopTip] = useState<Tip | null>(null);
 
   const TipsContractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   const TipsContractABI = require("../abis/TipsContractABI.json");
@@ -47,6 +42,8 @@ const Header = () => {
     };
     fetchTopTips()
   }, [getTopTips]);
+
+ 
 
   const handleAccountChange = (account: string | null) => {
     setAccount(account);
@@ -85,6 +82,7 @@ const Header = () => {
           <h2 className='absolute left-[38rem] text-[#00ff6a]'>#{topTip.id}</h2>
           <h2>{topTip.content}</h2>
           <p>Author: {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
+         
         </div>
       ) : (
         <p>Loading top tip...</p>
