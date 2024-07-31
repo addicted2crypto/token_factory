@@ -7,13 +7,15 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
+import { Tip } from '../types';
 
 
 
 
 
 const Highlightedvotedtips: React.FC = () => {
-  const { currentAccount, getTopTips, switchNetwork, currentNetwork, getTop90Tips } = useWeb3();
+  const { currentAccount, getTopTips, switchNetwork, currentNetwork, getTop90Tips, upvoteTip } = useWeb3();
+  const [tips, setTips] = useState<Tip[]>([]);
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
   const [topTips, setTopTips] = useState<any[]>([]);
@@ -97,7 +99,11 @@ const Highlightedvotedtips: React.FC = () => {
     fetchAllUploadedTips();
   }, [isSignedIn, currentAccount, getTop90Tips, networkWarning])
 
-
+  const handleUpvote = async (tipId: number) => {
+    await upvoteTip(tipId);
+    const updatedTips = await getTopTips();
+    setTips(updatedTips);
+   };
 
 
   useEffect(() => {
@@ -178,7 +184,7 @@ const Highlightedvotedtips: React.FC = () => {
 
                 <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
                 
-                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content}</span>
+                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost'className='text-[#000]'onClick={() => handleUpvote(tip.id)}>Upvote</Button></span>
 
               </li>
             ))}

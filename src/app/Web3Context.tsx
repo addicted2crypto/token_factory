@@ -1,9 +1,11 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { BigNumberish, BrowserProvider, ethers } from 'ethers';
+import { BigNumberish, BrowserProvider, ethers, Contract } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
+// import { TicketX } from 'lucide-react';
 // import { network } from 'hardhat';
+import { Tip } from './types';
 
 
 declare global {
@@ -114,9 +116,19 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
 
   const upvoteTip = async (tipId: number) => {
-    if (!contract) return;
-    await contract.vote(tipId, true, { value: ethers.parseEther("0.069") });
-  };
+    
+    if (!contract || !provider) return;
+    try{
+      
+      const signer = await provider.getSigner();
+      const contractWithSigner = contract.connect(signer);
+    // const  tx = await contractWithSigner.addListener(tipId, true, { value: ethers.parseEther("0.069") });
+    // await tx.wait();
+
+    }catch (error) {
+      console.error('Error upvoting tip in web3Context:', error)
+    }
+  }
 
   const getTopTips = async () => {
     if (!contract) return [];
