@@ -78,10 +78,10 @@ const Header = () => {
       </div>
          <h1>Top Tip</h1>
       <div className='p-2'>Monthly top Voted tip {topTip ? (
-        <div className='text 2xl text-[#72f903]'>
-          <h2 className='absolute left-[38rem] text-[#00ff6a]'>#{topTip.id}</h2>
+        <div className='text-xl text-[#72f903]'>
+          <h2 className='absolute left-[38rem] text-[#00ff6a] text-3xl'>#{topTip.id}</h2>
           <h2>{topTip.content}</h2>
-          <p>Author: {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
+          <p ><span className='text-[#f1c812] text-3xl'>Weekly top Author:</span> {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
          
         </div>
       ) : (
