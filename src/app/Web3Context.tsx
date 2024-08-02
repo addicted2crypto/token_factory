@@ -21,7 +21,7 @@ interface Web3ContextProps {
   provider: ethers.BrowserProvider | null;
   contract: ethers.Contract | null;
   addTip: (content: string) => Promise<void>;
-  upvoteTip: (tipId: number) => Promise<void>;
+  upvoteTip: (tipId: number, upvote: boolean) => Promise<void>;
   getTopTips: () => Promise<any[]>;
   getTop90Tips: () => Promise<any[]>;
   deleteTips: (tipId: number) => Promise<void>;
@@ -109,26 +109,39 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   const deleteTips = async (tipId: number) => {
-    if(getTopTips.caller === getTopTips.arguments) return;
-   
+    if(!contract) return;
+    await contract.deleteTip(tipId);
+   //Add delete functionality next
   };
 
 
 
-  const upvoteTip = async (tipId: number) => {
+  const upvoteTip = async (tipId: number, upvote: boolean) => {
     
     if (!contract || !provider) return;
     try{
       
       const signer = await provider.getSigner();
+      // const contractWithSigner = new ethers.Contract(contractAddress, TipsContractABI, signer);
       const contractWithSigner = contract.connect(signer);
-    // const  tx = await contractWithSigner.addListener(tipId, true, { value: ethers.parseEther("0.069") });
-    // await tx.wait();
+     
+    const  tx = await contractWithSigner.vote(tipId, upvote, { value: ethers.parseEther("0.069") });
+    await tx.wait();
+    
+    // const votesArray = [];
+    // for(let i = 0; i < getUpVotes.length; i++){
 
+    //   const count = Number(getUpVotes[i]);
+
+    //   votesArray.push({count});
+    // }
+    console.log(`${upvote ? 'Upvoted' : 'Downvoted'} tip with ID: ${tipId}`);
+   
+    
     }catch (error) {
-      console.error('Error upvoting tip in web3Context:', error)
+      console.error('Error logging upvoting tip in web3Context:', error)
     }
-  }
+  };
 
   const getTopTips = async () => {
     if (!contract) return [];
@@ -205,7 +218,7 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip, upvoteTip, getTopTips, getTop90Tips, deleteTips, currentNetwork, switchNetwork }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip,  getTopTips, getTop90Tips, deleteTips, currentNetwork, switchNetwork, upvoteTip }}>
       {children}
     </Web3Context.Provider>
   );

@@ -8,6 +8,8 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
+import { boolean } from 'hardhat/internal/core/params/argumentTypes';
+
 
 
 
@@ -99,9 +101,9 @@ const Highlightedvotedtips: React.FC = () => {
     fetchAllUploadedTips();
   }, [isSignedIn, currentAccount, getTop90Tips, networkWarning])
 
-  const handleUpvote = async (tipId: number) => {
-    await upvoteTip(tipId);
-    const updatedTips = await getTopTips();
+  const handleUpvote = async (tipId: string, upvote: boolean) => {
+    await upvoteTip(tipId, boolean);
+    const updatedTips = await upvoteTip();
     setTips(updatedTips);
    };
 
