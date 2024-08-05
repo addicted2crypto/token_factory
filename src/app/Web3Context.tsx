@@ -22,6 +22,8 @@ interface Web3ContextProps {
   contract: ethers.Contract | null;
   addTip: (content: string) => Promise<void>;
   upvoteTip: (tipId: number, upvote: boolean) => Promise<void>;
+  getVotes: (tipId: number, upvote: boolean) => Promise<void>;
+  getSortedTips: () => Promise<any[]>;
   getTopTips: () => Promise<any[]>;
   getTop90Tips: () => Promise<any[]>;
   deleteTips: (tipId: number) => Promise<void>;
@@ -42,24 +44,27 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const contractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   
+  
 
-
-  useEffect(() =>{
+  useEffect (() =>  {
+    const setupProviderAndContract = async () => {
     if (window.ethereum) {
       const ethProvider = new ethers.BrowserProvider(window.ethereum);
       setProvider(ethProvider);
 
-      ethProvider.listAccounts().then(accounts => {
+      const accounts = await ethProvider.listAccounts();
+      // ethProvider.listAccounts().then(accounts => {
         if (accounts.length > 0) {
           setCurrentAccount(accounts[0].address);
-          // setCurrentAccount(window.ethereum[0]);
+         
          
 
-          const signer = ethProvider.provider;
-          const tipsContract = new ethers.Contract(contractAddress, TipsContractABI, signer );
+          const signer = await ethProvider.getSigner();
+          const tipsContract =  new ethers.Contract(contractAddress, TipsContractABI, signer );
           setContract(tipsContract);
+          
         }
-      });
+      // });
       window.ethereum.request({method: 'eth_chainId'}).then((chainId: string) => {
         setCurrentNetwork(chainId);
       });
@@ -68,12 +73,14 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
         window.location.reload();
       });
     }
-  }, []);
+  };
+  setupProviderAndContract();
+ }, []);
 
 
-  const SendWalletData = async () => {
-    console.log(SendWalletData.arguments)
-  }
+  // const SendWalletData = async () => {
+  //   console.log(SendWalletData.arguments)
+  // }
 
   const connectWallet = async () => {
     // const network = await provider?.getNetwork();
@@ -114,19 +121,49 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
    //Add delete functionality next
   };
 
+const getSortedTips = async () => {
+  if(!contract) return [];
+  try {
+    const tips = await contract.getTopTips()
+    const tipsArray: Tip[] = tips.map((tip: any) => ({
+      id: Number(tip[0]),
+      author: tip[1],
+      content: tip[2],
+      votes: Number(tip[3]),
+    }));
+    tipsArray.sort((a: Tip, b: Tip) => b.upvotes - a.upvotes);
+    return tipsArray;
+  
+  
+} catch(error) {
+ 
+  console.error('Error fetching sorted by count tips:', Error)
+  return [];
+}
 
+
+};
 
   const upvoteTip = async (tipId: number, upvote: boolean) => {
     
     if (!contract || !provider) return;
     try{
-      
       const signer = await provider.getSigner();
-      // const contractWithSigner = new ethers.Contract(contractAddress, TipsContractABI, signer);
       const contractWithSigner = contract.connect(signer);
+      
+      const votes = await contract.vote();
+      await votes;
+      // const upvoteTip = await contract.upvoteTip(tipId, upvote, { value: ethers.parseEther("0.069") });
+      // console.log('upvote tip count found:', upvote)
+      // const signer = await provider.getSigner();
+      // const contractWithSigner = contract.connect(signer);
+      // const tx = await contractWithSigner.vote(tipId, upvote, { value: ethers.parseEther("0.069") });
      
-    const  tx = await contractWithSigner.vote(tipId, upvote, { value: ethers.parseEther("0.069") });
-    await tx.wait();
+      // await tx.wait();
+      
+    //  await upvoteTip();
+    // const  tx = await contractWithSigner.upvoteTip(tipId, upvote, { value: ethers.parseEther("0.069") });
+    // await tx.wait();
     
     // const votesArray = [];
     // for(let i = 0; i < getUpVotes.length; i++){
@@ -135,11 +172,22 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
     //   votesArray.push({count});
     // }
-    console.log(`${upvote ? 'Upvoted' : 'Downvoted'} tip with ID: ${tipId}`);
+    // console.log(`${upvote ? 'Upvoted' : 'Downvoted'} tip with ID: ${tipId}`);
    
     
     }catch (error) {
       console.error('Error logging upvoting tip in web3Context:', error)
+    }
+  };
+
+  const getVotes = async (tipId: number, upvote: boolean) => {
+    if(!contract || !provider) return;
+    try {
+      const votes = await contract.upvote();
+      return votes;
+
+    } catch (error) {
+      console.error('Error logging upvoteing tip in web3Context:', error);
     }
   };
 
@@ -215,10 +263,10 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
     } catch (error) {
       console.error('Error switching networks do better: ', error);
     }
-  };
+  }
 
   return (
-    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip,  getTopTips, getTop90Tips, deleteTips, currentNetwork, switchNetwork, upvoteTip }}>
+    <Web3Context.Provider value={{ connectWallet, disconnectWallet, currentAccount, provider, contract, addTip,  getTopTips, getTop90Tips, deleteTips, currentNetwork, switchNetwork, getVotes, getSortedTips, upvoteTip }}>
       {children}
     </Web3Context.Provider>
   );
@@ -231,3 +279,4 @@ export const useWeb3 = (): Web3ContextProps => {
   }
   return context;
 };
+

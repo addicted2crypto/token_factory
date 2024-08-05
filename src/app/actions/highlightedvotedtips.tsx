@@ -8,7 +8,7 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
-import { boolean } from 'hardhat/internal/core/params/argumentTypes';
+
 
 
 
@@ -75,6 +75,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   }, [isSignedIn, currentAccount,  networkWarning, currentNetwork]);
 
+  
   useEffect(() => {
     const fetchAllUploadedTips = async () => {
     if (isSignedIn && currentAccount && !networkWarning) {
@@ -101,10 +102,14 @@ const Highlightedvotedtips: React.FC = () => {
     fetchAllUploadedTips();
   }, [isSignedIn, currentAccount, getTop90Tips, networkWarning])
 
-  const handleUpvote = async (tipId: string, upvote: boolean) => {
-    await upvoteTip(tipId, boolean);
-    const updatedTips = await upvoteTip();
-    setTips(updatedTips);
+  const handleUpvote = async (tipId: number, upvote: boolean) => {
+   try {
+    await upvoteTip(tipId, upvote);
+    const updatedTips = await getTopTips();
+    setTopTips(updatedTips);
+   } catch (error) {
+    console.error('Error voting on tip:', error);
+   }
    };
 
 
@@ -186,7 +191,7 @@ const Highlightedvotedtips: React.FC = () => {
 
                 <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
                 
-                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost'className='text-[#000]'onClick={() => handleUpvote(tip.id)}>Upvote</Button></span>
+                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000]'onClick={() => handleUpvote(tip.id, true)}>Upvote</Button></span>
 
               </li>
             ))}
