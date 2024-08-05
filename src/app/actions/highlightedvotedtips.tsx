@@ -8,6 +8,7 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
+import { ethers } from 'hardhat';
 
 
 
@@ -103,10 +104,27 @@ const Highlightedvotedtips: React.FC = () => {
   }, [isSignedIn, currentAccount, getTop90Tips, networkWarning])
 
   const handleUpvote = async (tipId: number, upvote: boolean) => {
+    if (!currentAccount) return;
    try {
+    
     await upvoteTip(tipId, upvote);
     const updatedTips = await getTopTips();
-    setTopTips(updatedTips);
+    const tipsArray = updatedTips.map((tip: any, index: number) => {
+      const id = Number(tip.id);
+      const author = tip.author.slice(0,3) + '...' + tip.author.slice(39,42);
+      const content = tip.content;
+      const upvotes = Number(tip.upvote || 0);
+      const downvotes = Number(tip.downvote || 0);
+
+      return {
+        id: id || index,
+        author,
+        content,
+        upvotes,
+        downvotes,
+      };
+    }).filter((tip: any) => tip.id !==0);
+    setTopTips(tipsArray);
    } catch (error) {
     console.error('Error voting on tip:', error);
    }
@@ -190,6 +208,7 @@ const Highlightedvotedtips: React.FC = () => {
               <li key={tip.id || index} className="p-2 overflow-auto">
 
                 <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
+                <span className='text-sm text-[#d86464]'>Upvotes: {tip.upvotes}</span>
                 
                 <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000]'onClick={() => handleUpvote(tip.id, true)}>Upvote</Button></span>
 

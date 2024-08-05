@@ -1,7 +1,7 @@
 "use client"
 
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
-import { BigNumberish, BrowserProvider, ethers, Contract } from 'ethers';
+import { BigNumberish, ethers } from 'ethers';
 import TipsContractABI from "../abis/TipsContractABI.json";
 // import { TicketX } from 'lucide-react';
 // import { network } from 'hardhat';
@@ -149,30 +149,19 @@ const getSortedTips = async () => {
     if (!contract || !provider) return;
     try{
       const signer = await provider.getSigner();
+      const contract = new ethers.Contract(contractAddress, TipsContractABI, signer);
       const contractWithSigner = contract.connect(signer);
       
-      const votes = await contract.vote();
-      await votes;
-      // const upvoteTip = await contract.upvoteTip(tipId, upvote, { value: ethers.parseEther("0.069") });
-      // console.log('upvote tip count found:', upvote)
-      // const signer = await provider.getSigner();
-      // const contractWithSigner = contract.connect(signer);
-      // const tx = await contractWithSigner.vote(tipId, upvote, { value: ethers.parseEther("0.069") });
+      const voteCost = ethers.parseEther('0.069')
+      const tx = await contract.vote(tipId, upvote, {
+        value: voteCost,
+      });
+      await tx.wait();
+      console.log('Tip voted successfully');
      
-      // await tx.wait();
-      
-    //  await upvoteTip();
-    // const  tx = await contractWithSigner.upvoteTip(tipId, upvote, { value: ethers.parseEther("0.069") });
-    // await tx.wait();
-    
-    // const votesArray = [];
-    // for(let i = 0; i < getUpVotes.length; i++){
 
-    //   const count = Number(getUpVotes[i]);
-
-    //   votesArray.push({count});
-    // }
-    // console.log(`${upvote ? 'Upvoted' : 'Downvoted'} tip with ID: ${tipId}`);
+  
+    console.log(`${upvote ? 'Upvoted' : 'Downvoted'} tip with ID: ${tipId}`);
    
     
     }catch (error) {
