@@ -22,7 +22,7 @@ const Highlightedvotedtips: React.FC = () => {
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
   const [topTips, setTopTips] = useState<any[]>([]);
-  
+
   const [allTips, setAllTips] = useState<any[]>([]);
 
 
@@ -32,31 +32,31 @@ const Highlightedvotedtips: React.FC = () => {
 
   useEffect(() => {
     const fetchTips = async () => {
-      if (isSignedIn && currentAccount && !networkWarning  && currentNetwork) {
+      if (isSignedIn && currentAccount && !networkWarning && currentNetwork) {
         try {
-            console.log('Fetching top tips...');
-            // console.log('All tips?', getTopTips);
-            // console.log('Top tip log:', getAllTips);
+          console.log('Fetching top tips...');
+          // console.log('All tips?', getTopTips);
+          // console.log('Top tip log:', getAllTips);
           const fetchedTips = await getTopTips();
           console.log('Fetched tips:', fetchedTips);
           // const fetchAllUploadedTips = await getTop90Tips();
           const tipsArray = fetchedTips.map((tip: any, index: number) => {
-           
+
             const id = Number(tip.id);
             const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
             const content = tip.content;
             const upvotes = Number(tip.upvote || 0);
             const downvotes = Number(tip.downvote || 0);
-           
-          
-          
-          return {
-            id: id || index,
-            author,
-            content,
-            upvotes,
-            downvotes,
-          };
+
+
+
+            return {
+              id: id || index,
+              author,
+              content,
+              upvotes,
+              downvotes,
+            };
 
           }).filter((tip: any) => tip.id !== 0);
 
@@ -74,27 +74,27 @@ const Highlightedvotedtips: React.FC = () => {
 
     fetchTips();
 
-  }, [isSignedIn, currentAccount,  networkWarning, currentNetwork]);
+  }, [isSignedIn, currentAccount, networkWarning, currentNetwork]);
 
-  
+
   useEffect(() => {
     const fetchAllUploadedTips = async () => {
-    if (isSignedIn && currentAccount && !networkWarning) {
-      try {
-        const fetchedAllTips = await getTop90Tips();
+      if (isSignedIn && currentAccount && !networkWarning) {
+        try {
+          const fetchedAllTips = await getTop90Tips();
 
-        const allTipsArray = fetchedAllTips.map((tips: any) => ({
+          const allTipsArray = fetchedAllTips.map((tips: any) => ({
 
-          id: tips.id,
-          author: tips.author.slice(0, 3) + '...' + tips.author.slice(39, 42),
-          content: tips.content,
-          upvotes: tips.upvote,
-          downvotes: tips.downvote,
-        })).filter((tips: any) => tips.id !== 0);
+            id: tips.id,
+            author: tips.author.slice(0, 3) + '...' + tips.author.slice(39, 42),
+            content: tips.content,
+            upvotes: tips.upvote,
+            downvotes: tips.downvote,
+          })).filter((tips: any) => tips.id !== 0);
 
-        setAllTips(allTipsArray);
+          setAllTips(allTipsArray);
 
-      } catch (error) {
+        } catch (error) {
 
           console.error("Error fetching all the tips:", error);
         }
@@ -105,30 +105,30 @@ const Highlightedvotedtips: React.FC = () => {
 
   const handleUpvote = async (tipId: number, upvote: boolean) => {
     if (!currentAccount) return;
-   try {
-    
-    await upvoteTip(tipId, upvote);
-    const updatedTips = await getTopTips();
-    const tipsArray = updatedTips.map((tip: any, index: number) => {
-      const id = Number(tip.id);
-      const author = tip.author.slice(0,3) + '...' + tip.author.slice(39,42);
-      const content = tip.content;
-      const upvotes = Number(tip.upvote || 0);
-      const downvotes = Number(tip.downvote || 0);
+    try {
 
-      return {
-        id: id || index,
-        author,
-        content,
-        upvotes,
-        downvotes,
-      };
-    }).filter((tip: any) => tip.id !==0);
-    setTopTips(tipsArray);
-   } catch (error) {
-    console.error('Error voting on tip:', error);
-   }
-   };
+      await upvoteTip(tipId, upvote);
+      const updatedTips = await getTopTips();
+      const tipsArray = updatedTips.map((tip: any, index: number) => {
+        const id = Number(tip.id);
+        const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
+        const content = tip.content;
+        const upvotes = Number(tip.upvote || 0);
+        const downvotes = Number(tip.downvote || 0);
+
+        return {
+          id: id || index,
+          author,
+          content,
+          upvotes,
+          downvotes,
+        };
+      }).filter((tip: any) => tip.id !== 0);
+      setTopTips(tipsArray);
+    } catch (error) {
+      console.error('Error voting on tip:', error);
+    }
+  };
 
 
   useEffect(() => {
@@ -201,7 +201,7 @@ const Highlightedvotedtips: React.FC = () => {
       ) : (
         <div className='p-3'>
           <ol>
-            
+
             {/* add will have to map voted rankings in mapping */}
 
             {topTips.map((tip: any, index: number) => (
@@ -209,32 +209,32 @@ const Highlightedvotedtips: React.FC = () => {
 
                 <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author} </span>
                 <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes: {tip.upvotes}</span>
-                
-                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000] hover:translate-x-2 hover:translate-y-2'onClick={() => handleUpvote(tip.id, true)}>Upvote</Button></span>
+
+                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000] hover:translate-x-2 hover:translate-y-2' onClick={() => handleUpvote(tip.id, true)}>Upvote</Button></span>
 
               </li>
             ))}
 
           </ol>
-          
-          <div className='text-md p-1'>
-           <ol>
-            <p className='text-3xl text-[#b4ae04] pt-10'>
-              Votes 11 though 100. 
-              </p>
-            {allTips.map((tips, indx) => (
-             <li key={tips.id} className="p-2 overflow-auto">
-              <span className='text-xl text-[#000] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tips.id}.Created by {tips.author}
-             <span className='text-xl text-center text-[#01282fcc]'> {tips.content}</span> 
-              </span>
-              </li>
-           
-            ))} 
-             
-               
 
-              
-          </ol>
+          <div className='text-md p-1'>
+            <ol>
+              <p className='text-3xl text-[#b4ae04] pt-10'>
+                Votes 11 though 100.
+              </p>
+              {allTips.map((tips, indx) => (
+                <li key={tips.id} className="p-2 overflow-auto">
+                  <span className='text-xl text-[#000] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tips.id}.Created by {tips.author}
+                    <span className='text-xl text-center text-[#01282fcc]'> {tips.content}</span>
+                  </span>
+                </li>
+
+              ))}
+
+
+
+
+            </ol>
           </div>
         </div>
       )}
