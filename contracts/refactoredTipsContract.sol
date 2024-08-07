@@ -6,7 +6,7 @@ contract TipsContract {
         uint id;
         address payable author;
         string content;
-       int votes;
+        int votes;
     }
 
     struct Voter {
