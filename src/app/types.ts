@@ -6,5 +6,6 @@ export interface Tip {
     upvotes: number;
     //add upvotes changed to votes for now
     downvotes: number;
+    timestamp: number;
   }
   

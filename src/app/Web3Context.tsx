@@ -111,8 +111,13 @@ export const Web3Provider = ({ children }: { children: ReactNode }) => {
 
   const addTip = async (content: string) => {
     if (!contract) return;
-    await contract.uploadTip(content, { value: ethers.parseEther("0.69") });
-    
+    try {
+   const tx = await contract.uploadTip(content, { value: ethers.parseEther("0.69") });
+   await tx.wait();
+    console.log('Tip added successfully... please come again');
+  } catch (error){
+    console.error('Error adding tip:', error)
+  }
   };
 
   const deleteTips = async (tipId: number) => {
@@ -180,7 +185,8 @@ const getSortedTips = async () => {
     }
   };
 
-  const getTopTips = async () => {
+  //add -> will have to add pagination of 0-10 in contract and JS instance
+  const getTopTips = async (start: number = 0, count: number = 10) => {
     if (!contract) return [];
     // console.log("loading top tips:", contract?.getTopTips());
     try {
