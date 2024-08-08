@@ -148,7 +148,7 @@ const getSortedTips = async () => {
 
 
 };
-
+//add timestamp for tips 
   const upvoteTip = async (tipId: number, upvote: boolean) => {
     
     if (!contract || !provider) return;
