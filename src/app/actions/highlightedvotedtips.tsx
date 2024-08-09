@@ -8,7 +8,7 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
-import { ethers } from 'hardhat';
+
 
 
 
@@ -28,6 +28,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   const [networkWarning, setNetworkWarning] = useState(false);
   const targetNetworkId = '0xaa36a7';
+  //avax chain id = '0xA86A'
   //add networks here
 
   useEffect(() => {
