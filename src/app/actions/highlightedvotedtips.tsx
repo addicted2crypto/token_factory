@@ -28,7 +28,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   const [networkWarning, setNetworkWarning] = useState(false);
   const targetNetworkId = '0xaa36a7';
-  //avax chain id = '0xA86A'
+  //avax chain target id = '0xA86A'
   //add networks here
 
   useEffect(() => {
