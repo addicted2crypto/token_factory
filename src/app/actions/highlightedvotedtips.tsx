@@ -8,6 +8,7 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
+import { off } from 'process';
 
 
 
@@ -36,36 +37,50 @@ const Highlightedvotedtips: React.FC = () => {
       if (isSignedIn && currentAccount && !networkWarning && currentNetwork) {
         try {
           console.log('Fetching top tips...');
-          // console.log('All tips?', getTopTips);
-          // console.log('Top tip log:', getAllTips);
+         
           const fetchedTips = await getTopTips();
-          console.log('Fetched tips:', fetchedTips);
-          // const fetchAllUploadedTips = await getTop90Tips();
-          const tipsArray = fetchedTips.map((tip: any, index: number) => {
+        
+          if(Array.isArray(fetchedTips)){
+          const sortedTips = fetchedTips.sort((a: any, b: any) =>{
+            const votesA = Number(a.upvote || 0);
+            const votesB = Number(b.upvote || 0);
+            if (votesB !== votesA){
+              return votesB - votesA;
+            } else {
+              return Number(a.id) - Number(b.id);
+            }
+            
+            
+          });
 
-            const id = Number(tip.id);
-            const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
-            const content = tip.content;
-            const upvotes = Number(tip.upvote || 0);
-            const downvotes = Number(tip.downvote || 0);
+          const tipsArray = sortedTips.map((tip: any, index: number) => ({
+
+            //  id: Number(tip.id),
+             id: index + 1,
+             author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
+             content: tip.content,
+             upvotes: Number(tip.upvote || 0),
+             downvotes: Number(tip.downvote || 0),
 
 
 
-            return {
-              id: id || index,
-              author,
-              content,
-              upvotes,
-              downvotes,
-            };
+            // return {
+            //   id: id || index,
+            //   author,
+            //   content,
+            //   upvotes,
+            //   downvotes,
+            // };
 
-          }).filter((tip: any) => tip.id !== 0);
+          // }).filter((tip: any) => tip.id !== 0);
+          }));
 
           setTopTips(tipsArray);
           console.log('Mapped tips:', fetchedTips)
-          // console.error('Fetched tips in tipsarray log:', tipsArray);
-          // const isLoggedIn = 
-
+         
+        } else {
+          console.error('Fetched tips is not and array error do better dummy:', fetchTips);
+        }
         } catch (error: any) {
 
           console.error("Error fetching tips... again:", error.message || error);
@@ -110,21 +125,38 @@ const Highlightedvotedtips: React.FC = () => {
 
       await upvoteTip(tipId, upvote);
       const updatedTips = await getTopTips();
-      const tipsArray = updatedTips.map((tip: any, index: number) => {
-        const id = Number(tip.id);
-        const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
-        const content = tip.content;
-        const upvotes = Number(tip.upvote || 0);
-        const downvotes = Number(tip.downvote || 0);
+      const sortedTips = updatedTips.sort((a: any, b: any) => {
+        const votesA = Number(a.upvote || 0);
+        const votesB = Number(b.upvote || 0);
+        if(votesB !== votesA) {
+          return votesB - votesA;
+        } else {
+          return Number(a.id) - Number(b.id);
+        }
+      });
 
-        return {
-          id: id || index,
-          author,
-          content,
-          upvotes,
-          downvotes,
-        };
-      }).filter((tip: any) => tip.id !== 0);
+
+      const tipsArray = sortedTips.map((tip: any, index: number) => ({
+        id: index + 1,
+        author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
+        content: tip.content,
+        upvotes: Number(tip.upvote || 0),
+        downvotes: Number(tip.downvote || 0),
+      }));
+        // const id = Number(tip.id);
+        // const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
+        // const content = tip.content;
+        // const upvotes = Number(tip.upvote || 0);
+        // const downvotes = Number(tip.downvote || 0);
+
+        // return {
+        //   id: id || index,
+        //   author,
+        //   content,
+        //   upvotes,
+        //   downvotes,
+        // };
+      // }).filter((tip: any) => tip.id !== 0);
       setTopTips(tipsArray);
     } catch (error) {
       console.error('Error voting on tip:', error);
