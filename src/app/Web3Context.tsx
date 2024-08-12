@@ -136,7 +136,7 @@ const getSortedTips = async () => {
       content: tip[2],
       votes: Number(tip[3]),
     }));
-    tipsArray.sort((a: Tip, b: Tip) => b.upvotes - a.upvotes);
+    tipsArray.sort((a: Tip, b: Tip) => b.votes - a.votes);
     return tipsArray;
   
   
@@ -177,11 +177,15 @@ const getSortedTips = async () => {
   const getVotes = async (tipId: number, upvote: boolean) => {
     if(!contract || !provider) return;
     try {
-      const votes = await contract.upvote();
-      return votes;
+      await upvoteTip(tipId, true);
+
+      await getTopTips();
+      // const votes = await contract.getVoteCount(tipId);
+      // return votes;
 
     } catch (error) {
       console.error('Error logging upvoteing tip in web3Context:', error);
+      
     }
   };
 
@@ -191,39 +195,52 @@ const getSortedTips = async () => {
     // console.log("loading top tips:", contract?.getTopTips());
     try {
       const topTips = await contract.getTopTips();
-     console.log('Top 10 tips found', topTips);
-     if (!Array.isArray(topTips)) {
-      throw new Error("Top tips data is not an array");
-    }
+    //  console.log('Top 10 tips found', topTips);
+    return topTips.map((tip: any) => ({
+      id: Number(tip.id),
+      author: tip.author,
+      content: tip.content,
+      votes: Number(tip.votes),
+      timestamp: Number(tip.timestamp)
+    }));
+  } catch(error) {
+    console.error("Error fetching top 10 tips in new catch:", error);
+    return [];
+  }
+};
+//add test gettoptips
+  //    if (!Array.isArray(topTips)) {
+  //     throw new Error("Top tips data is not an array");
+  //   }
 
      
-      // return topTips.map((tip: any) => ({
-        const tipsArray = [];
-        for (let i = 0; i < topTips.length; i ++){
-          // if(i + 4 >= topTips.length){
-          //   throw new Error("Array length broke");
-          // }
+  //     // return topTips.map((tip: any) => ({
+  //       const tipsArray = [];
+  //       for (let i = 0; i < topTips.length; i ++){
+  //         // if(i + 4 >= topTips.length){
+  //         //   throw new Error("Array length broke");
+  //         // }
         
-       const id = Number(topTips[i][0] as BigNumberish);
-       const author = topTips[i][1];
-       const content = topTips[i][2];
-       const upvotes = Number(topTips[i][3] as BigNumberish);
-      //  const downvotes = Number(topTips[i + 4]as BigNumberish);
+  //      const id = Number(topTips[i][0] as BigNumberish);
+  //      const author = topTips[i][1];
+  //      const content = topTips[i][2];
+  //      const upvotes = Number(topTips[i][3] as BigNumberish);
+  //     //  const downvotes = Number(topTips[i + 4]as BigNumberish);
 
-       if (isNaN(id) || isNaN(upvotes))  {
-        console.warn('Skipping invalid tip data:', { id, author, content, upvotes});
-        continue;
-       }
-        tipsArray.push({id, author, content, upvotes});
-    }
+  //      if (isNaN(id) || isNaN(upvotes))  {
+  //       console.warn('Skipping invalid tip data:', { id, author, content, upvotes});
+  //       continue;
+  //      }
+  //       tipsArray.push({id, author, content, upvotes});
+  //   }
 
-    console.log('Parsed tips array:', tipsArray)
-      return tipsArray;
-    } catch (error: any) {
-      console.error("Error fetching top 10 tips you broke it:", error.message || error);
-      return [];
-    }
-  };
+  //   console.log('Parsed tips array:', tipsArray)
+  //     return tipsArray;
+  //   } catch (error: any) {
+  //     console.error("Error fetching top 10 tips you broke it:", error.message || error);
+  //     return [];
+  //   }
+  // };
 
   const getTop90Tips = async () => {
     if (!contract) return [];
@@ -235,7 +252,7 @@ const getSortedTips = async () => {
       id: Number(tip[0] as BigNumberish),
       author: tip[1] ,
       content: tip[2],
-      upvotes: Number(tip[3] as BigNumberish),
+      votes: Number(tip[3] as BigNumberish),
       // downvotes: Number(tip[4]as BigNumberish),
      }))
     } catch (error: any) {

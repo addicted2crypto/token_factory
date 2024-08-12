@@ -3,9 +3,9 @@ export interface Tip {
     author: string;
     content: string;
     votes: number;
-    upvotes: number;
-    //add upvotes changed to votes for now
-    downvotes: number;
+    // upvotes: number;
+    // //add upvotes changed to votes for now
+    // downvotes: number;
     timestamp: number;
   }
   
