@@ -8,7 +8,7 @@ import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
-import { off } from 'process';
+
 
 
 
@@ -231,6 +231,7 @@ const Highlightedvotedtips: React.FC = () => {
         <ListChecks />
       </div>
       <div className='text-3xl p-6 text-slate-950 overflow-auto'>➡️ Top voted submissions. Dynamic depending on votes. Share your<span className='text-[#5c0000]'> pain</span> to help others learn! ⬅️</div>
+      <div className='text-1xl p-3 text-[#aeadad] overflow-auto'>Living on the avalanche(C-Chian) blockchain forever <span className='text-[#ce0f0f]'>0.69 </span>avax to upload <span className='text-[#ce0f0f]'>0.069</span> avax to vote</div>
       {!isLoaded ? (
         <p className='animate'>Loading...</p>
       ) : !isSignedIn ? (
