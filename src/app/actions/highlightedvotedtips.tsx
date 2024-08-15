@@ -255,7 +255,7 @@ const Highlightedvotedtips: React.FC = () => {
               <li key={tip.id || index} className="p-2 overflow-auto">
 
                 <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author}</span>
-                <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes: {tip.upvotes}</span>
+                <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes:{tip.upvotes}</span>
 
                 <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000] hover:translate-x-2 hover:translate-y-2' onClick={() => handleUpvote(tip.id)}>Upvote</Button></span>
 
