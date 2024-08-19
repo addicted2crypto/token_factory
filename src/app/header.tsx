@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
 import { ethers } from "ethers";
 
-import UploadTipForm from './actions/UploadTipForm';
+
 import { Button } from '@/components/ui/button';
 import { SignOutButton } from '@clerk/nextjs';
 import { useWeb3 } from './Web3Context';
@@ -21,7 +21,7 @@ const Header = () => {
   const [signer, setSigner] = useState<ethers.JsonRpcSigner | null>(null);
   const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [topTip, setTopTip] = useState<Tip | null>(null);
-
+ const [secondTip, setSecondTip] = useState<Tip | null>(null);
   const TipsContractAddress = "0xbc54e54b31e345302D18991eB049008e0c9997d9";
   const TipsContractABI = require("../abis/TipsContractABI.json");
 
@@ -43,7 +43,15 @@ const Header = () => {
     fetchTopTips()
   }, [getTopTips]);
 
- 
+ useEffect(() => {
+  const fetchSecondTips = async () => {
+  const tips = await getTopTips();
+  if(tips.length > 0) {
+    setSecondTip(tips[1]);
+  }
+};
+  fetchSecondTips()
+ },[getTopTips]);
 
   const handleAccountChange = (account: string | null) => {
     setAccount(account);
@@ -70,37 +78,49 @@ const Header = () => {
   return (
     <header>
     <div>
-      <div className='pt-2 text-[#ffea65] text-bold text-2xl pb-5 overflow-auto px-1'>
+      <Separator />
+      <div className='pt-1 text-[#ffea65] text-bold text-xl pb-5 overflow-auto px-1'>
         All crypto tips welcome. We all have lessons we should share with others.
         {/* <div className='stars absolute left-3 top-[13rem]'>Whats trending in the arena
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
       </div>
-         <h1>Top Tip</h1>
-      <div className='p-2'>Monthly top Voted tip {topTip ? (
+         <h1 className='text-lg'>Top Tip</h1>
+      <div className='p-2 overflow-auto'>Monthly top Voted tip {topTip ? (
         <div className='text-xl text-[#72f903]'>
-          <h2 className='absolute left-[38rem] text-[#00ff6a] text-3xl'>#{topTip.id}</h2>
+          <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-1xl'>#{topTip.id}</h2>
           <h2>{topTip.content}</h2>
-          <p ><span className='text-[#f1c812] text-3xl'>Weekly top Author:</span> {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
+          <p ><span className='text-[#a58c1c] text-xl'>Weekly top Author:</span> {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
+         <Separator />
          
         </div>
       ) : (
         <p>Loading top tip...</p>
       )}
-        <Separator className='my-4' />
-        <div className='hidden md:flex justify-center h-5 items-center space-x-6 text-sm'>
-          <div className='text-[#56a632]'>Coming soon.... coinfessions on chain</div>
+      </div>
+       {/* <Separator className='my-4'/> */}
+        <div className='hidden md:flex justify-center items-center h-5  text-sm p-3'>
+          {/* <div className='text-[#56a632]'>Coming soon.... coinfessions on chain</div> */}
           <Separator orientation='vertical' className='text-white' />
-          <div className='text-[#56a632]'>Runner up toptip</div>
-          <Separator orientation='vertical' />
-          <div className='text-[#56a632]'>Third weekly top voted tip </div>
-
+          <div className='text-[#56a632] pt-7'>Runner up toptip{secondTip ? (
+            <div className='text-lg text-[#72f903]'>
+              <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-1xl'>#{secondTip.id}</h2>
+            {/* <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-3xl'>#{secondTip.id}</h2> */}
+            <h2>{secondTip.content}</h2>
+            <p ><span className='text-[#a68801] text-lg'>Weekly second top Author:</span> {secondTip.author.slice(0,3)}..{secondTip.author.slice(39, 42)}</p>
+           
+          </div>
+          ): (<p>Loading top tip...</p>)}
+          <Separator orientation='horizontal' className='text-[#faf9f9]' />
+          
+            
 
 
 
         </div>
 
       </div>
+       
       <div>
         <div className='md:flex md:absolute md:top-2 md:right-2 p-2'>
           {!signer  ? (
@@ -115,7 +135,7 @@ const Header = () => {
 
           ) : (
             
-            <div className='space-y-1'>
+            <div className='space-y-1 overflow-auto'>
               
               <Button variant="outline" className="bg-[#091157] text-[#fff] hover:-translate-x-1 hover:-translate-y-1">{account?.slice(0, 6) + '...' + account?.slice(38, 42)}</Button>
               
@@ -128,8 +148,8 @@ const Header = () => {
             </div>
           )}
         </div>
-      </div>
-        <UploadTipForm contract={contract} />
+        </div>
+        
       </div>
       </header>
       );

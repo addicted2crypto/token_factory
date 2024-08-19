@@ -2,9 +2,9 @@
 
 import { Button } from '@/components/ui/button';
 import { useAuth, SignInButton, useUser } from '@clerk/nextjs';
-
+import UploadTipForm from '../actions/UploadTipForm';
 import { Vote, ListChecks, Handshake, GlobeLock, Cctv } from 'lucide-react';
-
+import { ethers } from "ethers";
 import React, { useState, useEffect } from 'react';
 import { useWeb3 } from '../Web3Context';
 import { Tip } from '../types';
@@ -23,7 +23,7 @@ const Highlightedvotedtips: React.FC = () => {
   const { isLoaded, isSignedIn } = useAuth();
   const { user } = useUser();
   const [topTips, setTopTips] = useState<any[]>([]);
-
+  const [contract, setContract] = useState<ethers.Contract | null>(null);
   const [allTips, setAllTips] = useState<any[]>([]);
 
 
@@ -221,6 +221,7 @@ const Highlightedvotedtips: React.FC = () => {
 
   return (
     <div className=' flex-col pt-3  '>
+      <UploadTipForm contract={contract} />
       <div className='hidden md:flex justify-center gap-3.5'>
         <ListChecks />
         <Vote className='items-center ' />

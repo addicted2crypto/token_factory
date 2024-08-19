@@ -8,14 +8,14 @@ import Highlightedvotedtips from './actions/highlightedvotedtips';
 
 export default function SecurityTipsFromCommunity() {
   return (
-    <div className='flex flex-col'>
+    <div className='flex flex-col pt-8 pb-3'>
       
-     <div className='text-4xl pl-3 -sans underline pb-4 text-[#58f907] font-mono'>Community Tips Login and upvote to highlight 👇</div>
+     <div className='text-3xl p-6 underline pb-4 text-[#58f907] font-mono'>Too upload Tips Login and upvote to highlight 👇</div>
     {/* add tab for 24 hr 3 days 1 week 1 month or all time toggle */}
-    <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Today's top 10</div>
-    <div className='text-[#6a751b]'>
+    {/* <div className='hover:animate-pulse pl-6 text-indigo-600 italic'>Today's top 10</div> */}
+    <div className='text-[#6a751b] p-6'>
       {/* add directions above form and form attributes from the blockchain */}
-    <form>&rarr; Too vote: Login/Connect Wallet. Upvote up to 3 Tips per 24hrs. Upload 2 tips per 24hrs. Top 3 voted on tips, win a prize every Sunday.</form>
+    <p>&rarr; Too vote: Login/Connect Wallet. Upvote up to 3 Tips per 24hrs. Upload 2 tips per 24hrs. Top 3 voted on tips, win a prize every Sunday.</p>
     </div>
       <section className='text-sm pl-12 pt-5 text-center'>
         <Highlightedvotedtips />
