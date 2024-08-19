@@ -102,8 +102,8 @@ const Header = () => {
         <div className='hidden md:flex justify-center items-center h-5  text-sm p-3'>
           {/* <div className='text-[#56a632]'>Coming soon.... coinfessions on chain</div> */}
           <Separator orientation='vertical' className='text-white' />
-          <div className='text-[#56a632] pt-7'>Runner up toptip{secondTip ? (
-            <div className='text-lg text-[#72f903]'>
+          <div className='text-[#50e10d] pt-9'><span className='text-[#000]'>Runner up toptip</span>{secondTip ? (
+            <div className='text-lg text-[#50e10d]'>
               <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-1xl'>#{secondTip.id}</h2>
             {/* <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-3xl'>#{secondTip.id}</h2> */}
             <h2>{secondTip.content}</h2>
