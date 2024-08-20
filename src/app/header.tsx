@@ -4,8 +4,6 @@ import { Separator } from '@/components/ui/separator';
 import React, { useEffect, useState } from 'react';
 import ConnectWalletButton from './actions/connectWallet';
 import { ethers } from "ethers";
-
-
 import { Button } from '@/components/ui/button';
 import { SignOutButton } from '@clerk/nextjs';
 import { useWeb3 } from './Web3Context';
@@ -85,7 +83,7 @@ const Header = () => {
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
          <div className='relative top-0'>Link your frens</div> */}
       </div>
-         <h1 className='text-lg'>Top Tip</h1>
+         <h1 className='text-lg'>Top Voted Tip</h1>
       <div className='p-2 overflow-auto'>Monthly top Voted tip {topTip ? (
         <div className='text-xl text-[#72f903]'>
           <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-1xl'>#{topTip.id}</h2>

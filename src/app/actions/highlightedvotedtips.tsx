@@ -41,37 +41,17 @@ const Highlightedvotedtips: React.FC = () => {
           const fetchedTips = await getTopTips();
         
           if(Array.isArray(fetchedTips)) {
-          // const sortedTips = fetchedTips.sort((a: any, b: any) =>({
-          //   const votesA = Number(a.upvote || 0);
-          //   const votesB = Number(b.upvote || 0);
-          //   if (votesB !== votesA){
-          //     return votesB - votesA;
-          //   } else {
-          //     return Number(a.id) - Number(b.id);
-          //   }
-            
-            
-          // });
+         
 
           const tipsArray = fetchedTips.map((tip: any, index: number) => ({
 
              id: Number(tip.id),
-            //  id: index + 1,
              author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
              content: tip.content,
              votes: Number(tip.votes),
              timestamp: Number(tip.timestamp)
 
 
-            // return {
-            //   id: id || index,
-            //   author,
-            //   content,
-            //   upvotes,
-            //   downvotes,
-            // };
-
-          // }).filter((tip: any) => tip.id !== 0);
           }));
 
           tipsArray.sort((a, b) => b.votes - a.votes);
@@ -127,54 +107,14 @@ const Highlightedvotedtips: React.FC = () => {
       await upvoteTip(tipId, true);
 
       await getTopTips();
-      // const updatedTips = await getTopTips();
-      
-      // const sortedTips = updatedTips.sort((a: any, b: any) => {
-      //   const votesA = Number(a.upvote || 0);
-      //   const votesB = Number(b.upvote || 0);
-      //   if(votesB !== votesA) {
-      //     return votesB - votesA;
-      //   } else {
-      //     return Number(a.id) - Number(b.id);
-      //   }
+
       } catch (error) {
         console.error('Error voting on tip:', error);
       }
       };
 
 
-      // const tipsArray = sortedTips.map((tip: any, index: number) => {
-      //   const tipData = {
-      //   id: Number(tip.id),
-      //   author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
-      //   content: tip.content,
-      //   upvotes: Number(tip.upvote || 0),
-      //   downvotes: Number(tip.downvote || 0),
-      //   };
-      //   console.log('Upvotes for tip:', tipData.upvotes);
-      //   return tipData; 
-      // });
      
-        // const id = Number(tip.id);
-        // const author = tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42);
-        // const content = tip.content;
-        // const upvotes = Number(tip.upvote || 0);
-        // const downvotes = Number(tip.downvote || 0);
-
-        // return {
-        //   id: id || index,
-        //   author,
-        //   content,
-        //   upvotes,
-        //   downvotes,
-        // };
-      // }).filter((tip: any) => tip.id !== 0);
-  //     setTopTips(tipsArray);
-      
-  //   } catch (error) {
-  //     console.error('Error voting on tip:', error);
-  //   }
-  // };
 
 
   useEffect(() => {
@@ -255,8 +195,8 @@ const Highlightedvotedtips: React.FC = () => {
             {topTips.map((tip: any, index: number) => (
               <li key={tip.id || index} className="p-2 overflow-auto">
 
-                <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.id}.Created by {tip.author}</span>
-                <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes:{tip.upvotes}</span>
+                <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.votes > 0 ? `Rank ${index + 1}`: `ID ${tip.id}`}.Created by {tip.author}</span>
+                <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes:{tip.votes}</span>
 
                 <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000] hover:translate-x-2 hover:translate-y-2' onClick={() => handleUpvote(tip.id)}>Upvote</Button></span>
 
@@ -274,7 +214,7 @@ const Highlightedvotedtips: React.FC = () => {
                 <li key={tips.id} className="p-2 overflow-auto">
                   <span className='text-xl text-[#000] absolute left-[.25rem] sm:left-[3rem] md:left-[14rem]'>{tips.id}.Created by {tips.author}
                     <span className='text-xl text-center text-[#01282fcc]'> {tips.content}</span>
-                    <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes: {tips.votes}</span>
+                    <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes:{tips.votes}</span>
                   </span>
                 </li>
 
