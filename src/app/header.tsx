@@ -93,7 +93,7 @@ const Header = () => {
          
         </div>
       ) : (
-        <p>Loading top tip...</p>
+        <p className='hover:ease-in-out'>Loading top tip...</p>
       )}
       </div>
        {/* <Separator className='my-4'/> */}
