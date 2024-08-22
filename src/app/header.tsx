@@ -88,7 +88,7 @@ const Header = () => {
         <div className='text-xl text-[#72f903]'>
           <h2 className='absolute sm:left-[18rem] md:left-[6rem] text-[#00ff6a] text-1xl'>#{topTip.id}</h2>
           <h2>{topTip.content}</h2>
-          <p ><span className='text-[#a58c1c] text-xl'>Weekly top Author:</span> {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
+          <p ><span className='text-[#a58c1c] text-xl'>Weekly toptip Author:</span> {topTip.author.slice(0,3)}..{topTip.author.slice(39, 42)}</p>
          <Separator />
          
         </div>
