@@ -37,31 +37,31 @@ const Highlightedvotedtips: React.FC = () => {
       if (isSignedIn && currentAccount && !networkWarning && currentNetwork) {
         try {
           console.log('Fetching top tips...');
-         
+
           const fetchedTips = await getTopTips();
-        
-          if(Array.isArray(fetchedTips)) {
-         
 
-          const tipsArray = fetchedTips.map((tip: any, index: number) => ({
-
-             id: Number(tip.id),
-             author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
-             content: tip.content,
-             votes: Number(tip.votes),
-             timestamp: Number(tip.timestamp)
+          if (Array.isArray(fetchedTips)) {
 
 
-          }));
+            const tipsArray = fetchedTips.map((tip: any, index: number) => ({
 
-          tipsArray.sort((a, b) => b.votes - a.votes);
+              id: Number(tip.id),
+              author: tip.author.slice(0, 3) + '...' + tip.author.slice(39, 42),
+              content: tip.content,
+              votes: Number(tip.votes),
+              timestamp: Number(tip.timestamp)
 
-          setTopTips(tipsArray);
-          console.log('Mapped tips:', fetchedTips)
-          
-        } else {
-          console.error('Fetched tips is not and array error do better dummy:', fetchTips);
-        }
+
+            }));
+
+            tipsArray.sort((a, b) => b.votes - a.votes);
+
+            setTopTips(tipsArray);
+            console.log('Mapped tips:', fetchedTips)
+
+          } else {
+            console.error('Fetched tips is not and array error do better dummy:', fetchTips);
+          }
         } catch (error: any) {
 
           console.error("Error fetching tips... again:", error.message || error);
@@ -108,13 +108,13 @@ const Highlightedvotedtips: React.FC = () => {
 
       await getTopTips();
 
-      } catch (error) {
-        console.error('Error voting on tip:', error);
-      }
-      };
+    } catch (error) {
+      console.error('Error voting on tip:', error);
+    }
+  };
 
 
-     
+
 
 
   useEffect(() => {
@@ -195,10 +195,10 @@ const Highlightedvotedtips: React.FC = () => {
             {topTips.map((tip: any, index: number) => (
               <li key={tip.id || index} className="p-2 overflow-auto">
 
-                <span className='text-xl text-[#40f77d] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.votes > 0 ? `Rank ${index + 1}`: `ID ${tip.id}`}.Created by {tip.author}</span>
+                <span className='text-xl text-[#003411] overflow-auto lg:absolute lg:left-[8.75rem] sm:left-[3rem] md:left-[14rem]'>{tip.votes > 0 ? `Rank ${index + 1}` : `ID ${tip.id}`}.Created by {tip.author}</span>
                 <span className='absolute right-[10rem] text-sm text-[#d86464]'>Upvotes:{tip.votes}</span>
 
-                <span className='text-xl text-[#178c9e] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000] hover:translate-x-2 hover:translate-y-2' onClick={() => handleUpvote(tip.id)}>Upvote</Button></span>
+                <span className='text-xl text-[#001d22] text-center overflow-auto'> {tip.content} <Button variant='ghost' className='text-[#000] hover:translate-x-2 hover:translate-y-2' onClick={() => handleUpvote(tip.id)}>Upvote</Button></span>
 
               </li>
             ))}

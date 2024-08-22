@@ -77,7 +77,7 @@ const Header = () => {
     <header>
     <div>
       <Separator />
-      <div className='pt-1 text-[#ffea65] text-bold text-xl pb-5 overflow-auto px-1'>
+      <div className='pt-1 text-[#ffdd03] text-bold text-2xl pb-2 overflow-auto px-1'>
         All crypto tips welcome. We all have lessons we should share with others.
         {/* <div className='stars absolute left-3 top-[13rem]'>Whats trending in the arena
          <Image src='/stars.png' width={55} height={55} alt='stars_logo' className='relative left-3 top-[1.3rem]'/><br />
