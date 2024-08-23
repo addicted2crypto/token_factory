@@ -7,6 +7,7 @@ import Footer from './footer';
 import { Web3Provider } from './Web3Context';
 import { ClerkProvider, SignedIn, SignedOut, SignInButton, UserButton } from '@clerk/nextjs';
 import { ContractProvider } from './actions/ContractContext';
+import Highlightedvotedtips from './actions/highlightedvotedtips';
 
 
 
@@ -41,7 +42,8 @@ export default function RootLayout({
           <ContractProvider>
         <Header />
         {/* <Intro /> */}
-        <SecurityTipsFromCommunity />
+        <Highlightedvotedtips />
+        {/* <SecurityTipsFromCommunity /> */}
         
        {children}
        </ContractProvider>
